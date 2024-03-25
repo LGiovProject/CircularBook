@@ -1,9 +1,9 @@
-package ispw.circularbook.circularbook;
+package ispw.circularbook.circularbook.controller.graficontroller.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class GUILoginController {
     @FXML
     private Label welcomeText;
 

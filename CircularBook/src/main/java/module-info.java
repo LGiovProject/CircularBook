@@ -7,4 +7,7 @@ module ispw.circularbook.circularbook {
 
     opens ispw.circularbook.circularbook to javafx.fxml;
     exports ispw.circularbook.circularbook;
+    opens ispw.circularbook.circularbook.controller.graficontroller.gui to javafx.fxml;
+    exports ispw.circularbook.circularbook.controller.graficontroller.gui;
+
 }
