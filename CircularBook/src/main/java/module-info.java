@@ -4,6 +4,7 @@ module com.ispw.circularbook {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.ispw.circularbook to javafx.fxml;
     exports com.ispw.circularbook;

@@ -1,8 +1,4 @@
-package com.ispw.circularbook.engineering.Connection;
-
-
-
-import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
+package com.ispw.circularbook.engineering.connection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,13 +17,13 @@ public class ConnectionDB {
 
 
     // se fosse stata un'applicazione multi thread avrei dovuto mettere "synchronized"
-    public static Statement getConnection() throws ErrorConnectionDbException {
-        Statement stmt ;
+    public static Statement getConnection()  {
+        Statement stmt = null ;
         try {
             conn();
             stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         } catch (SQLException e) {
-            throw new ErrorConnectionDbException();
+            e.printStackTrace(); ;
         }
         return stmt;
     }
@@ -44,13 +40,13 @@ public class ConnectionDB {
                 username=properties.getProperty("USER");
                 password=properties.getProperty("PASS");
                 url=properties.getProperty("DB_URL");
-                driverClassName=properties.getProperty("DRIVER_CLASS_NAME");
-
-                Class.forName(driverClassName);
+//                driverClassName=properties.getProperty("DRIVER_CLASS_NAME");
+//
+//                Class.forName(driverClassName);
 
                 connection=DriverManager.getConnection(url,username,password);
 
-            } catch (SQLException | IOException | ClassNotFoundException e) {
+            } catch (SQLException | IOException  e) {
                 e.printStackTrace();
             }
         }
@@ -58,7 +54,7 @@ public class ConnectionDB {
 
     private static Properties loadProperties() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/main/java/com/ispw/circularbook/engineering/Connection/connection.properties");
+        FileInputStream fileInputStream = new FileInputStream("src/main/java/com/ispw/circularbook/engineering/connection/connection.properties");
         properties.load(fileInputStream);
         return properties;
     }
