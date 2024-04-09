@@ -4,7 +4,7 @@ import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import com.mysql.cj.util.StringUtils;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+//import java.time.temporal.ChronoUnit;
 
 
 public class BookBean {
@@ -224,7 +224,7 @@ public class BookBean {
 
         LocalDate nowDate = LocalDate.now();
         LocalDate finishDate = LocalDate.parse(date_finish);
-        this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
+        //this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
 
     }
     public void setDaysRemaing(long daysRemaing){ this.daysRemaing=daysRemaing;}

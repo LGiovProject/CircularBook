@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.observer.concreteSubject;
 
+import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.Subject;
 

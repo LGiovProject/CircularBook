@@ -1,6 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
-import com.ispw.circularbook.engineering.Connection.ConnectionDB;
+import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.model.LibraryModel;

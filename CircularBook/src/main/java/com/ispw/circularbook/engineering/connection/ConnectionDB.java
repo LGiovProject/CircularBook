@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.Connection;
+package com.ispw.circularbook.engineering.connection;
 
 
 
@@ -58,7 +58,7 @@ public class ConnectionDB {
 
     private static Properties loadProperties() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/main/java/com/ispw/circularbook/engineering/Connection/connection.properties");
+        FileInputStream fileInputStream = new FileInputStream("src/main/java/com/ispw/circularbook/engineering/connection/connection.properties");
         properties.load(fileInputStream);
         return properties;
     }

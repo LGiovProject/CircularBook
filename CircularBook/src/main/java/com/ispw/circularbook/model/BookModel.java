@@ -3,7 +3,7 @@ package com.ispw.circularbook.model;
 import com.ispw.circularbook.engineering.enums.Arguments;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+//import java.time.temporal.Cr;
 
 public class BookModel {
     private int id;
@@ -126,7 +126,7 @@ public class BookModel {
 
         LocalDate nowDate = LocalDate.now();
         LocalDate finishDate = LocalDate.parse(date_finish);
-        this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
+       // this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
 
     }
 
