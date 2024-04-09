@@ -1,15 +1,14 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
-import com.ispw.circularbook.engineering.Bean.BookBean;
-import com.ispw.circularbook.engineering.Bean.SalesBean;
-import com.ispw.circularbook.engineering.Session.ControllerSession;
+import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.SalesBean;
+import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;

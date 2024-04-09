@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.Enums;
+package com.ispw.circularbook.engineering.enums;
 
 public enum Arguments {
     Any(" "), Historical("Storico"), Biography("biografia"), Auto_Biography("Auto Biografico"), Thriller("Thriller"), Adventure("Avventura"), Action("Azione"), Science_fiction("Science_fiction"), Fantasy("Fantasy"), Horror("Horror"), Romance("Romantico"), Comic_book("Comico"), Other("Altro");

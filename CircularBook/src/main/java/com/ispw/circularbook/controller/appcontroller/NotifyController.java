@@ -1,8 +1,8 @@
 package com.ispw.circularbook.controller.appcontroller;
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
-import com.ispw.circularbook.engineering.Bean.NotifyBean;
-import com.ispw.circularbook.engineering.DAO.NotifyDAO;
+import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.NotifyBean;
+import com.ispw.circularbook.engineering.dao.NotifyDAO;
 import com.ispw.circularbook.model.NotifyModel;
 
 import java.util.ArrayList;

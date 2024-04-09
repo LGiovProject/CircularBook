@@ -1,10 +1,9 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
-import com.ispw.circularbook.engineering.Bean.BookBean;
-import com.ispw.circularbook.engineering.Enums.Arguments;
+import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.engineering.utils.BoxSuccesfulMessage;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import javafx.fxml.FXML;

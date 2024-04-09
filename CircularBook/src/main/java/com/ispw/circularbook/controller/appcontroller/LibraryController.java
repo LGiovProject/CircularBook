@@ -1,7 +1,7 @@
 package com.ispw.circularbook.controller.appcontroller;
 
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
-import com.ispw.circularbook.engineering.DAO.LibraryDAO;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.dao.LibraryDAO;
 import com.ispw.circularbook.model.LibraryModel;
 
 public class LibraryController {

@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.Enums;
+package com.ispw.circularbook.engineering.enums;
 
 public enum TypeOfSales {
 

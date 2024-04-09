@@ -19,7 +19,7 @@
  *
  */
 
-package com.ispw.circularbook.engineering.DAO.Queries;
+package com.ispw.circularbook.engineering.dao.Queries;
 
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
 import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;

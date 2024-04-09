@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.Bean;
+package com.ispw.circularbook.engineering.bean;
 
 public class NotifyBean {
 

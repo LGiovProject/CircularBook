@@ -1,11 +1,11 @@
 package com.ispw.circularbook.controller.appcontroller;
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
-import com.ispw.circularbook.engineering.Bean.LoginBean;
-import com.ispw.circularbook.engineering.Bean.UserBean;
-import com.ispw.circularbook.engineering.DAO.*;
-import com.ispw.circularbook.engineering.Session.Session;
+import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.LoginBean;
+import com.ispw.circularbook.engineering.bean.UserBean;
+import com.ispw.circularbook.engineering.dao.*;
+import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.model.LibraryModel;
@@ -28,7 +28,7 @@ public class LoginController {
 
     //Viene invocata dal loginController
     //Inizializza la classe userModel prendendo le informazioni dal database dell'utente con l'email ottenuta dal loginBean al momento del login
-    //Tramite lo userModel appena istanziato creiamo una istanza di userBean che viene poi passata a Session per tenere traccia di quale utente al momento
+    //Tramite lo userModel appena istanziato creiamo una istanza di userBean che viene poi passata a session per tenere traccia di quale utente al momento
     //sta usando l'applicazione.
     //Facciamo anche una ricerca su quali libri si hanno in prestito,così da avere la notifica se manca poco alla scadenza della riconsegna.
     public void userSession(LoginBean loginBean){
@@ -57,7 +57,7 @@ public class LoginController {
 
     //Viene invocata dal loginController
     //Inizializza la classe libraryModel prendendo le informazioni dal database della libreria con l'email ottenuta dal loginBean al momento del login
-    //Tramite la libraryModel appena istanziata creiamo una istanza di libraryBean che viene poi passata a Session per tenere traccia di quale libreria al momento
+    //Tramite la libraryModel appena istanziata creiamo una istanza di libraryBean che viene poi passata a session per tenere traccia di quale libreria al momento
     //sta usando l'applicazione.
     public void librarySession(LoginBean loginBean){
 

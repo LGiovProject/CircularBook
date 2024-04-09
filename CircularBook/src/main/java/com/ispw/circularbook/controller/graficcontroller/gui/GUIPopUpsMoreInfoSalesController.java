@@ -1,7 +1,7 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
-import com.ispw.circularbook.engineering.Bean.SalesBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.SalesBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;

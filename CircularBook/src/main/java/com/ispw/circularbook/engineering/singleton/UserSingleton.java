@@ -1,7 +1,7 @@
 package com.ispw.circularbook.engineering.singleton;
 
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
-import com.ispw.circularbook.engineering.Bean.UserBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.UserBean;
 
 public class UserSingleton {
 

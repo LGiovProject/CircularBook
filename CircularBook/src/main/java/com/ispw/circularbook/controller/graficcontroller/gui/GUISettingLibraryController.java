@@ -4,10 +4,10 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.LibraryController;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
 
-import com.ispw.circularbook.engineering.Enums.City;
-import com.ispw.circularbook.engineering.Session.Session;
+import com.ispw.circularbook.engineering.enums.City;
+import com.ispw.circularbook.engineering.session.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

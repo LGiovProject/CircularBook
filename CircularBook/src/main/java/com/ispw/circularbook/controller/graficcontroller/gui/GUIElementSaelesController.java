@@ -2,8 +2,8 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.LibraryController;
-import com.ispw.circularbook.engineering.Bean.LibraryBean;
-import com.ispw.circularbook.engineering.Bean.SalesBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.SalesBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

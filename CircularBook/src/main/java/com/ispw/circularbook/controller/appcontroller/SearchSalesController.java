@@ -1,8 +1,8 @@
 package com.ispw.circularbook.controller.appcontroller;
 
-import com.ispw.circularbook.engineering.Bean.SalesBean;
+import com.ispw.circularbook.engineering.bean.SalesBean;
 
-import com.ispw.circularbook.engineering.DAO.SalesDAO;
+import com.ispw.circularbook.engineering.dao.SalesDAO;
 import com.ispw.circularbook.model.SalesModel;
 
 

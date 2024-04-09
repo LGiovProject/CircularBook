@@ -2,13 +2,10 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
-import com.ispw.circularbook.controller.appcontroller.NotifyController;
-import com.ispw.circularbook.engineering.Bean.BookBean;
-import com.ispw.circularbook.engineering.Session.ControllerSession;
-import com.ispw.circularbook.engineering.Session.Session;
+import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

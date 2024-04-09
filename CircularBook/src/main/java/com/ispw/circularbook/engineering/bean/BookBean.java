@@ -1,6 +1,6 @@
-package com.ispw.circularbook.engineering.Bean;
+package com.ispw.circularbook.engineering.bean;
 
-import com.ispw.circularbook.engineering.Enums.Arguments;
+import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import com.mysql.cj.util.StringUtils;
 import java.time.LocalDate;

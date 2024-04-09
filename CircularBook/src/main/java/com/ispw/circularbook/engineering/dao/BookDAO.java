@@ -1,9 +1,9 @@
-package com.ispw.circularbook.engineering.DAO;
+package com.ispw.circularbook.engineering.dao;
 
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
+import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.Connection.ConnectionDB;
-import com.ispw.circularbook.engineering.DAO.Queries.Queries;
+import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
