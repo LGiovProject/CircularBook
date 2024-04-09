@@ -1,6 +1,6 @@
 package com.ispw.circularbook.model;
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
+import com.ispw.circularbook.engineering.bean.BookBean;
 
 import java.util.List;
 

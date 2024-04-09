@@ -1,13 +1,12 @@
-package com.ispw.circularbook.engineering.DAO;
+package com.ispw.circularbook.engineering.dao;
 
-import com.ispw.circularbook.engineering.Bean.NotifyBean;
-import com.ispw.circularbook.engineering.Connection.ConnectionDB;
-import com.ispw.circularbook.engineering.DAO.Queries.Queries;
+import com.ispw.circularbook.engineering.bean.NotifyBean;
+import com.ispw.circularbook.engineering.connection.ConnectionDB;
+import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.engineering.exception.NoNotifyFoundException;
 import com.ispw.circularbook.model.NotifyModel;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

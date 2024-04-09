@@ -1,7 +1,7 @@
-package com.ispw.circularbook.engineering.Bean;
+package com.ispw.circularbook.engineering.bean;
 
-import com.ispw.circularbook.engineering.Enums.Month;
-import com.ispw.circularbook.engineering.Enums.TypeOfSales;
+import com.ispw.circularbook.engineering.enums.Month;
+import com.ispw.circularbook.engineering.enums.TypeOfSales;
 import com.mysql.cj.util.StringUtils;
 
 import java.text.*;

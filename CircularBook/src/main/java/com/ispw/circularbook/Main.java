@@ -1,11 +1,10 @@
 package com.ispw.circularbook;
 
-import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.ispw.circularbook.engineering.Connection.ConnectionDB;
+import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import java.io.IOException;
 import java.sql.SQLException;
 

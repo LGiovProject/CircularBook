@@ -1,7 +1,7 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
-import com.ispw.circularbook.engineering.Bean.NotifyBean;
+import com.ispw.circularbook.engineering.bean.NotifyBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

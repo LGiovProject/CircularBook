@@ -1,12 +1,11 @@
-package com.ispw.circularbook.engineering.DAO;
+package com.ispw.circularbook.engineering.dao;
 
-import com.ispw.circularbook.engineering.Connection.ConnectionDB;
-import com.ispw.circularbook.engineering.DAO.Queries.Queries;
+import com.ispw.circularbook.engineering.connection.ConnectionDB;
+import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.engineering.utils.PrintBeanInfo;
 import com.ispw.circularbook.model.BookModel;
-import java.io.IOException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

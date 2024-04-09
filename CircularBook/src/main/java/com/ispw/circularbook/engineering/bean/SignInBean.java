@@ -1,6 +1,6 @@
-package com.ispw.circularbook.engineering.Bean;
+package com.ispw.circularbook.engineering.bean;
 
-import com.ispw.circularbook.engineering.Enums.City;
+import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.exception.CityCampRequiredException;
 import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
 import com.ispw.circularbook.engineering.exception.PasswordCampRequiredException;

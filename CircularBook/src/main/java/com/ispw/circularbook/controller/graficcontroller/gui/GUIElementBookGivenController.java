@@ -1,6 +1,6 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
+import com.ispw.circularbook.engineering.bean.BookBean;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 

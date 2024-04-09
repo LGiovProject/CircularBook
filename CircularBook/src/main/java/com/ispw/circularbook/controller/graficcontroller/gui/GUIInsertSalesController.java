@@ -1,10 +1,10 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.controller.appcontroller.InsertSalesController;
-import com.ispw.circularbook.engineering.Bean.SalesBean;
-import com.ispw.circularbook.engineering.Enums.TypeOfSales;
+import com.ispw.circularbook.engineering.bean.SalesBean;
+import com.ispw.circularbook.engineering.enums.TypeOfSales;
 
-import com.ispw.circularbook.engineering.Session.Session;
+import com.ispw.circularbook.engineering.session.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;

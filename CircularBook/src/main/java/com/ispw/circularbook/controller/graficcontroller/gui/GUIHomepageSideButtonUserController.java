@@ -3,7 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import javafx.fxml.FXMLLoader;
 
-import com.ispw.circularbook.engineering.Session.ControllerSession;
+import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.Main;
 
 import javafx.scene.layout.Pane;

@@ -1,8 +1,8 @@
 package com.ispw.circularbook.engineering.utils;
 
-import com.ispw.circularbook.engineering.Bean.BookBean;
+import com.ispw.circularbook.engineering.bean.BookBean;
 
-import com.ispw.circularbook.engineering.Session.Session;
+import com.ispw.circularbook.engineering.session.Session;
 
 import java.util.List;
 

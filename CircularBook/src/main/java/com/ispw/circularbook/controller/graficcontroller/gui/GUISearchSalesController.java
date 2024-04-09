@@ -2,10 +2,10 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
-import com.ispw.circularbook.engineering.Bean.SalesBean;
-import com.ispw.circularbook.engineering.Bean.SearchSalesBean;
-import com.ispw.circularbook.engineering.Enums.Month;
-import com.ispw.circularbook.engineering.Enums.TypeOfSales;
+import com.ispw.circularbook.engineering.bean.SalesBean;
+import com.ispw.circularbook.engineering.bean.SearchSalesBean;
+import com.ispw.circularbook.engineering.enums.Month;
+import com.ispw.circularbook.engineering.enums.TypeOfSales;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
