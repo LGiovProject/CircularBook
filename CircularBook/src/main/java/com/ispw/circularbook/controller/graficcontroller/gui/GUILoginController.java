@@ -8,6 +8,7 @@ import com.ispw.circularbook.controller.appcontroller.LoginController;
 import com.ispw.circularbook.engineering.session.ControllerSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -17,10 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class GUILoginController {
@@ -34,7 +36,7 @@ public class GUILoginController {
     @FXML
     private ImageView padlock;
 
-
+    private Scene currentScene;
 
 
     //Controller grafico per il login lancia il metodo per il controllo delle credenziali
@@ -69,25 +71,19 @@ public class GUILoginController {
 
     public void SignIn() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsLogin.fxml"));
-        LunchPopup(fxmlLoader);
-
-
-
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SignIn.fxml"));
+        Parent root = fxmlLoader.load();
+        GUISignInController guiSignInController = fxmlLoader.getController();
+        Scene scene = new Scene(root);
+        guiSignInController.setCurrentScene(scene);
+        if(currentScene==null)
+        {
+            System.out.println("test GUILoginController button SignIn currentScene is null");
+        }
+        guiSignInController.setPreviuosScene(currentScene);
+        Main.getStage().setScene(scene);
     }
-    //Metodo per il popup in caso di mismatch delle credenziali
-    private void LunchPopup(FXMLLoader fxmlLoader) throws IOException {
-        Popup popup = new Popup();
 
-        Label label = fxmlLoader.load();
-        GUIPopUpsLoginController guiPopUpsLoginController = fxmlLoader.getController();
-        guiPopUpsLoginController.setPopup(popup);
-        popup.getContent().add(label);
-
-        popup.setAutoHide(true);
-
-        popup.show(Main.getStage());
-    }
     //Metodo che carica l'homepage e lancia il metodo per l'avvio del suo controller
     public void LunchHomepage(LoginBean loginBean) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Homepage.fxml"));
@@ -110,18 +106,18 @@ public class GUILoginController {
         showPassword.setVisible(true);
         showPassword.setText(textFieldPassword.getText());
         showPassword.setOpacity(0.5);
-       FileInputStream input = new FileInputStream("src/main/resources/com/ispw/circularbook/padunlocrk.png");
-
-        Image image = new Image(input);
+        Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/padunlock.png")).openStream());
         padlock.setImage(image);
     }
-    public void hiddenPassword() throws FileNotFoundException {
-        FileInputStream input = new FileInputStream("src/main/resources/com/ispw/circularbook/padlock.png");
-        Image image = new Image(input);
+    public void hiddenPassword() throws IOException {
+        Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/padlock.png")).openStream());
         padlock.setImage(image);
         showPassword.setVisible(false);
         showPassword.setText("");
     }
 
+    public void setCurrentScene(Scene currentScene) {
+        this.currentScene = currentScene;
+    }
 
 }

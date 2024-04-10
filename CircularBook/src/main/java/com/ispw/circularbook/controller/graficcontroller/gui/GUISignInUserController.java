@@ -57,15 +57,22 @@ public class GUISignInUserController {
     Text showRePassword;
 
 
-        public void startSignIn()
+
+    private Scene loginScene;
+    private Scene previousScene;
+
+        public void startSignIn(Scene currentScene, Scene previousScene)
         {
             choiceBoxCity.getItems().addAll(City.values());
             choiceBoxCity.getSelectionModel().select(0);
+            this.setLoginScene(currentScene);
+            this.setPreviousScene(previousScene);
         }
 
 
 
         public void signIn(){
+
             try{
                     checkEmail(emailTField.getText());
                     SignInBean signInBean = new SignInBean(this.emailTField.getText(),this.usernameTField.getText(),this.passwordTField.getText(), this.repasswordTField.getText(), this.nomeTField.getText(), this.cognomeTField.getText(), this.choiceBoxCity.getSelectionModel().getSelectedItem());
@@ -103,13 +110,12 @@ public class GUISignInUserController {
 
 
     public void goToLogin() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
+            Main.getStage().setScene(loginScene);
+    }
 
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root);
-
-        Main.getStage().setScene(scene);
+    public void goBack()
+    {
+        Main.getStage().setScene(previousScene);
     }
 
     public void showPassword() throws FileNotFoundException {
@@ -144,11 +150,19 @@ public class GUISignInUserController {
         padlockR.setImage(image);
     }
 
+    public Scene getLoginSceneScene() {
+        return loginScene;
+    }
 
+    public Scene getPreviousScene(){
+            return previousScene;
+    }
 
+    public void setLoginScene(Scene loginScene) {
+        this.loginScene = loginScene;
+    }
 
-
-
-
-
+    public void setPreviousScene(Scene previousScene){
+            this.previousScene = previousScene;
+    }
 }

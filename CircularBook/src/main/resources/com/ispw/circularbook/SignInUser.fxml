@@ -12,19 +12,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="683.0" prefWidth="610.0" style="-fx-background-color: #4D0E0E;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.circularbook.controller.graficcontroller.gui.GUISignInUserController">
+<AnchorPane prefHeight="683.0" prefWidth="800.0" style="-fx-background-color: #4D0E0E;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.circularbook.controller.graficcontroller.gui.GUISignInUserController">
    <children>
-      <AnchorPane fx:id="SignInBox" layoutX="3.0" layoutY="5.0" prefHeight="670.0" prefWidth="604.0" styleClass="BoxField" stylesheets="@Css/Component.css,@Css/BoxField.css">
+      <AnchorPane fx:id="SignInBox" layoutX="98.0" layoutY="5.0" prefHeight="670.0" prefWidth="604.0" styleClass="BoxField" stylesheets="@Css/Component.css,@Css/BoxField.css">
          <children>
             <VBox prefHeight="670.0" prefWidth="600.0">
                <children>
                   <AnchorPane prefHeight="92.0" prefWidth="600.0">
                      <children>
-                        <Text layoutX="17.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrazione CircularBook">
+                        <Text layoutX="64.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrazione CircularBook">
                            <font>
-                              <Font size="48.0" />
+                              <Font size="40.0" />
                            </font>
                         </Text>
+                        <Button layoutX="6.0" layoutY="28.0" mnemonicParsing="false" onAction="#goBack">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/BackArrow.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="467.0" prefWidth="600.0">
@@ -92,7 +101,7 @@
                                                 </Text>
                                                 <ImageView fx:id="padlock" fitHeight="39.0" fitWidth="33.0" layoutX="218.0" layoutY="17.0" onMousePressed="#showPassword" onMouseReleased="#hiddenPassword" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@padlock.png" />
+                                                      <Image url="@img/padlock.png" />
                                                    </image></ImageView>
                                              </children>
                                           </AnchorPane>
@@ -131,7 +140,7 @@
                                                 </Text>
                                                 <ImageView fx:id="padlockR" fitHeight="39.0" fitWidth="33.0" layoutX="218.0" layoutY="16.0" onMousePressed="#showRePassword" onMouseReleased="#hiddenRePassword" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@padlock.png" />
+                                                      <Image url="@img/padlock.png" />
                                                    </image></ImageView>
                                              </children>
                                           </AnchorPane>

@@ -53,11 +53,15 @@ public class GUISignInLibraryController {
 
 
 
-    public void startSignIn()
-    {
+    private Scene loginScene;
+    private Scene previousScene;
 
-            choiceBoxCity.getItems().addAll(City.values());
+    public void startSignIn(Scene loginScene, Scene previousScene)
+    {
+        choiceBoxCity.getItems().addAll(City.values());
         choiceBoxCity.getSelectionModel().select(0);
+        this.setLoginScene(loginScene);
+        this.setPreviousScene(previousScene);
     }
 
     //Creo una istanza di SignInBean
@@ -77,6 +81,8 @@ public class GUISignInLibraryController {
 
             Main.getStage().setScene(scene);
 
+            BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
+
 
         }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e)
         {
@@ -89,17 +95,15 @@ public class GUISignInLibraryController {
     }
 
     public void goToLogin() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
-
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root);
-
-        Main.getStage().setScene(scene);
-
-        BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
+        Main.getStage().setScene(loginScene);
 
     }
+
+    public void goBack()
+    {
+        Main.getStage().setScene(previousScene);
+    }
+
 
     public void showPassword() throws FileNotFoundException {
         showPassword.setVisible(true);
@@ -131,5 +135,21 @@ public class GUISignInLibraryController {
         FileInputStream input = new FileInputStream("src/main/resources/com/ispw/circularbook/img/padlock.png");
         Image image = new Image(input);
         padlockR.setImage(image);
+    }
+
+    public Scene getLoginSceneScene() {
+        return loginScene;
+    }
+
+    public Scene getPreviousScene(){
+        return previousScene;
+    }
+
+    public void setLoginScene(Scene loginScene) {
+        this.loginScene = loginScene;
+    }
+
+    public void setPreviousScene(Scene previousScene){
+        this.previousScene = previousScene;
     }
 }

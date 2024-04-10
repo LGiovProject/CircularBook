@@ -92,7 +92,7 @@
                                                                   </PasswordField>
                                                                   <ImageView fx:id="padlock" fitHeight="29.0" fitWidth="35.0" onMousePressed="#showPassword" onMouseReleased="#hiddenPassword" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
-                                                                        <Image url="@padlock.png" />
+                                                                        <Image url="@img/padlock.png" />
                                                                      </image>
                                                                      <HBox.margin>
                                                                         <Insets left="8.0" />

@@ -1,5 +1,7 @@
 package com.ispw.circularbook;
 
+import com.ispw.circularbook.controller.graficcontroller.cli.CLILoginController;
+import com.ispw.circularbook.controller.graficcontroller.gui.GUILoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +9,7 @@ import javafx.stage.Stage;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main extends Application {
     private static Stage stage;
@@ -19,6 +22,10 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setTitle("Circular Book");
         stage.setScene(scene);
+
+        GUILoginController guiLoginController = fxmlLoader.getController();
+        guiLoginController.setCurrentScene(scene);
+
         stage.show();
 
 
@@ -30,11 +37,29 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
         ConnectionDB.getConnection();
-        launch();
+        Scanner reader = new Scanner(System.in);
+        int selection;
+        System.out.println("Which type of view do you want to use?\n");
+        System.out.println("1) Graphic interface\n");
+        System.out.println("2) Command Line interface\n");
+        System.out.println("Insert the number:\n");
+
+        while (true) {
+            selection = reader.nextInt();
+            if (selection == 1) {
+                launch();
+                break;
+            } else if (selection == 2) {
+                CLILoginController cliLoginController = new CLILoginController();
+                cliLoginController.start();
+
+            } else {
+                System.out.println("Number not valid, please insert 1 or 2");
+            }
+        }
     }
 
-    public static void setStage(Stage stage){
-        Main.stage=stage;}
+    public static void setStage(Stage stage){Main.stage=stage;}
 
     public static Stage getStage(){ return stage;}
 }
