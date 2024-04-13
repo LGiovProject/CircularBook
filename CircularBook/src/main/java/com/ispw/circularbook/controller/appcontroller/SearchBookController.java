@@ -17,45 +17,45 @@ public class SearchBookController {
 
     public List<BookBean> searchBook(String author, String argument, String title,String email)
     {
-        List<BookBean> listBookBean=new ArrayList<>();
-        List<BookModel> listBookModel;
+        List<BookBean> listBookBean;
+        List<BookModel> listBookModel= new ArrayList<>();
         listBookBean=SearchBookDAO.searchBook(author,argument,title,email);
-        for(BookModel bookModel: listBookModel)
+        for(BookBean bookBean: listBookBean)
         {
-            BookBean bookBean = new BookBean(bookModel.getId(),bookModel.getEmail(),bookModel.getTypeOfDisponibility(),bookModel.getTitolo(),bookModel.getAutore(),bookModel.getArgomento(),  bookModel.getnPagine(), bookModel.getCommento());
-            listBookBean.add(bookBean);
-        }
-        return listBookModel;
-    }
-
-    public List<BookBean> searchMyBook(String email) throws NoBookLendedException {
-
-            List<BookBean> listBookBean = new ArrayList<>();
-            List<BookModel> listBookModel;
-            listBookModel = SearchBookDAO.searchMyBook(email);
-
-            for (BookModel bookModel : listBookModel) {
-                BookBean bookBean = new BookBean(bookModel.getId(), bookModel.getEmail(), bookModel.getTypeOfDisponibility(),bookModel.getTitolo(), bookModel.getAutore(), bookModel.getArgomento(),  bookModel.getnPagine(), bookModel.getCommento());
-                listBookBean.add(bookBean);
-            }
-            return listBookBean;
-
-    }
-
-
-    public List<BookBean> searchMyGivenBook(String email) throws NoBookLendedException {
-        List<BookBean> listBookBean=new ArrayList<>();
-        List<BookModel> listBookModel;
-
-        listBookModel=SearchBookDAO.searchGivenBook(email);
-
-        for(BookModel bookModel: listBookModel)
-        {
-
-            BookBean bookBean = new BookBean(bookModel.getId(), bookModel.getEmail(), bookModel.getTypeOfDisponibility(),bookModel.getTitolo(),bookModel.getAutore(),bookModel.getArgomento(), bookModel.getnPagine(), bookModel.getCommento(),bookModel.getDate_start(),bookModel.getDate_finish(),bookModel.getDaysRemaing(),bookModel.getEmailTaker());
-            listBookBean.add(bookBean);
+            BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getnPagine(),bookBean.getCommento());
+            listBookModel.add(bookModel);
         }
         return listBookBean;
+    }
+
+    public List<BookModel> searchMyBook(String email) throws NoBookLendedException {
+
+            List<BookBean> listBookBean;
+            List<BookModel> listBookModel= new ArrayList<>();
+            listBookBean = SearchBookDAO.searchMyBook(email);
+
+            for (BookBean bookBean : listBookBean) {
+                BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(),  bookBean.getnPagine(), bookBean.getCommento());
+                listBookModel.add(bookModel);
+            }
+            return listBookModel;
+
+    }
+
+
+    public List<BookModel> searchMyGivenBook(String email) throws NoBookLendedException {
+        List<BookBean> listBookBean;
+        List<BookModel> listBookModel = new ArrayList<>();
+
+        listBookBean=SearchBookDAO.searchGivenBook(email);
+
+        for(BookBean bookBean: listBookBean)
+        {
+
+            BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getnPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing(),bookBean.getEmailTaker());
+            listBookModel.add(bookModel);
+        }
+        return listBookModel;
     }
 
     public UserBean searchBookInfoUser(UserBean userBean)

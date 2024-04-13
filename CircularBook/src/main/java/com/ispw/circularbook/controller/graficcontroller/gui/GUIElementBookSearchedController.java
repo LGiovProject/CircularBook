@@ -82,7 +82,7 @@ public class GUIElementBookSearchedController {
             NotifyController notifyController = new NotifyController();
             notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookBean,getMessage(this.bookBean));
             bookElementSubject.notifyObserver(this.panel);
-            Session.getCurrentSession().getUser().getBookBeanTaked().add(this.bookBean);
+            Session.getCurrentSession().getUser().getBookBean().add(this.bookBean);
             BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
         }
 

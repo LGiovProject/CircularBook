@@ -9,6 +9,7 @@ import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
+import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -72,15 +73,15 @@ public class GUISearchBookController implements Observer {
         textFieldTitle.setText("");
     }
 
-    public void setShowResult(List<BookBean> bookBeansList) throws IOException {
-        for (BookBean bookBean : bookBeansList) {
+    public void setShowResult(List<BookModel> listBookModel) throws IOException {
+        for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookSearched.fxml"));
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
-            GUIElementBookSearchedController guiElementBookController = fxmlLoader.getController();
-            guiElementBookController.setBookElement(bookBean,element);
-            guiElementBookController.setBookElementSubject(bookElementSubject);
+            GUIElementBookSearchedController guiElementBookSearchedController = fxmlLoader.getController();
+            guiElementBookSearchedController.setBookElement(bookModel,element);
+            guiElementBookSearchedController.setBookElementSubject(bookElementSubject);
             showResult.getChildren().add(element);
 
         }

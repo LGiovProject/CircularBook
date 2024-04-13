@@ -8,6 +8,7 @@ import com.ispw.circularbook.engineering.session.Session;
 
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
@@ -24,25 +25,25 @@ public class GUIManagementBookUserController {
 
 
     public void searchMyBook() throws IOException {
-        List<BookBean> listBookBean = new ArrayList<>();
+        List<BookModel> listBookModel = new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookBean = searchBookController.searchMyBook(Session.getCurrentSession().getUser().getEmail());
+            listBookModel = searchBookController.searchMyBook(Session.getCurrentSession().getUser().getEmail());
         } catch (NoBookLendedException e) {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        if (listBookBean!=null && !listBookBean.isEmpty()) {
+        if (listBookModel!=null && !listBookModel.isEmpty()) {
             if(Session.getCurrentSession().getUser() != null) {
-                Session.getCurrentSession().getUser().setBookOwnList(listBookBean);
+                Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
             }else{
-                Session.getCurrentSession().getLibrary().setBookOwnList(listBookBean);
+                Session.getCurrentSession().getLibrary().setBookOwnList(listBookModel);
             }
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = ControllerSession.getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewBook(listBookBean);
+            guiWindowElementBookPersonalController.viewBook(listBookModel);
 
         } else {
             BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessun libro registrato");
@@ -50,15 +51,15 @@ public class GUIManagementBookUserController {
     }
 
     public void searchBookILendBack() throws IOException {
-        List<BookBean> listBookBean;
-        listBookBean = Session.getCurrentSession().getUser().getBookBeanTaked();
-        if (listBookBean!=null && !listBookBean.isEmpty()) {
+        List<BookModel> listBookModel;
+        listBookModel = Session.getCurrentSession().getUser().getBookTaked();
+        if (listBookModel!=null && !listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = ControllerSession.getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewMyLendedBook(listBookBean);
+            guiWindowElementBookPersonalController.viewMyLendedBook(listBookModel);
 
         }
         else
@@ -68,20 +69,20 @@ public class GUIManagementBookUserController {
     }
 
     public void searchBookIGiven() throws IOException {
-        List<BookBean> listBookBean= new ArrayList<>();
+        List<BookModel> listBookModel= new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookBean = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUser().getEmail());
+            listBookModel = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUser().getEmail());
         }catch (NoBookLendedException e){
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        if (!listBookBean.isEmpty()) {
+        if (!listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = ControllerSession.getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewMyGivenBook(listBookBean);
+            guiWindowElementBookPersonalController.viewMyGivenBook(listBookModel);
 
         }
     }

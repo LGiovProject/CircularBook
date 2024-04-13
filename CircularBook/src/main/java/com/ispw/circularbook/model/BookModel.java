@@ -39,6 +39,17 @@ public class BookModel {
         this.daysRemaing = daysRemaing;
     }
 
+    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento) {
+        this.id = id;
+        this.email = email;
+        this.typeOfDisponibility = typeOfDisponibility;
+        this.titolo = titolo;
+        this.autore = autore;
+        this.argomento = argomento;
+        this.nPagine = nPagine;
+        this.commento = commento;
+    }
+
     public int getId() {
         return id;
     }

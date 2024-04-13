@@ -6,6 +6,7 @@ import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
+import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -25,13 +26,13 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
 
 
-    public void viewBook( List<BookBean> listBookBean) throws IOException {
+    public void viewBook( List<BookModel> listBookModel) throws IOException {
         viewMyBook.getChildren().clear();
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
         viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
-        setViewBook(listBookBean);
+        setViewBook(listBookModel);
     }
 
     public void viewSales(List<SalesBean> salesBeanList) throws IOException{
@@ -55,34 +56,34 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
     }
 
-    public void viewMyLendedBook(List<BookBean> listBookBean) throws IOException {
+    public void viewMyLendedBook(List<BookModel> listBookModel) throws IOException {
         viewMyBook.getChildren().clear();
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
         viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        for (BookBean bookBean : listBookBean) {
+        for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalTaked.fxml"));
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookTakedController guiElementBookTakedController = fxmlLoader.getController();
-            guiElementBookTakedController.startSetElementTakedBook(bookBean);
+            guiElementBookTakedController.startSetElementTakedBook(bookModel);
             viewMyBook.getChildren().add(element);
         }
     }
 
-    public void viewMyGivenBook(List<BookBean> listBookBean) throws IOException {
+    public void viewMyGivenBook(List<BookModel> listBookModel) throws IOException {
         viewMyBook.getChildren().clear();
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
         viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        for (BookBean bookBean : listBookBean) {
+        for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalGiven.fxml"));
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookGivenController guiElementBookGivenController = fxmlLoader.getController();
-            guiElementBookGivenController.startSetElementGivenBook(bookBean);
+            guiElementBookGivenController.startSetElementGivenBook(bookModel);
             viewMyBook.getChildren().add(element);
         }
     }
@@ -94,14 +95,14 @@ public class GUIWindowElementBookPersonalController implements Observer{
         guiHomepageController.setSideWindow(pane);
     }
 
-    public void setViewBook(List<BookBean> bookBeansList) throws IOException {
-        for (BookBean bookBean : bookBeansList) {
+    public void setViewBook(List<BookModel> bookBeansList) throws IOException {
+        for (BookModel bookModel : bookBeansList) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonal.fxml"));
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookPersonalController guiElementBookPersonalController = fxmlLoader.getController();
-            guiElementBookPersonalController.setBookElement(bookBean,element);
+            guiElementBookPersonalController.setBookElement(bookModel,element);
             guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
             guiHomepageController= ControllerSession.getGuiHomepageController();
             guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());

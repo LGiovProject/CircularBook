@@ -14,7 +14,7 @@ public class LibraryModel {
     private int telNumber;
     private String via;
 
-    private List<BookBean> bookOwnList;
+    private List<BookModel> bookOwnList;
 
 
     private int[] bookInfo; //position: 0 , #of book registered; 1 , #of book lended;2
@@ -107,11 +107,11 @@ public class LibraryModel {
         this.telNumber = telNumber;
     }
 
-    public List<BookBean> getBookOwnList() {
+    public List<BookModel> getBookOwnList() {
         return bookOwnList;
     }
 
-    public void setBookOwnList(List<BookBean> bookOwnList) {
+    public void setBookOwnList(List<BookModel> bookOwnList) {
         this.bookOwnList = bookOwnList;
     }
 }
