@@ -20,7 +20,9 @@ public class LibraryBean {
     private int[] bookInfo; //position: 0 , #of book registered; 1 , #of book lended;2
 
 
+    public LibraryBean() {
 
+    }
 
 
     public LibraryBean(String email, String nomeLib, City citta, String via)
@@ -39,6 +41,8 @@ public class LibraryBean {
         this.via=via;
         this.telNumber=telNumber;
     }
+
+
 
     public String getEmail() {
         return email;

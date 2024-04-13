@@ -2,20 +2,22 @@ package com.ispw.circularbook.engineering.session;
 
 import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
+import com.ispw.circularbook.model.LibraryModel;
+import com.ispw.circularbook.model.UserModel;
 
 public class Session {
 
     private static Session session;
 
-    private UserBean userBean = null;
-    private LibraryBean libraryBean= null;
+    private UserModel userModel = null;
+    private LibraryModel libraryModel= null;
 
     private Session(Object ob) {
-        if(ob instanceof UserBean) {
-            this.userBean = (UserBean) ob;
+        if(ob instanceof UserModel) {
+            this.userModel = (UserModel) ob;
         }
-        else if(ob instanceof LibraryBean) {
-            libraryBean = (LibraryBean) ob;
+        else if(ob instanceof LibraryModel) {
+            libraryModel = (LibraryModel) ob;
         }
     }
 
@@ -37,11 +39,11 @@ public class Session {
         return session;
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public UserModel getUser() {
+        return userModel;
     }
 
-    public LibraryBean getLibraryBean() {
-        return libraryBean;
+    public LibraryModel getLibrary() {
+        return libraryModel;
     }
 }

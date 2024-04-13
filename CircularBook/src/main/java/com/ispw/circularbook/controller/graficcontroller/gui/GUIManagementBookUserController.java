@@ -27,15 +27,15 @@ public class GUIManagementBookUserController {
         List<BookBean> listBookBean = new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookBean = searchBookController.searchMyBook(Session.getCurrentSession().getUserBean().getEmail());
+            listBookBean = searchBookController.searchMyBook(Session.getCurrentSession().getUser().getEmail());
         } catch (NoBookLendedException e) {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
         if (listBookBean!=null && !listBookBean.isEmpty()) {
-            if(Session.getCurrentSession().getUserBean() != null) {
-                Session.getCurrentSession().getUserBean().setBookOwnList(listBookBean);
+            if(Session.getCurrentSession().getUser() != null) {
+                Session.getCurrentSession().getUser().setBookOwnList(listBookBean);
             }else{
-                Session.getCurrentSession().getLibraryBean().setBookOwnList(listBookBean);
+                Session.getCurrentSession().getLibrary().setBookOwnList(listBookBean);
             }
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
@@ -51,7 +51,7 @@ public class GUIManagementBookUserController {
 
     public void searchBookILendBack() throws IOException {
         List<BookBean> listBookBean;
-        listBookBean = Session.getCurrentSession().getUserBean().getBookBeanTaked();
+        listBookBean = Session.getCurrentSession().getUser().getBookBeanTaked();
         if (listBookBean!=null && !listBookBean.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
@@ -71,7 +71,7 @@ public class GUIManagementBookUserController {
         List<BookBean> listBookBean= new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookBean = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUserBean().getEmail());
+            listBookBean = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUser().getEmail());
         }catch (NoBookLendedException e){
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }

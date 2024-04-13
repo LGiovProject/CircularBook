@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -11,10 +12,10 @@ import java.sql.Statement;
 
 public class LibraryDAO {
 
-    public static LibraryModel searchLibraryByEmail(String email)
+    public static LibraryBean searchLibraryByEmail(String email)
     {
         Statement stmt;
-        LibraryModel libraryModel = new LibraryModel();
+        LibraryBean libraryBean = new LibraryBean();
         try
         {
             stmt= ConnectionDB.getConnection();
@@ -23,18 +24,17 @@ public class LibraryDAO {
                 throw new SQLException("errore");
             }
             resultSet.first();
-            libraryModel= getLibraryInfo(resultSet);
+            libraryBean= getLibraryInfo(resultSet);
             resultSet.close();
         } catch (SQLException| ErrorConnectionDbException e) {
             e.printStackTrace();
         }
-        return libraryModel;
+        return libraryBean;
     }
 
-    private static LibraryModel getLibraryInfo(ResultSet resultSet) throws SQLException {
-        LibraryModel libraryModel= new LibraryModel(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getInt(5));
+    private static LibraryBean getLibraryInfo(ResultSet resultSet) throws SQLException {
+        return new LibraryBean(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getInt(5));
 
-        return libraryModel;
     }
 
     public static void updateLibrary(String email,String camp,String newCamp)

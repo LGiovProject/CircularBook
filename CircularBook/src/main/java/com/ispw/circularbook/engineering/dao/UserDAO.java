@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -11,10 +12,10 @@ import java.sql.Statement;
 
 public class UserDAO {
 
-    public static UserModel searchUserByEmail(String email)
+    public static UserBean searchUserByEmail(String email)
     {
         Statement stmt;
-        UserModel userModel=null;
+        UserBean userBean=null;
 
         try {
             stmt = ConnectionDB.getConnection();
@@ -24,12 +25,12 @@ public class UserDAO {
                 throw new SQLException("errore");
             }
              resultSet.first();
-             userModel=getUserInfo(resultSet);
+             userBean=getUserInfo(resultSet);
              resultSet.close();
         }catch (SQLException| ErrorConnectionDbException e) {
             System.out.println(e);
         }
-        return userModel;
+        return userBean;
     }
 
     public static void updateUser(String email,String camp,String newCamp)
@@ -44,13 +45,13 @@ public class UserDAO {
         }
     }
 
-    private static UserModel getUserInfo(ResultSet resultSet) throws SQLException {
+    private static UserBean getUserInfo(ResultSet resultSet) throws SQLException {
 
-        UserModel userModel;
-        userModel = new UserModel(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
+        UserBean userBean;
+        userBean = new UserBean(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
 
 
-        return userModel;
+        return userBean;
     }
 
 

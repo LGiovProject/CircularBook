@@ -32,7 +32,7 @@ public class GUIInsertSalesController {
     public void insertSales()
     {
         try {
-            SalesBean salesBean = new SalesBean(Session.getCurrentSession().getLibraryBean().getEmail(), Session.getCurrentSession().getLibraryBean().getNomeLib(), titleSales.getText(), typeOfSales(), descriptionSales.getText(), dateStart.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), dateFinish.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            SalesBean salesBean = new SalesBean(Session.getCurrentSession().getLibrary().getEmail(), Session.getCurrentSession().getLibrary().getNomeLib(), titleSales.getText(), typeOfSales(), descriptionSales.getText(), dateStart.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), dateFinish.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             InsertSalesController insertSalesController = new InsertSalesController();
             insertSalesController.insertSales(salesBean);
             clearCamp();

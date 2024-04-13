@@ -13,9 +13,9 @@ public class LibraryController {
 
     public LibraryBean searchLibrary(String email) {
 
-        LibraryModel libraryModel;
-        libraryModel = LibraryDAO.searchLibraryByEmail(email);
-        LibraryBean libraryBean = new LibraryBean(libraryModel.getEmail(), libraryModel.getNomeLib(), libraryModel.getCitta(), libraryModel.getVia(),libraryModel.getTelNumber());
+        LibraryBean libraryBean;
+        libraryBean = LibraryDAO.searchLibraryByEmail(email);
+        LibraryModel libraryModel = new LibraryModel(libraryBean.getEmail(), libraryBean.getNomeLib(), libraryBean.getCityString(), libraryBean.getVia(),libraryBean.getTelNumber());
         return libraryBean;
     }
 }

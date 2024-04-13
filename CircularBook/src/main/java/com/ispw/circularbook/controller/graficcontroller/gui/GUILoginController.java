@@ -8,19 +8,13 @@ import com.ispw.circularbook.controller.appcontroller.LoginController;
 import com.ispw.circularbook.engineering.session.ControllerSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -38,10 +32,6 @@ public class GUILoginController {
 
     private Scene currentScene;
 
-
-    //Controller grafico per il login lancia il metodo per il controllo delle credenziali
-    //Fa il Set della sessione se l'account è registrato nel database
-    //O Apre un popup se non c'è stato il match con i dati inseriti nel login e il database
 
     public void Login() throws IOException {
         try {

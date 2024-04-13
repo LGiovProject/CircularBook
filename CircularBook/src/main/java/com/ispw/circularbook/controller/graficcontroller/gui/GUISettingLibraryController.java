@@ -8,6 +8,7 @@ import com.ispw.circularbook.engineering.bean.LibraryBean;
 
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.model.LibraryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 public class GUISettingLibraryController {
 
-    private LibraryBean libraryBean;
+    private LibraryModel libraryModel;
 
     @FXML
     private Text email;
@@ -75,21 +76,21 @@ public class GUISettingLibraryController {
     public void startSetting()
     {
         int[] bookInfo;
-        this.libraryBean= Session.getCurrentSession().getLibraryBean();
-        this.email.setText(this.libraryBean.getEmail());
-        this.nameLib.setText(this.libraryBean.getNomeLib());
-        this.via.setText(this.libraryBean.getVia());
-        this.city.setText(this.libraryBean.getCityString());
-        this.ntel.setText(String.valueOf(this.libraryBean.getTelNumber()));
+        this.libraryModel= Session.getCurrentSession().getLibrary();
+        this.email.setText(this.libraryModel.getEmail());
+        this.nameLib.setText(this.libraryModel.getNomeLib());
+        this.via.setText(this.libraryModel.getVia());
+        this.city.setText(this.libraryModel.getCityString());
+        this.ntel.setText(String.valueOf(this.libraryModel.getTelNumber()));
         SearchBookController searchBookController = new SearchBookController();
-        this.libraryBean=searchBookController.searchBookInfoLibrary(this.libraryBean);
-        bookInfo=libraryBean.getBookInfo();
+        this.libraryModel=searchBookController.searchBookInfoLibrary(this.libraryModel);
+        bookInfo=libraryModel.getBookInfo();
         this.bookRegistered.setText(stringGenerator(bookInfo[0]) +" registrati");
         this.bookLended.setText(stringGenerator(bookInfo[1])+"  presi in prestito");
-        welcomeText.setText(welcomeText.getText()+" "+Session.getCurrentSession().getLibraryBean().getNomeLib());
+        welcomeText.setText(welcomeText.getText()+" "+Session.getCurrentSession().getLibrary().getNomeLib());
 
         cityChoicheBox.getItems().addAll(City.values());
-        cityChoicheBox.getSelectionModel().select(this.libraryBean.getCity());
+        cityChoicheBox.getSelectionModel().select(this.libraryModel.getCity());
         cityChoicheBox.setVisible(false);
     }
 
@@ -126,7 +127,7 @@ public class GUISettingLibraryController {
                     nameLib.setStyle(offStyle);
                     nameImageView.setImage(pencilImage);
                     applyChange("nomeLib",nameLib.getText());
-                    Session.getCurrentSession().getLibraryBean().setNomeLib(nameLib.getText());
+                    Session.getCurrentSession().getLibrary().setNomeLib(nameLib.getText());
                     nameLib.setText(nameLib.getText());
                     rwField[0]=true;
                 }
@@ -147,7 +148,7 @@ public class GUISettingLibraryController {
                     via.setStyle(offStyle);
                     surnameImageView.setImage(pencilImage);
                     applyChange("via",via.getText());
-                    Session.getCurrentSession().getLibraryBean().setVia(via.getText());
+                    Session.getCurrentSession().getLibrary().setVia(via.getText());
                     via.setText(via.getText());
                     rwField[1]=true;
                 }
@@ -165,7 +166,7 @@ public class GUISettingLibraryController {
                     cityChoicheBox.setVisible(false);
                     cityChoicheBox.setStyle("-fx-background-color: #F1C9A0; -fx-background-radius: 60;");
                     applyChange("citta",cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
-                    Session.getCurrentSession().getLibraryBean().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
+                    Session.getCurrentSession().getLibrary().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
                     city.setText(cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
                     rwField[2]=true;
                 }
@@ -184,7 +185,7 @@ public class GUISettingLibraryController {
                     ntel.setStyle(offStyle);
                     nTelmageView.setImage(pencilImage);
                     applyChange("ntel",ntel.getText());
-                    Session.getCurrentSession().getLibraryBean().setTelNumber(Integer.parseInt(ntel.getText()));
+                    Session.getCurrentSession().getLibrary().setTelNumber(Integer.parseInt(ntel.getText()));
                     ntel.setText(ntel.getText());
                     rwField[3]=true;
 
@@ -198,8 +199,10 @@ public class GUISettingLibraryController {
     private void applyChange(String camp,String newCamp)
     {
         LibraryController libraryController = new LibraryController();
-        libraryController.updateLibrary(Session.getCurrentSession().getLibraryBean().getEmail(),camp,newCamp);
+        libraryController.updateLibrary(Session.getCurrentSession().getLibrary().getEmail(),camp,newCamp);
     }
+
+
 
 
 

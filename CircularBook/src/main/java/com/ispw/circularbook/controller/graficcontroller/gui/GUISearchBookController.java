@@ -58,7 +58,7 @@ public class GUISearchBookController implements Observer {
         SearchBookController searchBookController = new SearchBookController();
         listBookBean = searchBookController.searchBook(searchBookBean.getAuthor(),searchBookBean.getArgument(),searchBookBean.getTitle(),TakeBeanFromList.getEmailFromCurrentSession());
         if (!listBookBean.isEmpty()) {
-                Session.getCurrentSession().getUserBean().setBookLastSearch(listBookBean);
+                Session.getCurrentSession().getUser().setBookLastSearch(listBookBean);
                 setShowResult(listBookBean);
             } else {
                 Text text = new Text("Nessun elemento trovato con i valori che hai inserito");

@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 
@@ -16,7 +17,7 @@ public class LoginDAO {
 
     private LoginDAO(){}
 
-    public static int checkLogin(String email, String password) throws IOException {
+    public static int checkLogin(LoginBean loginBean) {
 
         Statement stmt;
         int type=0;
@@ -25,7 +26,7 @@ public class LoginDAO {
         try {
             stmt = ConnectionDB.getConnection();
 
-            ResultSet resultSet = Queries.checkLogin(stmt, email, password);
+            ResultSet resultSet = Queries.checkLogin(stmt, loginBean.getEmail(), loginBean.getPassword());
             // Verifico se il result set è vuoto e nel caso lancio un’eccezione
             if (!resultSet.first()) {
                 throw new NoAccountFoundException();

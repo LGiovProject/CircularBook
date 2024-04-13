@@ -78,17 +78,17 @@ public class GUIElementBookSearchedController {
         public void getBook(){
 
             InsertBookController insertBookController = new InsertBookController();
-            insertBookController.registerLendBook(this.bookBean, Session.getCurrentSession().getUserBean().getUsername());
+            insertBookController.registerLendBook(this.bookBean, Session.getCurrentSession().getUser().getUsername());
             NotifyController notifyController = new NotifyController();
-            notifyController.insertNotify(Session.getCurrentSession().getUserBean().getEmail(),this.bookBean,getMessage(this.bookBean));
+            notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookBean,getMessage(this.bookBean));
             bookElementSubject.notifyObserver(this.panel);
-            Session.getCurrentSession().getUserBean().getBookBeanTaked().add(this.bookBean);
+            Session.getCurrentSession().getUser().getBookBeanTaked().add(this.bookBean);
             BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
         }
 
         private String getMessage(BookBean bookBean)
         {
-            return "Il tuo libro "+bookBean.getTitolo()+" è stato preso da "+Session.getCurrentSession().getUserBean().getEmail();
+            return "Il tuo libro "+bookBean.getTitolo()+" è stato preso da "+Session.getCurrentSession().getUser().getEmail();
         }
 
 }

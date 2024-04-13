@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
@@ -14,10 +15,10 @@ import java.util.List;
 
 public class SearchBookDAO {
 
-    public static List<BookModel> searchBook(String author, String argument, String title,String email) {
+    public static List<BookBean> searchBook(String author, String argument, String title, String email) {
         Statement stmt;
         ResultSet resultSet;
-        List<BookModel> listBookModel= new ArrayList<>();
+        List<BookBean> listBookBean= new ArrayList<>();
 
         try{
             stmt= ConnectionDB.getConnection();
@@ -33,17 +34,17 @@ public class SearchBookDAO {
                 resultSet.first();
 
                 do {
-                    BookModel bookModel = new BookModel();
-                    bookModel.setId(resultSet.getInt(1));
-                    bookModel.setEmail(resultSet.getString(2));
-                    bookModel.setTypeOfDisponibility(resultSet.getInt(3));
-                    bookModel.setAutore(resultSet.getString(4));
-                    bookModel.setArgomento(resultSet.getString(5));
-                    bookModel.setTitolo(resultSet.getString(6));
-                    bookModel.setnPagine(resultSet.getInt(7));
-                    bookModel.setCommento(resultSet.getString(8));
+                    BookBean bookBean = new BookBean();
+                    bookBean.setId(resultSet.getInt(1));
+                    bookBean.setEmail(resultSet.getString(2));
+                    bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+                    bookBean.setAutore(resultSet.getString(4));
+                    bookBean.setArgomento(resultSet.getString(5));
+                    bookBean.setTitolo(resultSet.getString(6));
+                    bookBean.setnPagine(resultSet.getInt(7));
+                    bookBean.setCommento(resultSet.getString(8));
 
-                    listBookModel.add(bookModel);
+                    listBookBean.add(bookBean);
                 } while (resultSet.next());
 
 
@@ -57,12 +58,12 @@ public class SearchBookDAO {
         } catch (NoBookFoundException| ErrorConnectionDbException |SQLException e) {
             e.printStackTrace();
         }
-        return listBookModel;
+        return listBookBean;
     }
-    public static List<BookModel> searchMyBook(String email) {
+    public static List<BookBean> searchMyBook(String email) {
         Statement stmt;
         ResultSet resultSet;
-        List<BookModel> listBookModel= new ArrayList<>();
+        List<BookBean> listBookBean= new ArrayList<>();
         try{
             stmt= ConnectionDB.getConnection();
             resultSet=Queries.searchMyBook(stmt,email);
@@ -78,16 +79,16 @@ public class SearchBookDAO {
             resultSet.first();
 
             do {
-                BookModel bookModel = new BookModel();
-                bookModel.setId(resultSet.getInt(1));
-                bookModel.setEmail(resultSet.getString(2));
-                bookModel.setTypeOfDisponibility(resultSet.getInt(3));
-                bookModel.setAutore(resultSet.getString(4));
-                bookModel.setArgomento(resultSet.getString(5));
-                bookModel.setTitolo(resultSet.getString(6));
-                bookModel.setnPagine(resultSet.getInt(7));
-                bookModel.setCommento(resultSet.getString(8));
-                listBookModel.add(bookModel);
+                BookBean bookBean = new BookBean();
+                bookBean.setId(resultSet.getInt(1));
+                bookBean.setEmail(resultSet.getString(2));
+                bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+                bookBean.setAutore(resultSet.getString(4));
+                bookBean.setArgomento(resultSet.getString(5));
+                bookBean.setTitolo(resultSet.getString(6));
+                bookBean.setnPagine(resultSet.getInt(7));
+                bookBean.setCommento(resultSet.getString(8));
+                listBookBean.add(bookBean);
             } while (resultSet.next());
 
 
@@ -104,13 +105,13 @@ public class SearchBookDAO {
         {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        return listBookModel;
+        return listBookBean;
     }
-    public static BookModel searchBook(int id){
+    public static BookBean searchBook(int id){
 
         Statement stmt;
         ResultSet resultSet;
-        BookModel bookModel = new BookModel();
+        BookBean bookBean = new BookBean();
         try{
         stmt=ConnectionDB.getConnection();
         resultSet = Queries.searchBookById(stmt,id);
@@ -127,26 +128,26 @@ public class SearchBookDAO {
             // Riposiziono il cursore sul primo record del result set
             resultSet.first();
 
-            bookModel.setId(resultSet.getInt(1));
-            bookModel.setEmail(resultSet.getString(2));
-            bookModel.setTypeOfDisponibility(resultSet.getInt(3));
-            bookModel.setAutore(resultSet.getString(4));
-            bookModel.setArgomento(resultSet.getString(5));
-            bookModel.setTitolo(resultSet.getString(6));
-            bookModel.setnPagine(resultSet.getInt(7));
-            bookModel.setCommento(resultSet.getString(8));
+            bookBean.setId(resultSet.getInt(1));
+            bookBean.setEmail(resultSet.getString(2));
+            bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+            bookBean.setAutore(resultSet.getString(4));
+            bookBean.setArgomento(resultSet.getString(5));
+            bookBean.setTitolo(resultSet.getString(6));
+            bookBean.setnPagine(resultSet.getInt(7));
+            bookBean.setCommento(resultSet.getString(8));
         }catch (ErrorConnectionDbException| NoBookFoundException | SQLException e){
             e.printStackTrace();
         };
-        return bookModel;
+        return bookBean;
     }
 
-    public static List<BookModel> searchLendedBook (String email) throws NoBookLendedException
+    public static List<BookBean> searchLendedBook (String email) throws NoBookLendedException
     {
         {
             Statement stmt;
             ResultSet resultSet;
-            List<BookModel> listBookModel= new ArrayList<>();
+            List<BookBean> listBookBean= new ArrayList<>();
             try{
                 stmt= ConnectionDB.getConnection();
                 resultSet=Queries.searchLendedBook(stmt,email);
@@ -162,21 +163,21 @@ public class SearchBookDAO {
                 resultSet.first();
 
                 do {
-                    BookModel bookModel = new BookModel();
-                    bookModel.setId(resultSet.getInt(1));
-                    bookModel.setEmail(resultSet.getString(2));
-                    bookModel.setTypeOfDisponibility(resultSet.getInt(3));
-                    bookModel.setAutore(resultSet.getString(4));
-                    bookModel.setArgomento(resultSet.getString(5));
-                    bookModel.setTitolo(resultSet.getString(6));
-                    bookModel.setnPagine(resultSet.getInt(7));
-                    bookModel.setCommento(resultSet.getString(8));
-                    bookModel.setDate_start(resultSet.getString(9));
+                    BookBean bookBean = new BookBean();
+                    bookBean.setId(resultSet.getInt(1));
+                    bookBean.setEmail(resultSet.getString(2));
+                    bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+                    bookBean.setAutore(resultSet.getString(4));
+                    bookBean.setArgomento(resultSet.getString(5));
+                    bookBean.setTitolo(resultSet.getString(6));
+                    bookBean.setnPagine(resultSet.getInt(7));
+                    bookBean.setCommento(resultSet.getString(8));
+                    bookBean.setDate_start(resultSet.getString(9));
                     String buffer =resultSet.getString(10);
-                    bookModel.setDate_finish(buffer);
-                    bookModel.setDaysRemaing(buffer);
-                    bookModel.setEmailGiver(resultSet.getString(11));
-                    listBookModel.add(bookModel);
+                    bookBean.setDate_finish(buffer);
+                    bookBean.setDaysRemaing(buffer);
+                    bookBean.setEmailGiver(resultSet.getString(11));
+                    listBookBean.add(bookBean);
                 } while (resultSet.next());
 
                 resultSet.close();
@@ -184,13 +185,13 @@ public class SearchBookDAO {
             } catch (ErrorConnectionDbException  |SQLException e) {
                 e.printStackTrace();
             }
-            return listBookModel;
+            return listBookBean;
         }
     }
-    public static List<BookModel> searchGivenBook(String email) throws NoBookLendedException {
+    public static List<BookBean> searchGivenBook(String email) throws NoBookLendedException {
         Statement stmt;
         ResultSet resultSet;
-        List<BookModel> listBookModel= new ArrayList<>();
+        List<BookBean> listBookBean= new ArrayList<>();
         try{
             stmt= ConnectionDB.getConnection();
             resultSet=Queries.searchGivenBook(stmt,email);
@@ -206,21 +207,21 @@ public class SearchBookDAO {
             resultSet.first();
 
             do {
-                BookModel bookModel = new BookModel();
-                bookModel.setId(resultSet.getInt(1));
-                bookModel.setEmail(resultSet.getString(2));
-                bookModel.setTypeOfDisponibility(resultSet.getInt(3));
-                bookModel.setAutore(resultSet.getString(4));
-                bookModel.setArgomento(resultSet.getString(5));
-                bookModel.setTitolo(resultSet.getString(6));
-                bookModel.setnPagine(resultSet.getInt(7));
-                bookModel.setCommento(resultSet.getString(8));
-                bookModel.setDate_start(resultSet.getString(9));
+                BookBean bookBean = new BookBean();
+                bookBean.setId(resultSet.getInt(1));
+                bookBean.setEmail(resultSet.getString(2));
+                bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+                bookBean.setAutore(resultSet.getString(4));
+                bookBean.setArgomento(resultSet.getString(5));
+                bookBean.setTitolo(resultSet.getString(6));
+                bookBean.setnPagine(resultSet.getInt(7));
+                bookBean.setCommento(resultSet.getString(8));
+                bookBean.setDate_start(resultSet.getString(9));
                 String buffer =resultSet.getString(10);
-                bookModel.setDate_finish(buffer);
-                bookModel.setDaysRemaing(buffer);
-                bookModel.setEmailTaker(resultSet.getString(11));
-                listBookModel.add(bookModel);
+                bookBean.setDate_finish(buffer);
+                bookBean.setDaysRemaing(buffer);
+                bookBean.setEmailTaker(resultSet.getString(11));
+                listBookBean.add(bookBean);
             } while (resultSet.next());
 
             resultSet.close();
@@ -228,7 +229,7 @@ public class SearchBookDAO {
         } catch (ErrorConnectionDbException  |SQLException e) {
             e.printStackTrace();
         }
-        return listBookModel;
+        return listBookBean;
     }
 
     public static int[] searchBookUserInfo(String email)  {

@@ -8,6 +8,7 @@ import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.engineering.utils.BoxSuccesfulMessage;
+import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import com.ispw.circularbook.Main;
@@ -75,8 +76,8 @@ public class GUIHomepageController {
         setSideButton(screenA);
         setSideWindow(screenB);
 
-        List<BookBean> bookBeans=Session.getCurrentSession().getUserBean().getBookBeanTaked();
-        setBellNotify(bookBeans);
+        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getBookTaked();
+        setBellNotify(listBookModel);
     }
     //carica l'homepage per le library
     public void startLibraryHomepage() throws IOException {
@@ -150,11 +151,11 @@ public class GUIHomepageController {
         Main.getStage().setScene(scene);
     }
 
-    private void setBellNotify(List<BookBean> bookBeans) throws IOException {
-        if(bookBeans!=null) {
-            for (BookBean bookBean : bookBeans) {
+    private void setBellNotify(List<BookModel> listBookModel) throws IOException {
+        if(listBookModel!=null) {
+            for (BookModel bookModel : listBookModel) {
 
-                if (bookBean.getDaysRemaing() > 7) {
+                if (bookModel.getDaysRemaing() > 7) {
                     notify = true;
                     NotifyBean notifyBean = new NotifyBean(bookBean, getMessage(bookBean));
                     this.notifyBeanList.add(notifyBean);
@@ -169,10 +170,10 @@ public class GUIHomepageController {
             notify=false;
         }
         NotifyController notifyController= new NotifyController();
-        List<NotifyBean> notifyBeanList =notifyController.readNotify(Session.getCurrentSession().getUserBean().getEmail());
+        List<NotifyBean> notifyBeanList =notifyController.readNotify(Session.getCurrentSession().getUser().getEmail());
 
         if(notifyBeanList!=null) {
-            this.notifyBeanList.addAll(notifyController.readNotify(Session.getCurrentSession().getUserBean().getEmail()));
+            this.notifyBeanList.addAll(notifyController.readNotify(Session.getCurrentSession().getUser().getEmail()));
             notify=true;
         }
 

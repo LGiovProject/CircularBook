@@ -94,9 +94,8 @@ public class GUISignInLibraryController {
 
     }
 
-    public void goToLogin() throws IOException {
+    public void goToLogin(){
         Main.getStage().setScene(loginScene);
-
     }
 
     public void goBack()

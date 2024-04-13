@@ -25,7 +25,7 @@ public class GUIManagementBookLibraryController {
         List<BookBean> listBookBean= new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookBean = searchBookController.searchMyBook(Session.getCurrentSession().getLibraryBean().getEmail());
+            listBookBean = searchBookController.searchMyBook(Session.getCurrentSession().getLibrary().getEmail());
         } catch (NoBookLendedException e) {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
@@ -44,7 +44,7 @@ public class GUIManagementBookLibraryController {
     public void searchMySales() throws Exception {
         List<SalesBean> salesBeanList;
         SearchSalesController searchSalesController = new SearchSalesController();
-        salesBeanList = searchSalesController.searchSales(Session.getCurrentSession().getLibraryBean().getEmail());
+        salesBeanList = searchSalesController.searchSales(Session.getCurrentSession().getLibrary().getEmail());
         if(salesBeanList.size()!=0)
         {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));

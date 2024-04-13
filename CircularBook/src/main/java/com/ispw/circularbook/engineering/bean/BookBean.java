@@ -17,6 +17,10 @@ public class BookBean {
     private int nPagine;
     private String commento;
 
+    private String emailGiver;
+
+    private String emailTaker;
+
     //info book
     private String date_start;
     private String date_finish;
@@ -28,6 +32,10 @@ public class BookBean {
 
 
 
+
+    public BookBean() {
+
+    }
 
 
 
@@ -91,6 +99,8 @@ public class BookBean {
         this.daysRemaing=daysRemaing;
         this.emailInfo=emailInfo;
     }
+
+
 
     public int getId() {
         return id;
@@ -180,6 +190,11 @@ public class BookBean {
 
     }
 
+    public void setnPagine(int nPagine)
+    {
+        this.nPagine=nPagine;
+    }
+
     public String getNpagineString()
     {
         return (String.valueOf(this.nPagine));
@@ -229,4 +244,19 @@ public class BookBean {
     }
     public void setDaysRemaing(long daysRemaing){ this.daysRemaing=daysRemaing;}
 
+    public String getEmailGiver() {
+        return emailGiver;
+    }
+
+    public void setEmailGiver(String emailGiver) {
+        this.emailGiver = emailGiver;
+    }
+
+    public String getEmailTaker() {
+        return emailTaker;
+    }
+
+    public void setEmailTaker(String emailTaker) {
+        this.emailTaker = emailTaker;
+    }
 }

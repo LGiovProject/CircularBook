@@ -79,7 +79,7 @@ public class GUISettingUserController {
     public void startSetting()
     {
         int[] bookInfo;
-        this.userBean= Session.getCurrentSession().getUserBean();
+        this.userBean= Session.getCurrentSession().getUser();
         this.email.setText(this.userBean.getEmail());
         this.username.setText(this.userBean.getUsername());
         this.name.setText(this.userBean.getNome());
@@ -95,7 +95,7 @@ public class GUISettingUserController {
         this.bookTakedInLend.setText(stringGenerator(bookInfo[4])+" presi in prestito");
         String buffer;
         buffer=welcomeText.getText();
-        buffer=buffer+" "+Session.getCurrentSession().getUserBean().getNome();
+        buffer=buffer+" "+Session.getCurrentSession().getUser().getNome();
         welcomeText.setText(buffer);
         cityChoicheBox.getItems().addAll(City.values());
         cityChoicheBox.getSelectionModel().select(this.userBean.getCity());
@@ -136,7 +136,7 @@ public class GUISettingUserController {
                         username.setStyle(offStyle);
                         usernameImageView.setImage(pencilImage);
                         applyChange("username",username.getText());
-                        Session.getCurrentSession().getUserBean().setNome(username.getText());
+                        Session.getCurrentSession().getUser().setNome(username.getText());
                         username.setText(username.getText());
                         rwField[0]=true;
                     }
@@ -155,7 +155,7 @@ public class GUISettingUserController {
                         name.setStyle(offStyle);
                         nameImageView.setImage(pencilImage);
                         applyChange("nome",name.getText());
-                        Session.getCurrentSession().getUserBean().setNome(name.getText());
+                        Session.getCurrentSession().getUser().setNome(name.getText());
                         name.setText(name.getText());
                         rwField[1]=true;
                     }
@@ -176,7 +176,7 @@ public class GUISettingUserController {
                         surname.setStyle(offStyle);
                         surnameImageView.setImage(pencilImage);
                         applyChange("cognome",surname.getText());
-                        Session.getCurrentSession().getUserBean().setCognome(surname.getText());
+                        Session.getCurrentSession().getUser().setCognome(surname.getText());
                         surname.setText(surname.getText());
                         rwField[2]=true;
                     }
@@ -194,7 +194,7 @@ public class GUISettingUserController {
                         cityChoicheBox.setVisible(false);
                         cityChoicheBox.setStyle("-fx-background-color: #F1C9A0; -fx-background-radius: 60;");
                         applyChange("citta",cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
-                        Session.getCurrentSession().getUserBean().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
+                        Session.getCurrentSession().getUser().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
                         city.setText(cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
                         rwField[3]=true;
                     }
@@ -208,7 +208,7 @@ public class GUISettingUserController {
     private void applyChange(String camp,String newCamp)
     {
         UserController userController = new UserController();
-        userController.updateUser(Session.getCurrentSession().getUserBean().getEmail(),camp,newCamp);
+        userController.updateUser(Session.getCurrentSession().getUser().getEmail(),camp,newCamp);
     }
 
 

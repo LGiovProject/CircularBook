@@ -22,6 +22,23 @@ public class BookModel {
     private String emailTaker;
     private long daysRemaing;
 
+
+
+    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento, String date_start, String date_finish, long daysRemaing ,String emailGiver) {
+        this.id = id;
+        this.email = email;
+        this.typeOfDisponibility = typeOfDisponibility;
+        this.titolo = titolo;
+        this.autore = autore;
+        this.argomento = argomento;
+        this.nPagine = nPagine;
+        this.commento = commento;
+        this.date_start = date_start;
+        this.date_finish = date_finish;
+        this.emailGiver = emailGiver;
+        this.daysRemaing = daysRemaing;
+    }
+
     public int getId() {
         return id;
     }

@@ -19,13 +19,13 @@ public class SearchBookController {
     {
         List<BookBean> listBookBean=new ArrayList<>();
         List<BookModel> listBookModel;
-        listBookModel=SearchBookDAO.searchBook(author,argument,title,email);
+        listBookBean=SearchBookDAO.searchBook(author,argument,title,email);
         for(BookModel bookModel: listBookModel)
         {
             BookBean bookBean = new BookBean(bookModel.getId(),bookModel.getEmail(),bookModel.getTypeOfDisponibility(),bookModel.getTitolo(),bookModel.getAutore(),bookModel.getArgomento(),  bookModel.getnPagine(), bookModel.getCommento());
             listBookBean.add(bookBean);
         }
-        return listBookBean;
+        return listBookModel;
     }
 
     public List<BookBean> searchMyBook(String email) throws NoBookLendedException {

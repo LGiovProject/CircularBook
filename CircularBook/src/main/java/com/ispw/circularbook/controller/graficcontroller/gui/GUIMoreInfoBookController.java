@@ -49,12 +49,12 @@ public class GUIMoreInfoBookController {
           guiHomepageController = ControllerSession.getGuiHomepageController();
           guiHomepageController.setSideWindow(pane);
           guiWindowElementBookPersonalController = fxmlLoader.getController();
-          if(Session.getCurrentSession().getUserBean()!=null) {
-              guiWindowElementBookPersonalController.viewBook(Session.getCurrentSession().getUserBean().getBookOwnList());
+          if(Session.getCurrentSession().getUser()!=null) {
+              guiWindowElementBookPersonalController.viewBook(Session.getCurrentSession().getUser().getBookOwnList());
           }
           else
           {
-              guiWindowElementBookPersonalController.viewBook(Session.getCurrentSession().getLibraryBean().getBookOwnList());
+              guiWindowElementBookPersonalController.viewBook(Session.getCurrentSession().getLibrary().getBookOwnList());
           }
       }
       else if(object instanceof GUIElementBookSearchedController)
@@ -65,7 +65,7 @@ public class GUIMoreInfoBookController {
           guiSearchBookController.startSetSearch();
           guiHomepageController = ControllerSession.getGuiHomepageController();
           guiHomepageController.setSideWindow(pane);
-          guiSearchBookController.setShowResult(Session.getCurrentSession().getUserBean().getBookLastSearch());
+          guiSearchBookController.setShowResult(Session.getCurrentSession().getUser().getBookLastSearch());
       }
 
 
