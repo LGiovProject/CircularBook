@@ -3,9 +3,12 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.UserController;
+import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.model.InfoBookModel;
+import com.ispw.circularbook.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -21,7 +24,7 @@ import java.util.Objects;
 
 public class GUISettingUserController {
 
-    private UserBean userBean;
+    private UserModel userModel;
 
     @FXML
     private Text email;
@@ -78,27 +81,27 @@ public class GUISettingUserController {
 
     public void startSetting()
     {
-        int[] bookInfo;
-        this.userBean= Session.getCurrentSession().getUser();
-        this.email.setText(this.userBean.getEmail());
-        this.username.setText(this.userBean.getUsername());
-        this.name.setText(this.userBean.getNome());
-        this.surname.setText(this.userBean.getCognome());
-        this.city.setText(this.userBean.getCityString());
+        InfoBookModel infoBookModel;
+        this.userModel= Session.getCurrentSession().getUser();
+        this.email.setText(this.userModel.getEmail());
+        this.username.setText(this.userModel.getUsername());
+        this.name.setText(this.userModel.getNome());
+        this.surname.setText(this.userModel.getCognome());
+        this.city.setText(this.userModel.getCityString());
         SearchBookController searchBookController = new SearchBookController();
-        this.userBean=searchBookController.searchBookInfoUser(this.userBean);
-        bookInfo=userBean.getBookInfo();
-        this.bookRegistered.setText(stringGenerator(bookInfo[0]) +" registrati");
-        this.bookLended.setText(stringGenerator(bookInfo[1])+" messi in prestito");
-        this.bookGived.setText(stringGenerator(bookInfo[2])+" messi in regalo");
-        this.bookTakeInGift.setText(stringGenerator(bookInfo[3])+" presi in regalo");
-        this.bookTakedInLend.setText(stringGenerator(bookInfo[4])+" presi in prestito");
+
+        infoBookModel=searchBookController.searchBookInfoUser(this.userModel.getEmail());
+        userModel.setBookInfo(infoBookModel);
+        this.bookRegistered.setText(stringGenerator(infoBookModel.getRegisterBook()) +" registrati");
+        this.bookLended.setText(stringGenerator(infoBookModel.getLendedBook())+" messi in prestito");
+        this.bookGived.setText(stringGenerator(infoBookModel.getRegisterBook())+" messi in regalo");
+        this.bookTakeInGift.setText(stringGenerator(infoBookModel.getLendedBookTaked())+" presi in regalo");
+        this.bookTakedInLend.setText(stringGenerator(infoBookModel.getGiftedBooktaked())+" presi in prestito");
         String buffer;
-        buffer=welcomeText.getText();
-        buffer=buffer+" "+Session.getCurrentSession().getUser().getNome();
+        buffer=welcomeText.getText()+" "+Session.getCurrentSession().getUser().getNome();
         welcomeText.setText(buffer);
         cityChoicheBox.getItems().addAll(City.values());
-        cityChoicheBox.getSelectionModel().select(this.userBean.getCity());
+        cityChoicheBox.getSelectionModel().select(this.userModel.getCity());
         cityChoicheBox.setVisible(false);
     }
 
@@ -208,7 +211,9 @@ public class GUISettingUserController {
     private void applyChange(String camp,String newCamp)
     {
         UserController userController = new UserController();
-        userController.updateUser(Session.getCurrentSession().getUser().getEmail(),camp,newCamp);
+        UpdateInfoBean updateInfoBean = new UpdateInfoBean(Session.getCurrentSession().getUser().getEmail(),camp,newCamp);
+        userController.updateUser(updateInfoBean);
+
     }
 
 

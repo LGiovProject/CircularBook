@@ -4,6 +4,7 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.controller.appcontroller.NotifyController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
@@ -30,7 +31,7 @@ public class GUIElementBookSearchedController {
         @FXML
         private Pane panel;
 
-        private BookBean bookBean;
+        private BookModel bookModel;
 
         private BookElementSubject bookElementSubject;
         private GUIHomepageController guiHomepageController;
@@ -43,11 +44,11 @@ public class GUIElementBookSearchedController {
 
         public void setBookElement(BookBean bookBean,Pane panel) {
 
-            this.bookBean=bookBean;
-            this.type_of_insert.setText(this.bookBean.getTypeOfDisponibilityString());
-            this.author.setText(this.bookBean.getAutore());
-            this.title.setText(this.bookBean.getTitolo());
-            this.argument.setText(this.bookBean.getArgomentoString());
+            //this.bookModel=bookBean;
+            this.type_of_insert.setText(this.bookModel.getTypeOfDisponibilityString());
+            this.author.setText(this.bookModel.getAutore());
+            this.title.setText(this.bookModel.getTitolo());
+            this.argument.setText(this.bookModel.getArgomentoString());
             this.panel=panel;
 
         }
@@ -65,30 +66,31 @@ public class GUIElementBookSearchedController {
 
             popup.show(Main.getStage());
            */
-           GUIMoreInfoBookController guiMoreInfoBookController;
+            GUIMoreInfoBookController guiMoreInfoBookController;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = ControllerSession.getGuiHomepageController();
 
             guiMoreInfoBookController = fxmlLoader.getController();
-            guiMoreInfoBookController.setInfoBook(this.bookBean.getAutore(),this.bookBean.getTitolo(),this.bookBean.getArgomentoString(),this.bookBean.getNpagineString(),this.bookBean.getCommento(),this);
+            guiMoreInfoBookController.setInfoBook(this.bookModel.getAutore(),this.bookModel.getTitolo(),this.bookModel.getArgomentoString(),this.bookModel.getNpagineString(),this.bookModel.getCommento(),this);
             guiHomepageController.setSideWindow(pane);
         }
 
         public void getBook(){
 
-            InsertBookController insertBookController = new InsertBookController();
-            insertBookController.registerLendBook(this.bookBean, Session.getCurrentSession().getUser().getUsername());
-            NotifyController notifyController = new NotifyController();
-            notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookBean,getMessage(this.bookBean));
-            bookElementSubject.notifyObserver(this.panel);
-            Session.getCurrentSession().getUser().getBookBean().add(this.bookBean);
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
+//            InsertBookController insertBookController = new InsertBookController();
+//            insertBookController.registerLendBook(this.bookModel, Session.getCurrentSession().getUser().getUsername());
+//
+//            NotifyController notifyController = new NotifyController();
+//            notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookModel,getMessage());
+//            bookElementSubject.notifyObserver(this.panel);
+//            Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
+//            BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
         }
 
-        private String getMessage(BookBean bookBean)
+        private String getMessage()
         {
-            return "Il tuo libro "+bookBean.getTitolo()+" è stato preso da "+Session.getCurrentSession().getUser().getEmail();
+            return "Il tuo libro "+this.bookModel.getTitolo()+" è stato preso da "+Session.getCurrentSession().getUser().getEmail();
         }
 
 }

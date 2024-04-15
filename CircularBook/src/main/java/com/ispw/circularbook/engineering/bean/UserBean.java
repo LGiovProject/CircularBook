@@ -11,12 +11,7 @@ public class UserBean {
     private String password;
     private String nome;
     private String cognome;
-    private City city;
-    private List<BookBean> bookBeanTaked;
-    private List<BookBean> bookLastSearch;
-    private List<BookBean> bookOwnList;
-
-    private int[] bookInfo; //position: 0 , #of book registered; 1 , #of book lended;2 , #of book gifted; 3, #of book takeon lend; 4, #of book take on gift
+    private String city;
 
     public UserBean(){};
 
@@ -48,19 +43,13 @@ public class UserBean {
         return password;
     }
 
-    public String getNome() {
+    public String getName() {
         return nome;
     }
 
     public String getCognome() {
         return cognome;
     }
-
-    public City getCity() {
-        return city;
-    }
-
-    public String getCityString(){return this.city.getCity();}
 
     public void setEmail(String email) {
         this.email = email;
@@ -78,47 +67,15 @@ public class UserBean {
         this.cognome = cognome;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public String getCity() {
+        return this.city;
     }
 
     public void setCity(String city) {
-        for(City city1: City.values())
-        {
-            if(city1.getCity().equals(city))
-            {
-                this.city=city1;
-            }
-        }
+        this.city = city;
     }
 
-    public int[] getBookInfo() {
-        return bookInfo;
-    }
+    public void setBookInfo(){}
+    public void getBookInfo(){}
 
-    public void setBookInfo(int[] bookInfo) {
-        this.bookInfo = bookInfo;
-    }
-
-    public void setBookBeanTaked(List<BookBean> bookBeanTaked){
-        this.bookBeanTaked=bookBeanTaked;
-    }
-
-    public List<BookBean> getBookBeanTaked(){return this.bookBeanTaked;}
-
-    public List<BookBean> getBookLastSearch() {
-        return bookLastSearch;
-    }
-
-    public void setBookLastSearch(List<BookBean> bookLastSearch) {
-        this.bookLastSearch = bookLastSearch;
-    }
-
-    public List<BookBean> getBookOwnList() {
-        return bookOwnList;
-    }
-
-    public void setBookOwnList(List<BookBean> bookOwnList) {
-        this.bookOwnList = bookOwnList;
-    }
 }

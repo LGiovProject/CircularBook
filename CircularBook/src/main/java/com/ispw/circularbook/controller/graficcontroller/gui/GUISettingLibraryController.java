@@ -6,8 +6,10 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 
 import com.ispw.circularbook.engineering.bean.LibraryBean;
 
+import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.model.InfoBookModel;
 import com.ispw.circularbook.model.LibraryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +77,7 @@ public class GUISettingLibraryController {
 
     public void startSetting()
     {
-        int[] bookInfo;
+        InfoBookModel infoBookModel;
         this.libraryModel= Session.getCurrentSession().getLibrary();
         this.email.setText(this.libraryModel.getEmail());
         this.nameLib.setText(this.libraryModel.getNomeLib());
@@ -83,10 +85,10 @@ public class GUISettingLibraryController {
         this.city.setText(this.libraryModel.getCityString());
         this.ntel.setText(String.valueOf(this.libraryModel.getTelNumber()));
         SearchBookController searchBookController = new SearchBookController();
-        this.libraryModel=searchBookController.searchBookInfoLibrary(this.libraryModel);
-        bookInfo=libraryModel.getBookInfo();
-        this.bookRegistered.setText(stringGenerator(bookInfo[0]) +" registrati");
-        this.bookLended.setText(stringGenerator(bookInfo[1])+"  presi in prestito");
+        infoBookModel=searchBookController.searchBookInfoLibrary(this.libraryModel.getEmail());
+        libraryModel.setBookInfo(infoBookModel);
+        this.bookRegistered.setText(stringGenerator(infoBookModel.getRegisterBook()) +" registrati");
+        this.bookLended.setText(stringGenerator(infoBookModel.getLendedBook())+"  presi in prestito");
         welcomeText.setText(welcomeText.getText()+" "+Session.getCurrentSession().getLibrary().getNomeLib());
 
         cityChoicheBox.getItems().addAll(City.values());
@@ -199,7 +201,8 @@ public class GUISettingLibraryController {
     private void applyChange(String camp,String newCamp)
     {
         LibraryController libraryController = new LibraryController();
-        libraryController.updateLibrary(Session.getCurrentSession().getLibrary().getEmail(),camp,newCamp);
+        UpdateInfoBean updateInfoBean = new UpdateInfoBean(Session.getCurrentSession().getLibrary().getEmail(),camp,newCamp);
+        libraryController.updateLibrary(updateInfoBean);
     }
 
 

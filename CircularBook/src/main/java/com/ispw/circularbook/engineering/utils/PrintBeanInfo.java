@@ -7,7 +7,7 @@ public class PrintBeanInfo {
 
     public static void printBookBean(BookBean bookBean)
     {
-        System.out.println(bookBean.getId()+" "+bookBean.getEmail()+" "+bookBean.getTypeOfDisponibility()+" "+bookBean.getTitolo()+" "+bookBean.getAutore()+" "+bookBean.getArgomentoString()+" "+bookBean.getnPagine()+" "+bookBean.getCommento());
+        System.out.println(bookBean.getId()+" "+bookBean.getEmail()+" "+bookBean.getTypeOfDisponibility()+" "+bookBean.getTitolo()+" "+bookBean.getAutore()+" "+bookBean.getArgomentoString()+" "+bookBean.getNPagine()+" "+bookBean.getCommento());
     }
 
     public static void printBookModel(BookModel bookModel){

@@ -67,7 +67,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookTakedController guiElementBookTakedController = fxmlLoader.getController();
-            guiElementBookTakedController.startSetElementTakedBook(bookModel);
+            //guiElementBookTakedController.startSetElementTakedBook(bookModel);
             viewMyBook.getChildren().add(element);
         }
     }
@@ -83,7 +83,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookGivenController guiElementBookGivenController = fxmlLoader.getController();
-            guiElementBookGivenController.startSetElementGivenBook(bookModel);
+            //guiElementBookGivenController.startSetElementGivenBook(bookModel);
             viewMyBook.getChildren().add(element);
         }
     }
@@ -102,7 +102,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookPersonalController guiElementBookPersonalController = fxmlLoader.getController();
-            guiElementBookPersonalController.setBookElement(bookModel,element);
+            //guiElementBookPersonalController.setBookElement(bookModel,element);
             guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
             guiHomepageController= ControllerSession.getGuiHomepageController();
             guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());

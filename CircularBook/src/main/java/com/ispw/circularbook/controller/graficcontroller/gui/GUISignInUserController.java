@@ -7,6 +7,7 @@ import com.ispw.circularbook.engineering.bean.SignInBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.exception.*;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
@@ -24,9 +25,7 @@ import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-
-
+import java.util.regex.Pattern;
 
 
 public class GUISignInUserController {
@@ -61,53 +60,48 @@ public class GUISignInUserController {
     private Scene loginScene;
     private Scene previousScene;
 
-        public void startSignIn(Scene currentScene, Scene previousScene)
-        {
-            choiceBoxCity.getItems().addAll(City.values());
-            choiceBoxCity.getSelectionModel().select(0);
-            this.setLoginScene(currentScene);
-            this.setPreviousScene(previousScene);
-        }
+    public void startSignIn(Scene currentScene, Scene previousScene)
+    {
+        choiceBoxCity.getItems().addAll(City.values());
+        choiceBoxCity.getSelectionModel().select(0);
+        this.setLoginScene(currentScene);
+        this.setPreviousScene(previousScene);
+    }
 
 
 
-        public void signIn(){
+    public void signIn(){
 
-            try{
-                    checkEmail(emailTField.getText());
-                    SignInBean signInBean = new SignInBean(this.emailTField.getText(),this.usernameTField.getText(),this.passwordTField.getText(), this.repasswordTField.getText(), this.nomeTField.getText(), this.cognomeTField.getText(), this.choiceBoxCity.getSelectionModel().getSelectedItem());
+        try{
+            checkEmail(emailTField.getText());
+            checkPassword(this.passwordTField.getText(),this.repasswordTField.getText());
+            checkCity(this.choiceBoxCity.getSelectionModel().getSelectedItem());
 
-                    SignInController signInController = new SignInController();
-                    signInController.signInU(signInBean);
-
-                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
-
-                    Parent root = fxmlLoader.load();
-
-                    Scene scene = new Scene(root);
-
-                    Main.getStage().setScene(scene);
-
-                    BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
-
-                }catch (EmailUsedException | NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
-                {
-                    BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-
-                }catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-
-        }
-
-        public void checkEmail(String email) throws EmailUsedException {
+            SignInBean signInBean = new SignInBean(this.emailTField.getText(),this.usernameTField.getText(),this.passwordTField.getText(), this.nomeTField.getText(), this.cognomeTField.getText(), this.choiceBoxCity.getSelectionModel().getSelectedItem());
 
             SignInController signInController = new SignInController();
-            signInController.CheckMail(email);
+            signInController.signInU(signInBean);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
+
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+
+            Main.getStage().setScene(scene);
+
+            BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
+
+        }catch (EmailUsedException | NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
+        {
+            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+
+        }catch (IOException e)
+        {
+            e.printStackTrace();
         }
 
-
+    }
 
     public void goToLogin() throws IOException {
             Main.getStage().setScene(loginScene);
@@ -164,5 +158,25 @@ public class GUISignInUserController {
 
     public void setPreviousScene(Scene previousScene){
             this.previousScene = previousScene;
+    }
+
+    private void checkEmail(String email) throws WrongEmailFormattException {
+        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        if(!Pattern.compile(checkMail).matcher(email).matches())
+            throw new WrongEmailFormattException(email);
+    }
+
+    private void checkPassword(String password,String repassword) throws PasswordCampRequiredException, NoMatchPasswordException {
+        if(StringUtils.isEmptyOrWhitespaceOnly(password))
+            throw new PasswordCampRequiredException();
+
+        if(!password.equals(repassword))
+            throw new NoMatchPasswordException();
+
+    }
+
+    private void checkCity(City city) throws CityCampRequiredException {
+        if(city==City.Any)
+            throw new CityCampRequiredException();
     }
 }

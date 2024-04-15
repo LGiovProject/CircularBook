@@ -1,14 +1,15 @@
 package com.ispw.circularbook.controller.appcontroller;
 
 import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.dao.LibraryDAO;
 import com.ispw.circularbook.model.LibraryModel;
 
 public class LibraryController {
 
-    public void updateLibrary(String email,String camp,String newValue)
+    public void updateLibrary(UpdateInfoBean updateInfoBean)
     {
-        LibraryDAO.updateLibrary(email,camp,newValue);
+        LibraryDAO.updateLibrary(updateInfoBean);
     }
 
     public LibraryBean searchLibrary(String email) {

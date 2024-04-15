@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 public class GUILoginController {
@@ -35,7 +36,7 @@ public class GUILoginController {
 
     public void Login() throws IOException {
         try {
-
+            this.checkFormatMail(this.textFieldEmail.getText());
             LoginBean loginBean = new LoginBean(this.textFieldPassword.getText(), this.textFieldEmail.getText());
             LoginController loginController = new LoginController();
             loginController.checkLogin(loginBean);
@@ -108,6 +109,12 @@ public class GUILoginController {
 
     public void setCurrentScene(Scene currentScene) {
         this.currentScene = currentScene;
+    }
+
+    private void checkFormatMail(String email) throws WrongEmailFormattException {
+        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        if(!Pattern.compile(checkMail).matcher(email).matches())
+            throw new WrongEmailFormattException(email);
     }
 
 }

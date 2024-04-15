@@ -1,6 +1,7 @@
 package com.ispw.circularbook.engineering.dao;
 
 
+import com.ispw.circularbook.engineering.bean.SignInBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -16,13 +17,13 @@ import java.sql.Statement;
 
 public class SignInDAO {
 
-    public static void signInL(String email, String password, String nomeLib, String citta, String via, int nTel ){
+    public static void signInL(SignInBean signInBean){
         Statement stmt;
         try {
             stmt = ConnectionDB.getConnection();
 
-           Queries.insertLogin(stmt, email, password);
-           Queries.insertLibrary(stmt,email,nomeLib,citta,via,nTel);
+            Queries.insertLogin(stmt, signInBean.getEmail(), signInBean.getPassword());
+           Queries.insertLibrary(stmt,signInBean.getEmail(),signInBean.getNomeLib(),signInBean.getCittaString(),signInBean.getVia(),signInBean.getnTel());
 
         }catch (SQLException| ErrorConnectionDbException e)
             {
@@ -33,14 +34,14 @@ public class SignInDAO {
         }
     }
 
-    public static void signInU(String email,String username,String password, String nome, String cognome, String citta )
+    public static void signInU(SignInBean signInBean)
     {
         Statement stmt;
         try {
             stmt = ConnectionDB.getConnection();
 
-            Queries.insertLogin(stmt, email, password);
-            Queries.insertUser(stmt,email,username,nome,cognome,citta);
+            Queries.insertLogin(stmt, signInBean.getEmail(), signInBean.getPassword());
+            Queries.insertUser(stmt,signInBean.getEmail(),signInBean.getUsername(),signInBean.getNome(),signInBean.getCognome(),signInBean.getCittaString());
 
         } catch (SQLIntegrityConstraintViolationException e)
         {

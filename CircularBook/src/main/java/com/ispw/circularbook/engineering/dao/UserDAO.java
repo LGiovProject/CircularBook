@@ -1,5 +1,6 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
@@ -33,13 +34,13 @@ public class UserDAO {
         return userBean;
     }
 
-    public static void updateUser(String email,String camp,String newCamp)
+    public static void updateUser(UpdateInfoBean updateInfoBean)
     {
         Statement stmt;
         try
         {
             stmt=ConnectionDB.getConnection();
-            Queries.updateUser(stmt,email,camp,newCamp);
+            Queries.updateUser(stmt,updateInfoBean.getEmail(),updateInfoBean.getCamp(), updateInfoBean.getNewValue());
         } catch (ErrorConnectionDbException | SQLException e) {
             e.printStackTrace();
         }

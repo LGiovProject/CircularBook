@@ -1,6 +1,7 @@
 package com.ispw.circularbook.engineering.dao;
 
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
@@ -232,9 +233,9 @@ public class SearchBookDAO {
         return listBookBean;
     }
 
-    public static int[] searchBookUserInfo(String email)  {
+    public static InfoBookBean searchBookUserInfo(String email)  {
         Statement stmt;
-        int[] infoBook= new int[5];
+        InfoBookBean infoBookBean = new InfoBookBean();
         ResultSet resultSet;
         try {
             stmt = ConnectionDB.getConnection();
@@ -249,9 +250,12 @@ public class SearchBookDAO {
             // Riposiziono il cursore sul primo record del result set
             resultSet.first();
 
-                for(int i=0;i<5;i++) {
-                    infoBook[i] = resultSet.getInt(i+1);
-                }
+            infoBookBean.setRegisterBook( resultSet.getInt(1));
+            infoBookBean.setLendedBook(resultSet.getInt(2));
+            infoBookBean.setGiftedBook(resultSet.getInt(3));
+            infoBookBean.setLendedBookTaked(resultSet.getInt(4));
+            infoBookBean.setGiftedBooktaked(resultSet.getInt(5));
+
 
         }catch (ErrorConnectionDbException | SQLException e)
         {
@@ -259,12 +263,13 @@ public class SearchBookDAO {
         } catch (NoBookInfoException e) {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        return infoBook;
+        return infoBookBean;
     }
 
-    public static int[] searchBookLibraryInfo(String email)
+    public static InfoBookBean searchBookLibraryInfo(String email)
     {
         Statement stmt;
+        InfoBookBean infoBookBean = new InfoBookBean();
         int[] infoBook= new int[2];
         ResultSet resultSet;
         try {
@@ -280,9 +285,8 @@ public class SearchBookDAO {
             // Riposiziono il cursore sul primo record del result set
             resultSet.first();
 
-            for(int i=0;i<2;i++) {
-                infoBook[i] = resultSet.getInt(i+1);
-            }
+            infoBookBean.setRegisterBook( resultSet.getInt(1));
+            infoBookBean.setLendedBook(resultSet.getInt(2));
 
         }catch (ErrorConnectionDbException | SQLException e)
         {
@@ -290,7 +294,7 @@ public class SearchBookDAO {
         } catch (NoBookInfoException e) {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        return infoBook;
+        return infoBookBean;
     }
 }
 

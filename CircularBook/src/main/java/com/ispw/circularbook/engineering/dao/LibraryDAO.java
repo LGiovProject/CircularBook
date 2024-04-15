@@ -1,6 +1,7 @@
 package com.ispw.circularbook.engineering.dao;
 
 import com.ispw.circularbook.engineering.bean.LibraryBean;
+import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -37,13 +38,13 @@ public class LibraryDAO {
 
     }
 
-    public static void updateLibrary(String email,String camp,String newCamp)
+    public static void updateLibrary(UpdateInfoBean updateInfoBean)
     {
         Statement stmt;
         try
         {
             stmt=ConnectionDB.getConnection();
-            Queries.updateLibrary(stmt,email,camp,newCamp);
+            Queries.updateLibrary(stmt,updateInfoBean.getEmail(),updateInfoBean.getCamp(), updateInfoBean.getNewValue());
         } catch (ErrorConnectionDbException | SQLException e) {
             e.printStackTrace();
         }

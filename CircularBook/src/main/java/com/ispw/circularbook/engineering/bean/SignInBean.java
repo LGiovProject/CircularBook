@@ -21,22 +21,22 @@ public class SignInBean {
     private String nomeLib;
     private int nTel;
 
-    public SignInBean(String email, String password, String repassword, String nomeLib, String via, City citta, int nTel) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
-        this.setEmail(email);
-        this.setPassword(password,repassword);
-        this.setCitta(citta);
+    public SignInBean(String email, String password, String nomeLib, String via, City citta, int nTel) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
+        this.email=email;
+        this.password=password;
+        this.citta=citta;
         this.via = via;
         this.nomeLib = nomeLib;
         this.nTel=nTel;
     }
 
-    public SignInBean(String email,String username,String password,String repassword, String nome, String cognome, City citta) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
-        this.setEmail(email);
+    public SignInBean(String email,String username,String password, String nome, String cognome, City citta) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
+        this.email=email;
         this.username=username;
-        this.setPassword(password,repassword);
+        this.password=password;
         this.nome = nome;
         this.cognome = cognome;
-        this.setCitta(citta);
+        this.citta=citta;
 
     }
 
@@ -47,9 +47,6 @@ public class SignInBean {
     }
 
     public void setEmail(String email) throws WrongEmailFormattException {
-        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
-        if(!Pattern.compile(checkMail).matcher(email).matches())
-            throw new WrongEmailFormattException(email);
         this.email = email;
     }
 
@@ -61,13 +58,7 @@ public class SignInBean {
         return password;
     }
 
-    public void setPassword(String password, String repassword) throws NoMatchPasswordException, PasswordCampRequiredException {
-
-        if(StringUtils.isEmptyOrWhitespaceOnly(password))
-            throw new PasswordCampRequiredException();
-
-        if(!password.equals(repassword))
-            throw new NoMatchPasswordException();
+    public void setPassword(String password){
         this.password = password;
     }
 
@@ -96,14 +87,8 @@ public class SignInBean {
         return this.citta;
     }
 
-    public void setCitta(City city) throws CityCampRequiredException {
-
-        if(city==City.Any)
-                throw new CityCampRequiredException();
+    public void setCitta(City city){
             this.citta=city;
-
-
-
     }
 
     public String getVia() {

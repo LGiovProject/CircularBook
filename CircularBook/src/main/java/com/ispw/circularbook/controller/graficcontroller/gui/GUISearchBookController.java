@@ -53,14 +53,14 @@ public class GUISearchBookController implements Observer {
     public void startToSearchBook() throws IOException {
 
         showResult.getChildren().clear();
-        List<BookBean> listBookBean;
+        List<BookModel> listBookModel;
         SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText());
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
-        listBookBean = searchBookController.searchBook(searchBookBean.getAuthor(),searchBookBean.getArgument(),searchBookBean.getTitle(),TakeBeanFromList.getEmailFromCurrentSession());
-        if (!listBookBean.isEmpty()) {
-                Session.getCurrentSession().getUser().setBookLastSearch(listBookBean);
-                setShowResult(listBookBean);
+        listBookModel = searchBookController.searchBook(searchBookBean.getAuthor(),searchBookBean.getArgument(),searchBookBean.getTitle(),TakeBeanFromList.getEmailFromCurrentSession());
+        if (!listBookModel.isEmpty()) {
+                Session.getCurrentSession().getUser().setBookLastSearch(listBookModel);
+                this.setShowResult(listBookModel);
             } else {
                 Text text = new Text("Nessun elemento trovato con i valori che hai inserito");
                 showResult.getChildren().add(text);
@@ -80,7 +80,7 @@ public class GUISearchBookController implements Observer {
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookSearchedController guiElementBookSearchedController = fxmlLoader.getController();
-            guiElementBookSearchedController.setBookElement(bookModel,element);
+            //guiElementBookSearchedController.setBookElement(bookModel,element);
             guiElementBookSearchedController.setBookElementSubject(bookElementSubject);
             showResult.getChildren().add(element);
 

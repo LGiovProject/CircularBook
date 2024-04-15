@@ -2,11 +2,13 @@ package com.ispw.circularbook.controller.appcontroller;
 
 import com.ispw.circularbook.engineering.bean.BookBean;
 
+import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.dao.SearchBookDAO;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.model.BookModel;
+import com.ispw.circularbook.model.InfoBookModel;
 import com.ispw.circularbook.model.LibraryModel;
 import com.ispw.circularbook.model.UserModel;
 
@@ -15,17 +17,17 @@ import java.util.List;
 
 public class SearchBookController {
 
-    public List<BookBean> searchBook(String author, String argument, String title,String email)
+    public List<BookModel> searchBook(String author, String argument, String title,String email)
     {
         List<BookBean> listBookBean;
         List<BookModel> listBookModel= new ArrayList<>();
         listBookBean=SearchBookDAO.searchBook(author,argument,title,email);
         for(BookBean bookBean: listBookBean)
         {
-            BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getnPagine(),bookBean.getCommento());
+            BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());
             listBookModel.add(bookModel);
         }
-        return listBookBean;
+        return listBookModel;
     }
 
     public List<BookModel> searchMyBook(String email) throws NoBookLendedException {
@@ -35,7 +37,7 @@ public class SearchBookController {
             listBookBean = SearchBookDAO.searchMyBook(email);
 
             for (BookBean bookBean : listBookBean) {
-                BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(),  bookBean.getnPagine(), bookBean.getCommento());
+                BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(),  bookBean.getNPagine(), bookBean.getCommento());
                 listBookModel.add(bookModel);
             }
             return listBookModel;
@@ -52,27 +54,29 @@ public class SearchBookController {
         for(BookBean bookBean: listBookBean)
         {
 
-            BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getnPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing(),bookBean.getEmailTaker());
+            BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing(),bookBean.getEmailTaker());
             listBookModel.add(bookModel);
         }
         return listBookModel;
     }
 
-    public UserBean searchBookInfoUser(UserBean userBean)
+    public InfoBookModel searchBookInfoUser(String email)
     {
 
-        UserModel userModel = new UserModel();
-        userModel.setBookInfo(SearchBookDAO.searchBookUserInfo(userBean.getEmail()));
-        userBean.setBookInfo(userModel.getBookInfo());
-        return userBean;
+
+        InfoBookBean infoBookBean= SearchBookDAO.searchBookUserInfo(email);
+        InfoBookModel infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook(),infoBookBean.getGiftedBook(),infoBookBean.getLendedBookTaked(),infoBookBean.getGiftedBooktaked());
+
+        return infoBookModel;
 
     }
-    public LibraryBean searchBookInfoLibrary(LibraryBean libraryBean)
+    public InfoBookModel searchBookInfoLibrary(String email)
     {
-        LibraryModel libraryModel = new LibraryModel();
-        libraryModel.setBookInfo(SearchBookDAO.searchBookLibraryInfo(libraryBean.getEmail()));
-        libraryBean.setBookInfo(libraryModel.getBookInfo());
-        return libraryBean;
+        InfoBookBean infoBookBean=SearchBookDAO.searchBookLibraryInfo(email);
+        InfoBookModel infoBookModel;
+        infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook());
+
+        return infoBookModel;
     }
 
 

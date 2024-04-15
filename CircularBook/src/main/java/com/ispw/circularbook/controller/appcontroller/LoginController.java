@@ -55,17 +55,17 @@ public class LoginController {
 
         List<BookModel> listBookModel = new ArrayList<>();
         UserBean userBean = UserDAO.searchUserByEmail(loginBean.getEmail());
-        UserModel userModel = new UserModel();
+        UserModel userModel = new UserModel(userBean.getEmail(),userBean.getUsername(),userBean.getName(), userBean.getCognome(), userBean.getCity());
 
 
         try {
            List<BookBean> bookBeanList=(SearchBookDAO.searchLendedBook(userBean.getEmail()));
-            if(bookBeanList!=null)
+            if(!bookBeanList.isEmpty())
             {
 
                 for (BookBean bookBean : bookBeanList) {
 
-                    BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getnPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing(), bookBean.getEmailGiver());
+                    BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing(), bookBean.getEmailGiver());
                     listBookModel.add(bookModel);
                 }
             }
@@ -74,7 +74,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        userModel.setBookTaked(listBookModel);
+        userModel.setListBookTaked(listBookModel);
         Session.setSessionInstance(userModel);
     }
 

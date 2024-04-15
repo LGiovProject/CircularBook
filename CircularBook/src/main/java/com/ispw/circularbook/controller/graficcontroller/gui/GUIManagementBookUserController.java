@@ -52,7 +52,7 @@ public class GUIManagementBookUserController {
 
     public void searchBookILendBack() throws IOException {
         List<BookModel> listBookModel;
-        listBookModel = Session.getCurrentSession().getUser().getBookTaked();
+        listBookModel = Session.getCurrentSession().getUser().getListBookTaked();
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();

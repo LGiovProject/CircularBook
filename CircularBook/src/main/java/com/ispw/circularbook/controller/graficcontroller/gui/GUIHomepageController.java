@@ -76,7 +76,7 @@ public class GUIHomepageController {
         setSideButton(screenA);
         setSideWindow(screenB);
 
-        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getBookTaked();
+        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getListBookTaked();
         setBellNotify(listBookModel);
     }
     //carica l'homepage per le library
@@ -157,8 +157,9 @@ public class GUIHomepageController {
 
                 if (bookModel.getDaysRemaing() > 7) {
                     notify = true;
-                    NotifyBean notifyBean = new NotifyBean(bookBean, getMessage(bookBean));
-                    this.notifyBeanList.add(notifyBean);
+                    // Change to notifybean in NotifyModel!
+                    //NotifyBean notifyBean = new NotifyBean(bookBean, getMessage(bookBean));
+                    //this.notifyBeanList.add(notifyBean);
                     Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/bellNotify.png")).openStream());
                     bellNotify.setImage(image);
                     bellNotify.setOpacity(1);

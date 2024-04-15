@@ -23,7 +23,7 @@ public class BookDAO {
         try {
             stmt = ConnectionDB.getConnection();
             System.out.println(bookBean.getTitolo()+" BookDAO");
-            Queries.insertBook(stmt, bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomentoString(), bookBean.getnPagine(), bookBean.getCommento());
+            Queries.insertBook(stmt, bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomentoString(), bookBean.getNPagineI(), bookBean.getCommento());
 
         } catch (SQLException e) {
 
@@ -56,7 +56,7 @@ public class BookDAO {
         try
         {
             stmt=ConnectionDB.getConnection();
-            Queries.updateBook(stmt,bookBean.getId(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomentoString(), bookBean.getnPagine(), bookBean.getCommento());
+            Queries.updateBook(stmt,bookBean.getId(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomentoString(), bookBean.getNPagineI(), bookBean.getCommento());
 
         }catch (SQLException e) {
             e.printStackTrace();

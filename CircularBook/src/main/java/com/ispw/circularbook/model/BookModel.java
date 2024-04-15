@@ -39,6 +39,21 @@ public class BookModel {
         this.daysRemaing = daysRemaing;
     }
 
+    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish, long daysRemaing ,String emailGiver) {
+        this.id = id;
+        this.email = email;
+        this.typeOfDisponibility = typeOfDisponibility;
+        this.titolo = titolo;
+        this.autore = autore;
+        this.argomento = argomento;
+        this.setNpagine(nPagine);
+        this.commento = commento;
+        this.date_start = date_start;
+        this.date_finish = date_finish;
+        this.emailGiver = emailGiver;
+        this.daysRemaing = daysRemaing;
+    }
+
     public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento) {
         this.id = id;
         this.email = email;
@@ -47,6 +62,17 @@ public class BookModel {
         this.autore = autore;
         this.argomento = argomento;
         this.nPagine = nPagine;
+        this.commento = commento;
+    }
+
+    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento) {
+        this.id = id;
+        this.email = email;
+        this.typeOfDisponibility = typeOfDisponibility;
+        this.titolo = titolo;
+        this.autore = autore;
+        this.argomento = argomento;
+        this.setNpagine(nPagine);
         this.commento = commento;
     }
 
@@ -69,6 +95,17 @@ public class BookModel {
     public int getTypeOfDisponibility() { return typeOfDisponibility; }
 
     public void setTypeOfDisponibility(int typeOfDisponibility) { this.typeOfDisponibility = typeOfDisponibility; }
+
+    public String getTypeOfDisponibilityString () {
+
+        return switch (this.typeOfDisponibility) {
+            case 1 -> "E' messo in prestito";
+            case 2 -> "E' messo in regalo";
+            case 3 -> "E' stato prestato";
+            case 4 -> "E' stato regalato";
+            default -> "Errore con questo libro";
+        };
+    }
 
     public String getTitolo() {
         return titolo;
@@ -108,7 +145,17 @@ public class BookModel {
         return nPagine;
     }
 
-    public void setnPagine(int nPagine) {
+    public String getNpagineString()
+    {
+        return (String.valueOf(this.nPagine));
+    }
+
+    public void setNpagine(String nPagine)
+    {
+       this.nPagine= Integer.getInteger(nPagine);
+    }
+
+    public void setNPagine(int nPagine) {
         this.nPagine = nPagine;
     }
 

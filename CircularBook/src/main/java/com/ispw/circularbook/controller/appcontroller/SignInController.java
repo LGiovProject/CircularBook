@@ -10,10 +10,10 @@ public class SignInController {
 
     public void signInU(SignInBean signInBean)
     {
-        SignInDAO.signInU(signInBean.getEmail(),signInBean.getUsername(),signInBean.getPassword(), signInBean.getNome(), signInBean.getCognome(), signInBean.getCittaString());
+        SignInDAO.signInU(signInBean);
     }
     public void signInL(SignInBean signInBean) throws IOException {
-        SignInDAO.signInL(signInBean.getEmail(),signInBean.getPassword(),signInBean.getNomeLib(),signInBean.getCittaString(),signInBean.getVia(),signInBean.getnTel());
+        SignInDAO.signInL(signInBean);
     }
 
     public void CheckMail(String email) throws EmailUsedException {

@@ -9,6 +9,7 @@ import com.ispw.circularbook.engineering.exception.CityCampRequiredException;
 import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
 import com.ispw.circularbook.engineering.exception.PasswordCampRequiredException;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
+import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +24,7 @@ import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class GUISignInLibraryController {
 
@@ -69,7 +71,11 @@ public class GUISignInLibraryController {
     public void signIn() throws IOException {
 
         try {
-            SignInBean signInBean = new SignInBean(this.emailTField.getText(), this.passwordTField.getText(), this.repasswordTField.getText(), this.nomeLTField.getText(), this.ViaTField.getText(),this.choiceBoxCity.getSelectionModel().getSelectedItem(), Integer.parseInt(this.nTelTField.getText()));
+            checkEmail(emailTField.getText());
+            checkPassword(this.passwordTField.getText(),this.repasswordTField.getText());
+            checkCity(this.choiceBoxCity.getSelectionModel().getSelectedItem());
+
+            SignInBean signInBean = new SignInBean(this.emailTField.getText(), this.passwordTField.getText(), this.nomeLTField.getText(), this.ViaTField.getText(),this.choiceBoxCity.getSelectionModel().getSelectedItem(), Integer.parseInt(this.nTelTField.getText()));
             SignInController signInController = new SignInController();
             signInController.signInL(signInBean);
 
@@ -150,5 +156,25 @@ public class GUISignInLibraryController {
 
     public void setPreviousScene(Scene previousScene){
         this.previousScene = previousScene;
+    }
+
+    private void checkEmail(String email) throws WrongEmailFormattException {
+        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        if(!Pattern.compile(checkMail).matcher(email).matches())
+            throw new WrongEmailFormattException(email);
+    }
+
+    private void checkPassword(String password,String repassword) throws PasswordCampRequiredException, NoMatchPasswordException {
+        if(StringUtils.isEmptyOrWhitespaceOnly(password))
+            throw new PasswordCampRequiredException();
+
+        if(!password.equals(repassword))
+            throw new NoMatchPasswordException();
+
+    }
+
+    private void checkCity(City city) throws CityCampRequiredException {
+        if(city==City.Any)
+            throw new CityCampRequiredException();
     }
 }

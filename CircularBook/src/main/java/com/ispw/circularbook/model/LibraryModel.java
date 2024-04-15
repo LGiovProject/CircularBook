@@ -17,7 +17,7 @@ public class LibraryModel {
     private List<BookModel> bookOwnList;
 
 
-    private int[] bookInfo; //position: 0 , #of book registered; 1 , #of book lended;2
+    private InfoBookModel infoBookModel;
 
 
 
@@ -91,12 +91,12 @@ public class LibraryModel {
         this.via = via;
     }
 
-    public int[] getBookInfo() {
-        return bookInfo;
+    public InfoBookModel getBookInfo() {
+        return infoBookModel;
     }
 
-    public void setBookInfo(int[] bookInfo) {
-        this.bookInfo = bookInfo;
+    public void setBookInfo(InfoBookModel infoBookModel) {
+        this.infoBookModel = infoBookModel;
     }
 
     public int getTelNumber() {

@@ -14,7 +14,7 @@ public class BookBean {
     private String titolo;
     private String autore;
     private Arguments argomento;
-    private int nPagine;
+    private String nPagine;
     private String commento;
 
     private String emailGiver;
@@ -46,11 +46,11 @@ public class BookBean {
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        setnPagine(nPagine);
+        this.nPagine=nPagine;
         this.commento = commento;
     }
 
-    public BookBean(int id, String email, int typeOfDisponibility,String titolo, String autore, Arguments argomento,  int nPagine, String commento) {
+    public BookBean(int id, String email, int typeOfDisponibility,String titolo, String autore, Arguments argomento,  String nPagine, String commento) {
 
         this.id = id;
         this.email = email;
@@ -69,23 +69,11 @@ public class BookBean {
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        setnPagine(nPagine);
+        this.nPagine=nPagine;
         this.commento = commento;
     }
 
-    public BookBean(int id, String email, int typeOfDisponibility,String titolo, String autore, Arguments argomento, String nPagine, String commento) throws WrongNpageFormatException {
-
-        this.id = id;
-        this.email = email;
-        this.typeOfDisponibility = typeOfDisponibility;
-        this.titolo = titolo;
-        this.autore = autore;
-        setArgomento(argomento);
-        setnPagine(nPagine);
-        this.commento = commento;
-    }
-
-    public BookBean(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento, String date_start, String date_finish,long daysRemaing ,String emailInfo) {
+    public BookBean(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish,long daysRemaing ,String emailInfo) {
         this.id = id;
         this.email = email;
         this.typeOfDisponibility = typeOfDisponibility;
@@ -175,24 +163,20 @@ public class BookBean {
         }
     }
 
-    public int getnPagine() {
+    public String getNPagine() {
         return nPagine;
     }
 
-    public void setnPagine(String nPagine) throws WrongNpageFormatException {
-
-        if(StringUtils.isEmptyOrWhitespaceOnly(nPagine))
-            this.nPagine = 0;
-        else if (!nPagine.matches("\\d+"))
-            throw new WrongNpageFormatException();
-        else
-        this.nPagine = Integer.parseInt(nPagine);
-
-    }
+    public int getNPagineI(){return Integer.getInteger(nPagine);}
 
     public void setnPagine(int nPagine)
     {
-        this.nPagine=nPagine;
+        this.nPagine=String.valueOf(nPagine);
+    }
+
+    public void setNPagine(String nPagine)
+    {
+
     }
 
     public String getNpagineString()
@@ -239,6 +223,7 @@ public class BookBean {
 
         LocalDate nowDate = LocalDate.now();
         LocalDate finishDate = LocalDate.parse(date_finish);
+        //Sostituire ChronoUnit che non viene trovato.
         //this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
 
     }
