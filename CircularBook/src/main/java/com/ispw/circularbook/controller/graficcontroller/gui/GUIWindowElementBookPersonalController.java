@@ -7,6 +7,7 @@ import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.model.BookModel;
+import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -35,18 +36,19 @@ public class GUIWindowElementBookPersonalController implements Observer{
         setViewBook(listBookModel);
     }
 
-    public void viewSales(List<SalesBean> salesBeanList) throws IOException{
+    public void viewSales(List<SalesModel> salesModelList) throws IOException{
 
         viewMyBook.getChildren().clear();
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
         viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        for(SalesBean salesBean : salesBeanList){
+        for(SalesModel salesModel : salesModelList){
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementSalesPersonal.fxml"));
             Pane element = fxmlLoader.load();
             GUIElementSaelesController guiElementSaelesController = fxmlLoader.getController();
-            guiElementSaelesController.setSalesElementPersonal(salesBean);
+            //Da sistemare
+            // guiElementSaelesController.setSalesElementPersonal(sa);
             guiHomepageController= ControllerSession.getGuiHomepageController();
             guiElementSaelesController.setCurrentScene(guiHomepageController.getCurrentScene());
             viewMyBook.getChildren().add(element);

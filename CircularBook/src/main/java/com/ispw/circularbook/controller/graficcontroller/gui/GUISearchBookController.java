@@ -10,6 +10,7 @@ import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.model.BookModel;
+import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -54,10 +55,10 @@ public class GUISearchBookController implements Observer {
 
         showResult.getChildren().clear();
         List<BookModel> listBookModel;
-        SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText());
+        SearchBookBean searchBookBean = new SearchBookBean(checkAuthor(textFieldAuthor.getText()),checkArguments(argument.getSelectionModel().getSelectedItem()),checkTitle(textFieldTitle.getText()),Session.getCurrentSession().getUser().getEmail());
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchBook(searchBookBean.getAuthor(),searchBookBean.getArgument(),searchBookBean.getTitle(),TakeBeanFromList.getEmailFromCurrentSession());
+        listBookModel = searchBookController.searchBook(searchBookBean);
         if (!listBookModel.isEmpty()) {
                 Session.getCurrentSession().getUser().setBookLastSearch(listBookModel);
                 this.setShowResult(listBookModel);
@@ -101,6 +102,28 @@ public class GUISearchBookController implements Observer {
         showResult.getChildren().remove(index);
     }
 
+    private String checkAuthor(String author) {
+        if (StringUtils.isEmptyOrWhitespaceOnly(author))
+            return null;
+        else
+            return "'" + author + "'";
+    }
+
+    private Arguments checkArguments(Arguments arguments)
+    {
+        if(StringUtils.isEmptyOrWhitespaceOnly(arguments.getArgument()))
+            return null;
+        else
+            return arguments;
+    }
+
+    private String checkTitle(String title)
+    {
+        if(StringUtils.isEmptyOrWhitespaceOnly(title))
+            return null;
+        else
+            return "'"+title+"'";
+    }
 }
 
 

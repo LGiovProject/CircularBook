@@ -49,10 +49,10 @@ public class GUISearchSalesController {
     public void startSearchSales() throws Exception {
         showResult.getChildren().clear();
         List<SalesBean> salesBeanList;
-        SearchSalesBean searchSalesBean = new SearchSalesBean(nameLib.getText(),monthSales.getSelectionModel().getSelectedItem(),(TypeOfSales)typeSales.getSelectionModel().getSelectedItem());
+        SearchSalesBean searchSalesBean = new SearchSalesBean(nameLib.getText(),monthSales.getSelectionModel().getSelectedItem(),typeSales.getSelectionModel().getSelectedItem());
         //clearFieldText();
         SearchSalesController searchSalesController = new SearchSalesController();
-        salesBeanList = searchSalesController.searchSales(searchSalesBean.getNameLib(), searchSalesBean.getMonth(), searchSalesBean.getTypeOfSales());
+        salesBeanList = searchSalesController.searchSales(searchSalesBean);
         if (salesBeanList.size() != 0) {
 
             for (SalesBean salesBean1 : salesBeanList) {

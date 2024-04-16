@@ -10,6 +10,7 @@ import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
+import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
@@ -43,19 +44,26 @@ public class GUIManagementBookLibraryController {
     }
 
     public void searchMySales() throws Exception {
-        List<SalesBean> salesBeanList;
+        List<SalesModel> salesModelList;
         SearchSalesController searchSalesController = new SearchSalesController();
-        salesBeanList = searchSalesController.searchSales(Session.getCurrentSession().getLibrary().getEmail());
-        if(salesBeanList.size()!=0)
+        salesModelList = searchSalesController.searchSales(Session.getCurrentSession().getLibrary().getEmail());
+        if(salesModelList.size()!=0)
         {
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = ControllerSession.getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewSales(salesBeanList);
+            guiWindowElementBookPersonalController.viewSales(salesModelList);
         } else{
 
         }
     }
+
+//    private List<SalesBean> transferList(SalesModel salesModel)
+//    {
+//
+//    }
+
 }

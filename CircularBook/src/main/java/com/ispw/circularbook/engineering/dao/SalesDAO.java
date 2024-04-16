@@ -1,5 +1,7 @@
 package com.ispw.circularbook.engineering.dao;
 
+import com.ispw.circularbook.engineering.bean.SalesBean;
+import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -8,18 +10,19 @@ import com.ispw.circularbook.model.SalesModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SalesDAO {
-    public static List<SalesModel> searchSales(String nameLib,Integer month,Integer typeOfSales) {
+    public static List<SalesModel> searchSales(SearchSalesBean searchSalesBean) {
 
             Statement stmt;
             ResultSet resultSet;
             List<SalesModel> salesModelList= new ArrayList<>();
             try {
                 stmt = ConnectionDB.getConnection();
-                resultSet= Queries.searchSales(stmt,nameLib,month,typeOfSales);
+                resultSet= Queries.searchSales(stmt, searchSalesBean.getNameLib(),searchSalesBean.getMonth(),searchSalesBean.getTypeOfSales());
                 if(!resultSet.first())
                 {
                 }
@@ -48,11 +51,11 @@ public class SalesDAO {
             return salesModelList;
 
     }
-    public static List<SalesModel> searchSales(String email) {
+    public static List<SalesBean> searchSales(String email) {
 
         Statement stmt;
         ResultSet resultSet;
-        List<SalesModel> salesModelList= new ArrayList<>();
+        List<SalesBean> salesBeanList= new ArrayList<>();
         try {
             stmt = ConnectionDB.getConnection();
             resultSet= Queries.searchSales(stmt,email);
@@ -64,34 +67,32 @@ public class SalesDAO {
             // Riposiziono il cursore sul primo record del result set
             resultSet.first();
             do{
-                SalesModel salesModel = new SalesModel();
-                salesModel.setId(resultSet.getInt(1));
-                salesModel.setEmail(resultSet.getString(2));
-                salesModel.setNameLib(resultSet.getString(3));
-                salesModel.setTypeOfSales(resultSet.getInt(4));
-                salesModel.setTitle(resultSet.getString(5));
-                salesModel.setDescription(resultSet.getString(6));
-                salesModel.setDate_start(resultSet.getString(7));
-                salesModel.setDate_finish(resultSet.getString(8));
-                salesModelList.add(salesModel);
+                SalesBean salesBean = new SalesBean();
+                salesBean.setId(resultSet.getInt(1));
+                salesBean.setEmail(resultSet.getString(2));
+                salesBean.setNameLib(resultSet.getString(3));
+                salesBean.setTypeOfSales(resultSet.getInt(4));
+                salesBean.setTitle(resultSet.getString(5));
+                salesBean.setDescription(resultSet.getString(6));
+                salesBean.setDateStart(resultSet.getString(7));
+                salesBean.setDateFinish(resultSet.getString(8));
+                salesBeanList.add(salesBean);
             }while (resultSet.next());
 
             resultSet.close();
-        } catch (SQLException|ErrorConnectionDbException e) {
-            e.printStackTrace();
+        } catch (SQLException | ErrorConnectionDbException | ParseException e) {
+            throw new RuntimeException(e);
         }
 
-        return salesModelList;
+        return salesBeanList;
 
     }
-    public static void insertSales(String email,String nameLib,String title,int typeOfSales,String description,String dateStart,String dateFinish)
+    public static void insertSales(SalesBean salesBean)
     {
         Statement stmt;
-        System.out.println(dateStart);
-        System.out.println(dateFinish);
         try {
             stmt=ConnectionDB.getConnection();
-            Queries.insertSales(stmt,email,nameLib,title,typeOfSales,description,dateStart,dateFinish);
+            Queries.insertSales(stmt,salesBean.getEmail(), salesBean.getNameLib(), salesBean.getTitlePromotion(), salesBean.getTypeOfSalesInt(), salesBean.getDescription(), salesBean.getDateStart(), salesBean.getDateFinish());
         } catch (ErrorConnectionDbException | SQLException e) {
             e.printStackTrace();
         }
