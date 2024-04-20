@@ -92,7 +92,7 @@ public class GUISignInUserController {
 
             BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
 
-        }catch (EmailUsedException | NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
+        }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
         {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
 
