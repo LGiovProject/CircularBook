@@ -55,7 +55,7 @@ public class GUISearchBookController implements Observer {
 
         showResult.getChildren().clear();
         List<BookModel> listBookModel;
-        SearchBookBean searchBookBean = new SearchBookBean(checkAuthor(textFieldAuthor.getText()),checkArguments(argument.getSelectionModel().getSelectedItem()),checkTitle(textFieldTitle.getText()),Session.getCurrentSession().getUser().getEmail());
+        SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText(),Session.getCurrentSession().getUser().getEmail());
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
         listBookModel = searchBookController.searchBook(searchBookBean);
@@ -84,7 +84,6 @@ public class GUISearchBookController implements Observer {
             //guiElementBookSearchedController.setBookElement(bookModel,element);
             guiElementBookSearchedController.setBookElementSubject(bookElementSubject);
             showResult.getChildren().add(element);
-
         }
     }
 
@@ -100,29 +99,6 @@ public class GUISearchBookController implements Observer {
         int index;
         index=showResult.getChildren().indexOf(object1);
         showResult.getChildren().remove(index);
-    }
-
-    private String checkAuthor(String author) {
-        if (StringUtils.isEmptyOrWhitespaceOnly(author))
-            return null;
-        else
-            return "'" + author + "'";
-    }
-
-    private Arguments checkArguments(Arguments arguments)
-    {
-        if(StringUtils.isEmptyOrWhitespaceOnly(arguments.getArgument()))
-            return null;
-        else
-            return arguments;
-    }
-
-    private String checkTitle(String title)
-    {
-        if(StringUtils.isEmptyOrWhitespaceOnly(title))
-            return null;
-        else
-            return "'"+title+"'";
     }
 }
 

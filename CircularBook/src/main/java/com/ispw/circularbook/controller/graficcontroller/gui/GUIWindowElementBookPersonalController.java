@@ -2,10 +2,10 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.SalesBean;
-import com.ispw.circularbook.engineering.session.ControllerSession;
+import com.ispw.circularbook.engineering.factory.concrete.ElementBookPersonalViewFactory;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
+import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXML;
@@ -28,20 +28,14 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
 
     public void viewBook( List<BookModel> listBookModel) throws IOException {
-        viewMyBook.getChildren().clear();
-        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        scrollPane.setHvalue(scrollPane.getHmax());
-        viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        this.viewInitialization();
 
         setViewBook(listBookModel);
     }
 
     public void viewSales(List<SalesModel> salesModelList) throws IOException{
 
-        viewMyBook.getChildren().clear();
-        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        scrollPane.setHvalue(scrollPane.getHmax());
-        viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        this.viewInitialization();
         for(SalesModel salesModel : salesModelList){
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementSalesPersonal.fxml"));
@@ -49,7 +43,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             GUIElementSaelesController guiElementSaelesController = fxmlLoader.getController();
             //Da sistemare
             // guiElementSaelesController.setSalesElementPersonal(sa);
-            guiHomepageController= ControllerSession.getGuiHomepageController();
+            guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
             guiElementSaelesController.setCurrentScene(guiHomepageController.getCurrentScene());
             viewMyBook.getChildren().add(element);
 
@@ -59,10 +53,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
     }
 
     public void viewMyLendedBook(List<BookModel> listBookModel) throws IOException {
-        viewMyBook.getChildren().clear();
-        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        scrollPane.setHvalue(scrollPane.getHmax());
-        viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        this.viewInitialization();
         for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalTaked.fxml"));
             Pane element = fxmlLoader.load();
@@ -75,10 +66,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
     }
 
     public void viewMyGivenBook(List<BookModel> listBookModel) throws IOException {
-        viewMyBook.getChildren().clear();
-        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-        scrollPane.setHvalue(scrollPane.getHmax());
-        viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        this.viewInitialization();
         for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalGiven.fxml"));
             Pane element = fxmlLoader.load();
@@ -93,20 +81,21 @@ public class GUIWindowElementBookPersonalController implements Observer{
     public void backButton() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("ManagementBookUser.fxml"));
         Pane pane= fxmlLoader.load();
-        guiHomepageController= ControllerSession.getGuiHomepageController();
+        guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
         guiHomepageController.setSideWindow(pane);
     }
 
     public void setViewBook(List<BookModel> bookBeansList) throws IOException {
+        ElementBookPersonalViewFactory elementBookPersonalViewFactory= new ElementBookPersonalViewFactory();
         for (BookModel bookModel : bookBeansList) {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonal.fxml"));
+            FXMLLoader fxmlLoader = elementBookPersonalViewFactory.createFxmlLoader();
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
-            GUIElementBookPersonalController guiElementBookPersonalController = fxmlLoader.getController();
-            //guiElementBookPersonalController.setBookElement(bookModel,element);
+            fxmlLoader.setController(elementBookPersonalViewFactory.createController());
+            guiElementBookPersonalController.setBookElement(bookModel,element);
             guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
-            guiHomepageController= ControllerSession.getGuiHomepageController();
+            guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
             guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());
             viewMyBook.getChildren().add(element);
         }
@@ -122,7 +111,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
         }
         GUIElementBookPersonalController guiElementBookPersonalController = fxmlLoader.getController();
         guiElementBookPersonalController.setBookElement((BookBean) object1,element);
-        guiHomepageController= ControllerSession.getGuiHomepageController();
+        guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
         guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());
         int index;
         index=viewMyBook.getChildren().indexOf((Pane)object2);
@@ -137,6 +126,13 @@ public class GUIWindowElementBookPersonalController implements Observer{
         index=viewMyBook.getChildren().indexOf((Pane)object1);
         viewMyBook.getChildren().remove(index);
 
+    }
+
+    private void viewInitialization(){
+        viewMyBook.getChildren().clear();
+        scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        scrollPane.setHvalue(scrollPane.getHmax());
+        viewMyBook.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
     }
 
     // public void viewSales()

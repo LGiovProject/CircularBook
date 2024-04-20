@@ -13,7 +13,7 @@ public class LoginBean {
     //utilizzando i suoi metodi set
     public LoginBean(String password, String email) throws WrongEmailFormattException {
         this.password=password;
-        this.email=email;
+        this.email=this.checkEmail(email);
     }
 
     //Metodo get che ritorna il valore della variabile privata email
@@ -36,4 +36,11 @@ public class LoginBean {
     public  void setType(int typeAccount){type=typeAccount;}
     //Metodo get Autorizazzione per la sessione,
     public int getType(){return type;}
+
+    private String checkEmail(String email) throws WrongEmailFormattException {
+        String checkMail = "[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        if (!Pattern.compile(checkMail).matcher(email).matches())
+            throw new WrongEmailFormattException(email);
+        return email;
+    }
 }
