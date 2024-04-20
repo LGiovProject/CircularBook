@@ -1,7 +1,6 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
-import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.session.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,7 @@ public class GUIMoreInfoBookController {
           GUIWindowElementBookPersonalController guiWindowElementBookPersonalController;
           FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
           Pane pane = fxmlLoader.load();
-          guiHomepageController = ControllerSession.getGuiHomepageController();
+          guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
           guiHomepageController.setSideWindow(pane);
           guiWindowElementBookPersonalController = fxmlLoader.getController();
           if(Session.getCurrentSession().getUser()!=null) {
@@ -63,7 +62,7 @@ public class GUIMoreInfoBookController {
           Pane pane= fxmlLoader.load();
           GUISearchBookController guiSearchBookController= fxmlLoader.getController();
           guiSearchBookController.startSetSearch();
-          guiHomepageController = ControllerSession.getGuiHomepageController();
+          guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
           guiHomepageController.setSideWindow(pane);
           guiSearchBookController.setShowResult(Session.getCurrentSession().getUser().getBookLastSearch());
       }

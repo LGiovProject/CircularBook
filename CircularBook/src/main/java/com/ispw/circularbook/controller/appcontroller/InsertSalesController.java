@@ -6,6 +6,6 @@ import com.ispw.circularbook.engineering.dao.SalesDAO;
 public class InsertSalesController {
     public void insertSales(SalesBean salesBean)
     {
-        SalesDAO.insertSales(salesBean.getEmail(), salesBean.getNameLib(), salesBean.getTitlePromotion(),salesBean.getTypeOfSalesInt(),salesBean.getDescription(),salesBean.getDateStart(),salesBean.getDateFinish());
+        SalesDAO.insertSales(salesBean);
     }
 }

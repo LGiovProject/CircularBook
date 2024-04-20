@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class SalesBean {
     private int id;
+    private String title;
     private String email;
     private String nameLib;
     private TypeOfSales typeOfSales;
@@ -21,6 +22,9 @@ public class SalesBean {
     private Month month;
     private final SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
 
+
+
+    public SalesBean(){}
 
 
     public SalesBean(String email,String nameLib, String titlePromotion, TypeOfSales typeOfSales,String description  ,String dateStart, String dateFinish) throws Exception {
@@ -56,6 +60,10 @@ public class SalesBean {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getTitle(){return this.title;}
+
+    public void setTitle(String title){this.title=title;}
 
     public String getEmail() {
         return email;
@@ -145,6 +153,11 @@ public class SalesBean {
 
     }
 
+    public void setDateFinish(String dateFinish)
+    {
+        this.dateFinish=LocalDate.parse(dateFinish);
+    }
+
     public String getNameLib() {
         return nameLib;
     }
@@ -173,4 +186,6 @@ public class SalesBean {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

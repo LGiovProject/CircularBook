@@ -1,7 +1,7 @@
 package com.ispw.circularbook.engineering.session;
 
-import com.ispw.circularbook.engineering.bean.LibraryBean;
-import com.ispw.circularbook.engineering.bean.UserBean;
+
+import com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageController;
 import com.ispw.circularbook.model.LibraryModel;
 import com.ispw.circularbook.model.UserModel;
 
@@ -11,6 +11,7 @@ public class Session {
 
     private UserModel userModel = null;
     private LibraryModel libraryModel= null;
+    private GUIHomepageController guiHomepageController;
 
     private Session(Object ob) {
         if(ob instanceof UserModel) {
@@ -25,6 +26,7 @@ public class Session {
     public static synchronized void setSessionInstance(Object ob) {
         if(session == null)
             session = new Session(ob);
+
 
 
     }
@@ -46,4 +48,8 @@ public class Session {
     public LibraryModel getLibrary() {
         return libraryModel;
     }
+
+    public GUIHomepageController getGuiHomepageController(){ return guiHomepageController;}
+
+    public void setGuiHomepageController(GUIHomepageController guiHomepageController){ this.guiHomepageController = guiHomepageController;}
 }

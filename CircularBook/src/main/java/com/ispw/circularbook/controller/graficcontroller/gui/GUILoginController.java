@@ -2,10 +2,10 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.engineering.bean.LoginBean;
+import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
 import com.ispw.circularbook.controller.appcontroller.LoginController;
-import com.ispw.circularbook.engineering.session.ControllerSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,7 +36,6 @@ public class GUILoginController {
 
     public void Login() throws IOException {
         try {
-            this.checkFormatMail(this.textFieldEmail.getText());
             LoginBean loginBean = new LoginBean(this.textFieldPassword.getText(), this.textFieldEmail.getText());
             LoginController loginController = new LoginController();
             loginController.checkLogin(loginBean);
@@ -86,7 +85,7 @@ public class GUILoginController {
 
         GUIHomepageController guiHomepageController = fxmlLoader.getController();
 
-        ControllerSession.setGuiHomepageController(guiHomepageController);
+        Session.getCurrentSession().setGuiHomepageController(guiHomepageController);
         guiHomepageController.homePageStart(loginBean);
         guiHomepageController.setCurrentScene(scene);
 
@@ -109,12 +108,6 @@ public class GUILoginController {
 
     public void setCurrentScene(Scene currentScene) {
         this.currentScene = currentScene;
-    }
-
-    private void checkFormatMail(String email) throws WrongEmailFormattException {
-        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
-        if(!Pattern.compile(checkMail).matcher(email).matches())
-            throw new WrongEmailFormattException(email);
     }
 
 }

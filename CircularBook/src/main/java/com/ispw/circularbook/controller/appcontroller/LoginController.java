@@ -32,26 +32,7 @@ public class LoginController {
     //Facciamo anche una ricerca su quali libri si hanno in prestito,così da avere la notifica se manca poco alla scadenza della riconsegna.
     public void userSession(LoginBean loginBean){
 
-//        List<BookBean> listBookBean = new ArrayList<>();
-//        UserModel userModel = UserDAO.searchUserByEmail(loginBean.getEmail());
-//        UserBean userBean = new UserBean(userModel.getEmail(),userModel.getUsername(),userModel.getName(), userModel.getCognome(), userModel.getCitta());
-//        Session.setSessionInstance(userBean);
-//        try {
-//            userModel.setBookBeanTaked(SearchBookDAO.searchLendedBook(userModel.getEmail()));
-//        }catch (NoBookLendedException e) {
-//            e.printStackTrace();
-//        }
-//        if(userModel.getBookBeanTaked()!=null) {
-//            for (BookModel bookModel : userModel.getBookBeanTaked()) {
-//                BookBean bookBean = new BookBean(bookModel.getId(), bookModel.getEmail(), bookModel.getTypeOfDisponibility(), bookModel.getTitolo(), bookModel.getAutore(), bookModel.getArgomento(), bookModel.getnPagine(), bookModel.getCommento(), bookModel.getDate_start(), bookModel.getDate_finish(), bookModel.getDaysRemaing(), bookModel.getEmailGiver());
-//                listBookBean.add(bookBean);
-//            }
-//        }
-//        else
-//        {
-//            listBookBean= new ArrayList<>();
-//        }
-//        userBean.setBookBeanTaked(listBookBean);
+//
 
         List<BookModel> listBookModel = new ArrayList<>();
         UserBean userBean = UserDAO.searchUserByEmail(loginBean.getEmail());
@@ -59,7 +40,7 @@ public class LoginController {
 
 
         try {
-           List<BookBean> bookBeanList=(SearchBookDAO.searchLendedBook(userBean.getEmail()));
+           List<BookBean> bookBeanList=(SearchBookDAO.searchLendedBook(userBean));
             if(!bookBeanList.isEmpty())
             {
 

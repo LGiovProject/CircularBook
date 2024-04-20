@@ -1,10 +1,7 @@
 package com.ispw.circularbook.controller.appcontroller;
 
-import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.*;
 
-import com.ispw.circularbook.engineering.bean.InfoBookBean;
-import com.ispw.circularbook.engineering.bean.LibraryBean;
-import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.dao.SearchBookDAO;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.model.BookModel;
@@ -17,11 +14,11 @@ import java.util.List;
 
 public class SearchBookController {
 
-    public List<BookModel> searchBook(String author, String argument, String title,String email)
+    public List<BookModel> searchBook(SearchBookBean searchBookBean)
     {
         List<BookBean> listBookBean;
         List<BookModel> listBookModel= new ArrayList<>();
-        listBookBean=SearchBookDAO.searchBook(author,argument,title,email);
+        listBookBean=SearchBookDAO.searchBook(searchBookBean);
         for(BookBean bookBean: listBookBean)
         {
             BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());

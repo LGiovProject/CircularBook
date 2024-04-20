@@ -3,13 +3,26 @@ package com.ispw.circularbook.model;
 public class SalesModel {
 
     private int id;
-    private int typeOfSales;
     private String email;
     private String nameLib;
+    private int typeOfSales;
     private String date_start;
     private String date_finish;
     private String description;
     private String title;
+
+    public SalesModel(){}
+
+    public SalesModel(int id, String email, String nameLib,int typeOfSales, String date_start, String date_finish, String description, String title) {
+        this.id = id;
+        this.typeOfSales = typeOfSales;
+        this.email = email;
+        this.nameLib = nameLib;
+        this.date_start = date_start;
+        this.date_finish = date_finish;
+        this.description = description;
+        this.title = title;
+    }
 
     public int getId() {
         return id;

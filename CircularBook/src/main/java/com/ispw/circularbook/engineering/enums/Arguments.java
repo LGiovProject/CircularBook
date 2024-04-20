@@ -8,6 +8,7 @@ public enum Arguments {
     {
         this.argument=argument;
     }
+
     public String getArgument()
     {
         return argument;

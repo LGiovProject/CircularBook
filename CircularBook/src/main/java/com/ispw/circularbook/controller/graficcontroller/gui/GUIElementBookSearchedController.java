@@ -4,11 +4,10 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.controller.appcontroller.NotifyController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
-import com.ispw.circularbook.engineering.session.ControllerSession;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
@@ -69,7 +68,7 @@ public class GUIElementBookSearchedController {
             GUIMoreInfoBookController guiMoreInfoBookController;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
-            guiHomepageController = ControllerSession.getGuiHomepageController();
+            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 
             guiMoreInfoBookController = fxmlLoader.getController();
             guiMoreInfoBookController.setInfoBook(this.bookModel.getAutore(),this.bookModel.getTitolo(),this.bookModel.getArgomentoString(),this.bookModel.getNpagineString(),this.bookModel.getCommento(),this);

@@ -21,6 +21,8 @@
 
 package com.ispw.circularbook.engineering.dao.Queries;
 
+import com.ispw.circularbook.engineering.bean.SearchBookBean;
+import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
 import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;
 import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
@@ -104,8 +106,8 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchBook(Statement stmt, String author, String argument, String title,String email) throws SQLException {
-            String sql="SELECT * FROM book WHERE (author = COALESCE("+author+", author) AND argument = COALESCE("+argument+", argument) AND title= COALESCE("+title+",title)) and (type_of_disponibility<3) and (email!='"+email+"')";
+        public static ResultSet searchBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
+            String sql="SELECT * FROM book WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (type_of_disponibility<3) and (email!='"+searchBookBean.getEmail()+"')";
 
             return stmt.executeQuery(sql);
         }
@@ -119,9 +121,9 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchLendedBook(Statement stmt,String email) throws SQLException {
+        public static ResultSet searchLendedBook(Statement stmt,UserBean userBean) throws SQLException {
 
-            String sql="SELECT book.id,email,type_of_disponibility,author,argument,title,npag , comment, date_start, date_finish,email_lend  FROM book INNER JOIN lended_book ON book.id= lended_book.id  WHERE book.id IN (SELECT id FROM lended_book WHERE email_take='"+email+"'); ";
+            String sql="SELECT book.id,email,type_of_disponibility,author,argument,title,npag , comment, date_start, date_finish,email_lend  FROM book INNER JOIN lended_book ON book.id= lended_book.id  WHERE book.id IN (SELECT id FROM lended_book WHERE username_take='"+userBean.getUsername()+"'); ";
             return stmt.executeQuery(sql);
         }
 

@@ -2,6 +2,8 @@ package com.ispw.circularbook.engineering.dao;
 
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
+import com.ispw.circularbook.engineering.bean.SearchBookBean;
+import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
@@ -16,14 +18,14 @@ import java.util.List;
 
 public class SearchBookDAO {
 
-    public static List<BookBean> searchBook(String author, String argument, String title, String email) {
+    public static List<BookBean> searchBook(SearchBookBean searchBookBean) {
         Statement stmt;
         ResultSet resultSet;
         List<BookBean> listBookBean= new ArrayList<>();
 
         try{
             stmt= ConnectionDB.getConnection();
-            resultSet=Queries.searchBook(stmt,author,argument,title,email);
+            resultSet=Queries.searchBook(stmt,searchBookBean);
 
             if(!resultSet.first())
             {
@@ -143,7 +145,7 @@ public class SearchBookDAO {
         return bookBean;
     }
 
-    public static List<BookBean> searchLendedBook (String email) throws NoBookLendedException
+    public static List<BookBean> searchLendedBook (UserBean userBean) throws NoBookLendedException
     {
         {
             Statement stmt;
@@ -151,7 +153,7 @@ public class SearchBookDAO {
             List<BookBean> listBookBean= new ArrayList<>();
             try{
                 stmt= ConnectionDB.getConnection();
-                resultSet=Queries.searchLendedBook(stmt,email);
+                resultSet=Queries.searchLendedBook(stmt,userBean);
 
                 if(!resultSet.first())
                 {

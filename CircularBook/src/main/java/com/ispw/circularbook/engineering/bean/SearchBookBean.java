@@ -5,15 +5,17 @@ import com.mysql.cj.util.StringUtils;
 
 public class SearchBookBean {
 
+   private String email;
    private String author;
    private Arguments argument;
    private String title;
 
-   public SearchBookBean(String author,Arguments argument,String title)
+   public SearchBookBean(String author,Arguments argument,String title,String email)
    {
-       setAuthor(author);
-       setArgument(argument);
-       setTitle(title);
+       this.author= this.checkAuthor(author);
+       this.argument= this.checkArguments(argument);
+       this.title=this.checkTitle(title);
+       this.email=email;
    }
 
     public String getAuthor() {
@@ -21,19 +23,18 @@ public class SearchBookBean {
     }
 
     public void setAuthor(String author) {
-        if(StringUtils.isEmptyOrWhitespaceOnly(author))
-            this.author=null;
-        else
-           this.author="'"+author+"'";
+
+       this.author=author;
 
     }
 
     public String getArgument() {
-       if(StringUtils.isEmptyOrWhitespaceOnly(this.argument.getArgument()))
-           return null;
-       else
-        return this.argument.getArgument();
+
+       return this.argument.getArgument();
+
     }
+
+
 
     public void setArgument(Arguments argument) {
 
@@ -45,12 +46,43 @@ public class SearchBookBean {
     }
 
     public void setTitle(String title) {
-        if(StringUtils.isEmptyOrWhitespaceOnly(title))
-            this.title=null;
-        else
-            this.title="'"+title+"'";
+
+            this.title=title;
+
     }
 
+    public String getEmail()
+    {
+        return this.email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email=email;
+    }
+
+    private String checkAuthor(String author) {
+        if (StringUtils.isEmptyOrWhitespaceOnly(author))
+            return null;
+        else
+            return "'" + author + "'";
+    }
+
+    private Arguments checkArguments(Arguments arguments)
+    {
+        if(StringUtils.isEmptyOrWhitespaceOnly(arguments.getArgument()))
+            return null;
+        else
+            return arguments;
+    }
+
+    private String checkTitle(String title)
+    {
+        if(StringUtils.isEmptyOrWhitespaceOnly(title))
+            return null;
+        else
+            return "'"+title+"'";
+    }
 
 
 }
