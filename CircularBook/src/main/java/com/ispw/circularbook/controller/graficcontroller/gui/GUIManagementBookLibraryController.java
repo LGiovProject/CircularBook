@@ -20,21 +20,19 @@ public class GUIManagementBookLibraryController {
     GUIHomepageController guiHomepageController;
     GUIWindowElementBookPersonalController guiWindowElementBookPersonalController;
 
-    public void searchMyBook() throws IOException {
-        List<BookModel> listBookModel= new ArrayList<>();
+    public void searchMyBook() throws IOException, NoBookLendedException {
+        List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        try {
-            listBookModel = searchBookController.searchMyBook(Session.getCurrentSession().getLibrary().getEmail());
-        } catch (NoBookLendedException e) {
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-        }
-        if (listBookModel.size() != 0) {
+
+        listBookModel = searchBookController.searchMyBook(Session.getCurrentSession().getLibrary().getEmail());
+
+        if (!listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewBook(listBookModel);
+            guiWindowElementBookPersonalController.viewBook();
         } else {
 
         }
@@ -58,9 +56,5 @@ public class GUIManagementBookLibraryController {
         }
     }
 
-//    private List<SalesBean> transferList(SalesModel salesModel)
-//    {
-//
-//    }
 
 }

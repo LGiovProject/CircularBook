@@ -21,6 +21,7 @@ public class SearchBookController {
         listBookBean=SearchBookDAO.searchBook(searchBookBean);
         for(BookBean bookBean: listBookBean)
         {
+            System.out.println("Arugment:"+ bookBean.getArgomentoString()+"SearchBookController \n");
             BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());
             listBookModel.add(bookModel);
         }
@@ -50,7 +51,6 @@ public class SearchBookController {
 
         for(BookBean bookBean: listBookBean)
         {
-
             BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing(),bookBean.getEmailTaker());
             listBookModel.add(bookModel);
         }

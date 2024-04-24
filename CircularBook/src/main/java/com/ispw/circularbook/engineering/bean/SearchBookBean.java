@@ -10,7 +10,11 @@ public class SearchBookBean {
    private Arguments argument;
    private String title;
 
-   public SearchBookBean(String author,Arguments argument,String title,String email)
+    public SearchBookBean(String email) {
+        this.email = email;
+    }
+
+    public SearchBookBean(String author, Arguments argument, String title, String email)
    {
        this.author= this.checkAuthor(author);
        this.argument= this.checkArguments(argument);
@@ -30,7 +34,10 @@ public class SearchBookBean {
 
     public String getArgument() {
 
-       return this.argument.getArgument();
+       if(this.argument==null)
+           return "null";
+       else
+           return this.argument.getArgument();
 
     }
 

@@ -3,6 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.ElementBookBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.session.Session;
@@ -38,13 +39,14 @@ public class GUISearchBookController implements Observer {
     @FXML
     ScrollPane scrollPane;
 
+    private Pane currentPane;
 
-    public void startSetSearch() {
+    public void setCurrentPane(Pane currentPane){this.currentPane = currentPane;}
+
+    public Pane getCurrentPane(){return currentPane;}
+
+    public void setSearch() {
         argument.getItems().addAll(Arguments.values());
-        for(Arguments arguments : Arguments.values())
-        {
-                System.out.println("");
-        }
         argument.getSelectionModel().select(0);
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
@@ -55,6 +57,7 @@ public class GUISearchBookController implements Observer {
 
         showResult.getChildren().clear();
         List<BookModel> listBookModel;
+        System.out.println(argument.getSelectionModel().getSelectedItem()+" GUISearchBookController\n");
         SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText(),Session.getCurrentSession().getUser().getEmail());
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
@@ -81,8 +84,10 @@ public class GUISearchBookController implements Observer {
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookSearchedController guiElementBookSearchedController = fxmlLoader.getController();
-            //guiElementBookSearchedController.setBookElement(bookModel,element);
+            ElementBookBean elementBookBean = new ElementBookBean(element,bookModel.getId());
+            guiElementBookSearchedController.setBookElement(elementBookBean);
             guiElementBookSearchedController.setBookElementSubject(bookElementSubject);
+            guiElementBookSearchedController.setPreviuosPane(currentPane);
             showResult.getChildren().add(element);
         }
     }

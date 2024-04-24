@@ -2,6 +2,8 @@ package com.ispw.circularbook.engineering.dao;
 
 
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.LenderBookBean;
+import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.Queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
@@ -18,12 +20,11 @@ import java.time.format.DateTimeFormatter;
 public class BookDAO {
 
 
-    public static void insertBook(BookBean bookBean) {
+    public static void insertBook(RegistrationBookBean registrationBookBean) {
         Statement stmt;
         try {
             stmt = ConnectionDB.getConnection();
-            System.out.println(bookBean.getTitolo()+" BookDAO");
-            Queries.insertBook(stmt, bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomentoString(), bookBean.getNPagineI(), bookBean.getCommento());
+            Queries.insertBook(stmt, registrationBookBean.getEmail(), registrationBookBean.getTypeOfDisponibility(), registrationBookBean.getTitle(), registrationBookBean.getAuthor(), registrationBookBean.getArgument(), registrationBookBean.getNPageInt(), registrationBookBean.getComment());
 
         } catch (SQLException e) {
 
@@ -32,16 +33,11 @@ public class BookDAO {
         }
     }
 
-    public static void insertLendBook(BookBean bookBean, String username) {
-        LocalDate data_start = LocalDate.now();
-        LocalDate data_finish = data_start.plusMonths(2);
-        String d_start = data_start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String d_finish = data_finish.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+    public static void insertLendBook(LenderBookBean lenderBookBean) {
         Statement stmt;
        try {
             stmt = ConnectionDB.getConnection();
-            Queries.registerLendBook(stmt, bookBean.getId(), bookBean.getEmail(), username, d_start,d_finish);
+            Queries.registerLendBook(stmt, lenderBookBean.getId(), lenderBookBean.getEmail(), lenderBookBean.getUsername(), lenderBookBean.getDateStart(), lenderBookBean.getDateFinish());
 
        } catch (SQLException e) {
 
@@ -56,7 +52,7 @@ public class BookDAO {
         try
         {
             stmt=ConnectionDB.getConnection();
-            Queries.updateBook(stmt,bookBean.getId(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomentoString(), bookBean.getNPagineI(), bookBean.getCommento());
+            Queries.updateBook(stmt,bookBean.getId(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomentoString(), bookBean.getNPagineInt(), bookBean.getCommento());
 
         }catch (SQLException e) {
             e.printStackTrace();

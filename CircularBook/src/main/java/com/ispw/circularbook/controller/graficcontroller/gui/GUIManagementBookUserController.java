@@ -31,17 +31,14 @@ public class GUIManagementBookUserController {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
         if (listBookModel!=null && !listBookModel.isEmpty()) {
-            if(Session.getCurrentSession().getUser() != null) {
-                Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
-            }else{
-                Session.getCurrentSession().getLibrary().setBookOwnList(listBookModel);
-            }
+            Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewBook(listBookModel);
+            guiWindowElementBookPersonalController.setCurrentPane(pane);
+            guiWindowElementBookPersonalController.viewBook();
 
         } else {
             BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessun libro registrato");
@@ -54,10 +51,9 @@ public class GUIManagementBookUserController {
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-            guiHomepageController.setSideWindow(pane);
+            Session.getCurrentSession().getGuiHomepageController().setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewMyLendedBook(listBookModel);
+            guiWindowElementBookPersonalController.viewMyLendedBook();
 
         }
         else
@@ -75,12 +71,13 @@ public class GUIManagementBookUserController {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
         if (!listBookModel.isEmpty()) {
+            Session.getCurrentSession().getUser().setListBookGiven(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewMyGivenBook(listBookModel);
+            guiWindowElementBookPersonalController.viewMyGivenBook();
 
         }
     }

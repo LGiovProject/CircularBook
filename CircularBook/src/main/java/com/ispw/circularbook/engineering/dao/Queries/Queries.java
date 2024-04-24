@@ -23,6 +23,7 @@ package com.ispw.circularbook.engineering.dao.Queries;
 
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
+import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
 import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;
 import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
@@ -67,9 +68,9 @@ public class Queries {
         }
 
         public static void insertBook(Statement stmt,String email,int type, String title,String author,String argument, int nPages,String comment) throws SQLException, ErrorInsertBookException {
+            System.out.println("Ci sono entrato...");
+            System.out.println("\n|mail: "+email+" |type: "+type+" |title: "+title+" |author: "+author+" |argument: "+argument+" |npage: "+nPages+" |comment: "+comment +"  Queries insertBook\n");
             String sql ="INSERT INTO book (email,type_of_disponibility,title,author,argument,npag,comment) VALUES('"+email+"',"+type+",\""+title+"\",\""+author+"\",'"+argument+"',"+nPages+", \""+comment+"\");" ;
-            System.out.println(sql+" Queries insertBook");
-            System.out.println("|mail: "+email+" |type: "+type+" |title: "+title+" |author: "+author+" |argument: "+argument+" |npage: "+nPages+" |comment: "+comment +"  Queries insertBook");
             if(stmt.executeUpdate(sql)==0)
                 throw new ErrorInsertBookException();
 
@@ -107,6 +108,7 @@ public class Queries {
         }
 
         public static ResultSet searchBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
+            System.out.println("Arguments:"+searchBookBean.getArgument()+" Email:"+searchBookBean.getEmail()+" Queries\n");
             String sql="SELECT * FROM book WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (type_of_disponibility<3) and (email!='"+searchBookBean.getEmail()+"')";
 
             return stmt.executeQuery(sql);

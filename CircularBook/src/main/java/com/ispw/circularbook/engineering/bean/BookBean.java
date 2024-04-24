@@ -38,15 +38,20 @@ public class BookBean {
     }
 
 
+    public BookBean(String titolo, String autore, String emailInfo, long daysRemaing) {
+        this.titolo = titolo;
+        this.autore = autore;
+        this.emailInfo = emailInfo;
+        this.daysRemaing = daysRemaing;
+    }
 
-
-    public BookBean(String email, int typeOfDisponibility,String titolo, String autore, Arguments argomento,  String nPagine, String commento) throws WrongNpageFormatException {
+    public BookBean(String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento) throws WrongNpageFormatException {
         this.email = email;
         this.typeOfDisponibility = typeOfDisponibility;
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        this.nPagine=nPagine;
+        setNPagine(nPagine);
         this.commento = commento;
     }
 
@@ -58,7 +63,7 @@ public class BookBean {
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        this.nPagine=nPagine;
+        setNPagine(nPagine);
         this.commento = commento;
     }
     public BookBean(int id, String email, int typeOfDisponibility,String titolo, String autore, String argomento, String nPagine, String commento) throws WrongNpageFormatException {
@@ -69,7 +74,7 @@ public class BookBean {
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        this.nPagine=nPagine;
+        setNPagine(nPagine);
         this.commento = commento;
     }
 
@@ -80,7 +85,7 @@ public class BookBean {
         this.titolo = titolo;
         this.autore = autore;
         setArgomento(argomento);
-        this.nPagine = nPagine;
+        setNPagine(nPagine);
         this.commento = commento;
         this.date_start = date_start;
         this.date_finish = date_finish;
@@ -167,16 +172,19 @@ public class BookBean {
         return nPagine;
     }
 
-    public int getNPagineI(){return Integer.getInteger(nPagine);}
+    public int getNPagineInt(){return Integer.parseInt(nPagine);}
 
-    public void setnPagine(int nPagine)
+    public void setNPagine(int nPagine)
     {
         this.nPagine=String.valueOf(nPagine);
     }
 
     public void setNPagine(String nPagine)
     {
-
+        if(!nPagine.isEmpty() || !nPagine.isBlank())
+            this.nPagine= nPagine;
+        else
+            this.nPagine="0";
     }
 
     public String getNpagineString()

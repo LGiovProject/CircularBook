@@ -4,6 +4,8 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.controller.appcontroller.NotifyController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.LenderBookBean;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.engineering.session.Session;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 public class GUIElementBookSearchedController {
@@ -33,64 +36,78 @@ public class GUIElementBookSearchedController {
         private BookModel bookModel;
 
         private BookElementSubject bookElementSubject;
-        private GUIHomepageController guiHomepageController;
 
-        public void setBookElementSubject(BookElementSubject bookElementSubject) {
+    private Pane previuosPane;
+
+    public Pane getPreviuosPane() {
+        return previuosPane;
+    }
+
+    public void setPreviuosPane(Pane currentPane) {
+        this.previuosPane = currentPane;
+    }
+
+    public void setBookElementSubject(BookElementSubject bookElementSubject) {
 
             this.bookElementSubject=bookElementSubject;
         }
 
 
-        public void setBookElement(BookBean bookBean,Pane panel) {
+        public void setBookElement(ElementBookBean elementBookBean) {
 
-            //this.bookModel=bookBean;
+            this.bookModel=getBookModel(elementBookBean.getId());
+            this.panel=elementBookBean.getPane();
             this.type_of_insert.setText(this.bookModel.getTypeOfDisponibilityString());
             this.author.setText(this.bookModel.getAutore());
             this.title.setText(this.bookModel.getTitolo());
             this.argument.setText(this.bookModel.getArgomentoString());
-            this.panel=panel;
+
 
         }
 
         public void moreInfoSearch() throws IOException {
-          /*  Popup popup = new Popup();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMoreInfoBook.fxml"));
-            Label label = fxmlLoader.load();
-            GUIPopUpsMoreInfoBookController guiMoreInfoBookPopUpController = fxmlLoader.getController();
-            guiMoreInfoBookPopUpController.moreInfoBook(this.bookBean.getAutore(),this.bookBean.getTitolo(),this.bookBean.getArgomentoString(),this.bookBean.getNpagineString(),this.bookBean.getCommento(),popup);
 
-            popup.getContent().add(label);
-
-            popup.setAutoHide(true);
-
-            popup.show(Main.getStage());
-           */
+            Session.getCurrentSession().getUser().setLastBookListViewed(Session.getCurrentSession().getUser().getBookLastSearch());
             GUIMoreInfoBookController guiMoreInfoBookController;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
-            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+            GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 
             guiMoreInfoBookController = fxmlLoader.getController();
-            guiMoreInfoBookController.setInfoBook(this.bookModel.getAutore(),this.bookModel.getTitolo(),this.bookModel.getArgomentoString(),this.bookModel.getNpagineString(),this.bookModel.getCommento(),this);
+            ElementBookBean elementBookBean = new ElementBookBean(this.panel,bookModel.getId());
+            guiMoreInfoBookController.setInfoBook(elementBookBean);
+            guiMoreInfoBookController.setPreviousPane(this.previuosPane);
             guiHomepageController.setSideWindow(pane);
         }
 
         public void getBook(){
 
-//            InsertBookController insertBookController = new InsertBookController();
-//            insertBookController.registerLendBook(this.bookModel, Session.getCurrentSession().getUser().getUsername());
-//
-//            NotifyController notifyController = new NotifyController();
-//            notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookModel,getMessage());
-//            bookElementSubject.notifyObserver(this.panel);
-//            Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
-//            BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
+            InsertBookController insertBookController = new InsertBookController();
+            LenderBookBean lenderBookBean = new LenderBookBean(bookModel.getId(),bookModel.getEmail(),Session.getCurrentSession().getUser().getUsername(), LocalDate.now());
+            insertBookController.registerLendBook(lenderBookBean);
+
+            //NotifyController notifyController = new NotifyController();
+            //notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookModel,getMessage());
+            bookElementSubject.notifyObserver(this.panel);
+            Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
+            BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
         }
 
         private String getMessage()
         {
             return "Il tuo libro "+this.bookModel.getTitolo()+" è stato preso da "+Session.getCurrentSession().getUser().getEmail();
         }
+
+    private BookModel getBookModel(int id)
+    {
+        for(BookModel bookModel : Session.getCurrentSession().getUser().getBookLastSearch())
+        {
+            if(bookModel.getId()==id)
+                return bookModel;
+        }
+
+        return null;
+    }
 
 }
 

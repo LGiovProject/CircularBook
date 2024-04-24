@@ -44,7 +44,7 @@ public class SearchBookDAO {
                     bookBean.setAutore(resultSet.getString(4));
                     bookBean.setArgomento(resultSet.getString(5));
                     bookBean.setTitolo(resultSet.getString(6));
-                    bookBean.setnPagine(resultSet.getInt(7));
+                    bookBean.setNPagine(resultSet.getInt(7));
                     bookBean.setCommento(resultSet.getString(8));
 
                     listBookBean.add(bookBean);
@@ -89,7 +89,7 @@ public class SearchBookDAO {
                 bookBean.setAutore(resultSet.getString(4));
                 bookBean.setArgomento(resultSet.getString(5));
                 bookBean.setTitolo(resultSet.getString(6));
-                bookBean.setnPagine(resultSet.getInt(7));
+                bookBean.setNPagine(resultSet.getInt(7));
                 bookBean.setCommento(resultSet.getString(8));
                 listBookBean.add(bookBean);
             } while (resultSet.next());
@@ -137,7 +137,7 @@ public class SearchBookDAO {
             bookBean.setAutore(resultSet.getString(4));
             bookBean.setArgomento(resultSet.getString(5));
             bookBean.setTitolo(resultSet.getString(6));
-            bookBean.setnPagine(resultSet.getInt(7));
+            bookBean.setNPagine(resultSet.getInt(7));
             bookBean.setCommento(resultSet.getString(8));
         }catch (ErrorConnectionDbException| NoBookFoundException | SQLException e){
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class SearchBookDAO {
                     bookBean.setAutore(resultSet.getString(4));
                     bookBean.setArgomento(resultSet.getString(5));
                     bookBean.setTitolo(resultSet.getString(6));
-                    bookBean.setnPagine(resultSet.getInt(7));
+                    bookBean.setNPagine(resultSet.getInt(7));
                     bookBean.setCommento(resultSet.getString(8));
                     bookBean.setDate_start(resultSet.getString(9));
                     String buffer =resultSet.getString(10);
@@ -217,7 +217,7 @@ public class SearchBookDAO {
                 bookBean.setAutore(resultSet.getString(4));
                 bookBean.setArgomento(resultSet.getString(5));
                 bookBean.setTitolo(resultSet.getString(6));
-                bookBean.setnPagine(resultSet.getInt(7));
+                bookBean.setNPagine(resultSet.getInt(7));
                 bookBean.setCommento(resultSet.getString(8));
                 bookBean.setDate_start(resultSet.getString(9));
                 String buffer =resultSet.getString(10);

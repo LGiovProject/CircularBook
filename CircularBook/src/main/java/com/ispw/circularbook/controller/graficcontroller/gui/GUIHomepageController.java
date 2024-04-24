@@ -5,9 +5,7 @@ import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.engineering.utils.BoxSuccesfulMessage;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,8 +109,11 @@ public class GUIHomepageController {
 
     public void logOut() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login.fxml"));
+
         Parent root =fxmlLoader.load();
+        GUILoginController guiLoginController = fxmlLoader.getController();
         Scene scene = new Scene(root);
+        guiLoginController.setCurrentScene(scene);
         Main.getStage().setScene(scene);
         Session.closeSession();
     }
