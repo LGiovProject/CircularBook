@@ -72,7 +72,6 @@ public class GUIElementBookSearchedController {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
             GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-
             guiMoreInfoBookController = fxmlLoader.getController();
             ElementBookBean elementBookBean = new ElementBookBean(this.panel,bookModel.getId());
             guiMoreInfoBookController.setInfoBook(elementBookBean);

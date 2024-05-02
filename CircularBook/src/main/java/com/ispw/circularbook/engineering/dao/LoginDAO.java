@@ -2,12 +2,11 @@ package com.ispw.circularbook.engineering.dao;
 
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-import com.ispw.circularbook.engineering.dao.Queries.Queries;
+import com.ispw.circularbook.engineering.dao.queries.Queries;
 
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.engineering.exception.NoAccountFoundException;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

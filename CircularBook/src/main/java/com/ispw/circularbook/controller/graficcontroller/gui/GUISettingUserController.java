@@ -3,6 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.UserController;
+import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.enums.City;
@@ -27,7 +28,7 @@ public class GUISettingUserController {
     private UserModel userModel;
 
     @FXML
-    private Text email;
+    private TextField email;
     @FXML
     private TextField username;
     @FXML
@@ -35,7 +36,7 @@ public class GUISettingUserController {
     @FXML
     private TextField surname;
     @FXML
-    private Text city;
+    private TextField city;
 
     @FXML
     private Text bookRegistered;
@@ -84,17 +85,19 @@ public class GUISettingUserController {
         InfoBookModel infoBookModel;
         this.userModel= Session.getCurrentSession().getUser();
         this.email.setText(this.userModel.getEmail());
+        this.email.setEditable(false);
         this.username.setText(this.userModel.getUsername());
         this.name.setText(this.userModel.getNome());
         this.surname.setText(this.userModel.getCognome());
         this.city.setText(this.userModel.getCityString());
+        this.city.setEditable(false);
         SearchBookController searchBookController = new SearchBookController();
+        InfoBookBean infoBookBean = new InfoBookBean(userModel.getUsername(), userModel.getEmail());
+        infoBookModel=searchBookController.searchBookInfoUser(infoBookBean);
 
-        infoBookModel=searchBookController.searchBookInfoUser(this.userModel.getEmail());
-        userModel.setBookInfo(infoBookModel);
         this.bookRegistered.setText(stringGenerator(infoBookModel.getRegisterBook()) +" registrati");
         this.bookLended.setText(stringGenerator(infoBookModel.getLendedBook())+" messi in prestito");
-        this.bookGived.setText(stringGenerator(infoBookModel.getRegisterBook())+" messi in regalo");
+        this.bookGived.setText(stringGenerator(infoBookModel.getGiftedBook())+" messi in regalo");
         this.bookTakeInGift.setText(stringGenerator(infoBookModel.getLendedBookTaked())+" presi in regalo");
         this.bookTakedInLend.setText(stringGenerator(infoBookModel.getGiftedBooktaked())+" presi in prestito");
         String buffer;

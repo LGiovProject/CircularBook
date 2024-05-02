@@ -3,9 +3,8 @@ package com.ispw.circularbook.engineering.dao;
 import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-import com.ispw.circularbook.engineering.dao.Queries.Queries;
+import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
-import com.ispw.circularbook.model.LibraryModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

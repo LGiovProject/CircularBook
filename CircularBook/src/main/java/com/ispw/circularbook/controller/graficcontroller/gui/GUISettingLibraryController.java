@@ -4,8 +4,6 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.LibraryController;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 
-import com.ispw.circularbook.engineering.bean.LibraryBean;
-
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
@@ -43,6 +41,11 @@ public class GUISettingLibraryController {
     private Text bookRegistered;
     @FXML
     private Text bookLended;
+    @FXML
+    private Text bookGifted;
+    @FXML
+    private Text salesInsert;
+
     @FXML
     private Text welcomeText;
     @FXML
@@ -87,8 +90,10 @@ public class GUISettingLibraryController {
         SearchBookController searchBookController = new SearchBookController();
         infoBookModel=searchBookController.searchBookInfoLibrary(this.libraryModel.getEmail());
         libraryModel.setBookInfo(infoBookModel);
-        this.bookRegistered.setText(stringGenerator(infoBookModel.getRegisterBook()) +" registrati");
-        this.bookLended.setText(stringGenerator(infoBookModel.getLendedBook())+"  presi in prestito");
+        this.bookRegistered.setText(bookStringGenerator(infoBookModel.getRegisterBook()) +" registrati");
+        this.bookLended.setText(bookStringGenerator(infoBookModel.getLendedBook())+"  presi in prestito");
+        this.bookGifted.setText(bookStringGenerator(infoBookModel.getGiftedBook())+" dati in regalo");
+        this.salesInsert.setText(salesStringGenerator(infoBookModel.getSalesInsert()));
         welcomeText.setText(welcomeText.getText()+" "+Session.getCurrentSession().getLibrary().getNomeLib());
 
         cityChoicheBox.getItems().addAll(City.values());
@@ -101,10 +106,12 @@ public class GUISettingLibraryController {
         Main.getStage().setScene(this.previousScene);
     }
 
-    private String stringGenerator(int i)
+    private String bookStringGenerator(int i)
     {
         return i==1?"Hai "+i+" libro":"Hai "+i+" libri";
     }
+
+    private String salesStringGenerator(int i){ return i==1?"Hai "+i+" evento inserito":"Hai "+i+" eventi inseriti";}
 
     public void modifyInfo(ActionEvent event) throws IOException {
         Image checkBoxImage= new Image(Objects.requireNonNull(Main.class.getResource("img/ConfirmModify.png")).openStream());

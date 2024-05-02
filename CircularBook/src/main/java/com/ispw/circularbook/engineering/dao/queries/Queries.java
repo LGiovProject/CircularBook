@@ -19,11 +19,10 @@
  *
  */
 
-package com.ispw.circularbook.engineering.dao.Queries;
+package com.ispw.circularbook.engineering.dao.queries;
 
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
-import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
 import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;
 import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
@@ -69,7 +68,7 @@ public class Queries {
 
         public static void insertBook(Statement stmt,String email,int type, String title,String author,String argument, int nPages,String comment) throws SQLException, ErrorInsertBookException {
             System.out.println("Ci sono entrato...");
-            System.out.println("\n|mail: "+email+" |type: "+type+" |title: "+title+" |author: "+author+" |argument: "+argument+" |npage: "+nPages+" |comment: "+comment +"  Queries insertBook\n");
+            System.out.println("\n|mail: "+email+" |type: "+type+" |title: "+title+" |author: "+author+" |argument: "+argument+" |npage: "+nPages+" |comment: "+comment +"  queries insertBook\n");
             String sql ="INSERT INTO book (email,type_of_disponibility,title,author,argument,npag,comment) VALUES('"+email+"',"+type+",\""+title+"\",\""+author+"\",'"+argument+"',"+nPages+", \""+comment+"\");" ;
             if(stmt.executeUpdate(sql)==0)
                 throw new ErrorInsertBookException();
@@ -108,29 +107,28 @@ public class Queries {
         }
 
         public static ResultSet searchBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
-            System.out.println("Arguments:"+searchBookBean.getArgument()+" Email:"+searchBookBean.getEmail()+" Queries\n");
-            String sql="SELECT * FROM book WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (type_of_disponibility<3) and (email!='"+searchBookBean.getEmail()+"')";
+            String sql="SELECT * FROM book_available_info WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (email!='"+searchBookBean.getEmail()+"')";
 
             return stmt.executeQuery(sql);
         }
 
         public static ResultSet searchMyBook(Statement stmt, String email) throws SQLException {
-            String sql="SELECT * FROM book WHERE email = '"+email+"' and type_of_disponibility<3;";
+            String sql="SELECT id,type_of_disponibility,author,argument,title,npage,comment FROM book_available_info WHERE email = '"+email+"';";
             return stmt.executeQuery(sql);
         }
         public static ResultSet searchBookById(Statement stmt,int id) throws SQLException {
-            String sql="SELECT * FROM book WHERE id = "+id+";";
+            String sql="SELECT * FROM book_available_info WHERE id = "+id+";";
             return stmt.executeQuery(sql);
         }
 
         public static ResultSet searchLendedBook(Statement stmt,UserBean userBean) throws SQLException {
 
-            String sql="SELECT book.id,email,type_of_disponibility,author,argument,title,npag , comment, date_start, date_finish,email_lend  FROM book INNER JOIN lended_book ON book.id= lended_book.id  WHERE book.id IN (SELECT id FROM lended_book WHERE username_take='"+userBean.getUsername()+"'); ";
+            String sql="SELECT id,email_take,email_lend,author,argument,title,npage,comment,date_start,date_finish from lended_book_info where email_take='"+userBean.getEmail()+"';";
             return stmt.executeQuery(sql);
         }
 
         public static ResultSet searchGivenBook(Statement stmt,String email) throws SQLException{
-            String sql="SELECT book.id,email,type_of_disponibility,author,argument,title,npag , comment, date_start, date_finish,username_take  FROM book INNER JOIN lended_book ON book.id= lended_book.id  WHERE book.id IN (SELECT id FROM lended_book WHERE email_lend='"+email+"'); ";
+            String sql="SELECT id,email_take,email_lend,author,argument,title,npage,comment,date_start,date_finish from lended_book_info where email_lend='"+email+"';";
             return stmt.executeQuery(sql);
         }
 
@@ -146,8 +144,8 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchBookUserInfo(Statement stmt, String email) throws SQLException {
-            String sql="SELECT count(*) as B, (SELECT count(*) from book where email='"+email+"' and type_of_disponibility=1) as B_L, (SELECT count(*) from book where email='"+email+"' and type_of_disponibility=2) as B_G,(SELECT count(*) from gifted_book where email_take='"+email+"' ) as g_b,(select count(*) from lended_book where email_take='"+email+"' ) from book where email='"+email+"' ;";
+        public static ResultSet searchBookUserInfo(Statement stmt, String email, String username) throws SQLException {
+            String sql="SELECT count(*) as B, (SELECT count(*) from book where email='"+email+"' and type_of_disponibility=1) as B_L, (SELECT count(*) from book where email='"+email+"' and type_of_disponibility=2) as B_G,(SELECT count(*) from gifted_book where username_taker='"+username+"' ) as g_b,(select count(*) from lended_book where username_take='"+username+"' ) from book where email='"+email+"' ;";
             return stmt.executeQuery(sql);
         }
 
@@ -164,7 +162,7 @@ public class Queries {
 
 
         public static void updateBook(Statement stmt,int id,int type, String title,String author,String argument, int nPages,String comment) throws SQLException, ErrorUpdateBookException {
-            String sql="UPDATE book SET type_of_disponibility="+type+", author=\""+author+"\",argument='"+argument+"',title=\""+title+"\",npag="+nPages+",comment=\""+comment+"\" WHERE id="+id+";";
+            String sql="UPDATE book_data SET type_of_disponibility="+type+", author=\""+author+"\",argument='"+argument+"',title=\""+title+"\",npag="+nPages+",comment=\""+comment+"\" WHERE id="+id+";";
             if(stmt.executeUpdate(sql)==0)
                 throw new ErrorUpdateBookException();
         }

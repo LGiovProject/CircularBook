@@ -2,7 +2,7 @@ package com.ispw.circularbook.engineering.dao;
 
 import com.ispw.circularbook.engineering.bean.NotifyBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-import com.ispw.circularbook.engineering.dao.Queries.Queries;
+import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.engineering.exception.NoNotifyFoundException;
 import com.ispw.circularbook.model.NotifyModel;

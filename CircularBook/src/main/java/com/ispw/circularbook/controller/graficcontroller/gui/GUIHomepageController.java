@@ -115,6 +115,7 @@ public class GUIHomepageController {
         Scene scene = new Scene(root);
         guiLoginController.setCurrentScene(scene);
         Main.getStage().setScene(scene);
+
         Session.closeSession();
     }
 

@@ -21,7 +21,6 @@ public class SearchBookController {
         listBookBean=SearchBookDAO.searchBook(searchBookBean);
         for(BookBean bookBean: listBookBean)
         {
-            System.out.println("Arugment:"+ bookBean.getArgomentoString()+"SearchBookController \n");
             BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());
             listBookModel.add(bookModel);
         }
@@ -57,12 +56,10 @@ public class SearchBookController {
         return listBookModel;
     }
 
-    public InfoBookModel searchBookInfoUser(String email)
+    public InfoBookModel searchBookInfoUser(InfoBookBean infoBookBeanIn)
     {
-
-
-        InfoBookBean infoBookBean= SearchBookDAO.searchBookUserInfo(email);
-        InfoBookModel infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook(),infoBookBean.getGiftedBook(),infoBookBean.getLendedBookTaked(),infoBookBean.getGiftedBooktaked());
+        InfoBookBean infoBookBeanOut = SearchBookDAO.searchBookUserInfo(infoBookBeanIn);
+        InfoBookModel infoBookModel = new InfoBookModel(infoBookBeanOut.getRegisterBook(),infoBookBeanOut.getLendedBook(),infoBookBeanOut.getGiftedBook(),infoBookBeanOut.getLendedBookTaked(),infoBookBeanOut.getGiftedBooktaked());
 
         return infoBookModel;
 
@@ -71,7 +68,7 @@ public class SearchBookController {
     {
         InfoBookBean infoBookBean=SearchBookDAO.searchBookLibraryInfo(email);
         InfoBookModel infoBookModel;
-        infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook());
+        infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook(),infoBookBean.getGiftedBook(),infoBookBean.getSalesInsert());
 
         return infoBookModel;
     }

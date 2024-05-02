@@ -2,13 +2,38 @@ package com.ispw.circularbook.engineering.bean;
 
 public class InfoBookBean {
 
-    int registerBook;
-    int lendedBook;
-    int giftedBook;
-    int lendedBookTaked;
-    int giftedBooktaked;
+    private String username;
+    private String email;
+
+    private int registerBook;
+    private int lendedBook;
+    private int giftedBook;
+    private int lendedBookTaked;
+    private int giftedBooktaked;
+    private int salesInsert;
 
     public InfoBookBean(){}
+
+    public InfoBookBean(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getRegisterBook() {
         return registerBook;
@@ -48,5 +73,13 @@ public class InfoBookBean {
 
     public void setGiftedBooktaked(int giftedBooktaked) {
         this.giftedBooktaked = giftedBooktaked;
+    }
+
+    public int getSalesInsert() {
+        return salesInsert;
+    }
+
+    public void setSalesInsert(int salesInsert) {
+        this.salesInsert = salesInsert;
     }
 }

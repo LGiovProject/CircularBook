@@ -40,6 +40,7 @@ public class LoginController {
 
 
         try {
+            //Faccio una ricerca sui libri presi in prestito e che sono da restituire
            List<BookBean> bookBeanList=(SearchBookDAO.searchLendedBook(userBean));
             if(!bookBeanList.isEmpty())
             {

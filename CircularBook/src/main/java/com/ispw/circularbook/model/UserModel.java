@@ -20,7 +20,7 @@ public class UserModel {
     private List<BookModel> listBookGiven;
     private List<BookModel> lastBookListViewed;
 
-    private InfoBookModel infoBookModel;
+
     public UserModel(){};
 
     public UserModel(String email,String username,String password, String nome, String cognome, String city) {
@@ -95,13 +95,7 @@ public class UserModel {
         }
     }
 
-    public InfoBookModel getBookInfo() {
-        return infoBookModel;
-    }
 
-    public void setBookInfo(InfoBookModel infoBookModel) {
-        this.infoBookModel = infoBookModel;
-    }
 
     public void setListBookTaked(List<BookModel> listBookTaked){
         this.listBookTaked=listBookTaked;

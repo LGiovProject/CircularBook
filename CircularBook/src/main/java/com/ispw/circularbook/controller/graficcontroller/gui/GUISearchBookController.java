@@ -57,7 +57,6 @@ public class GUISearchBookController implements Observer {
 
         showResult.getChildren().clear();
         List<BookModel> listBookModel;
-        System.out.println(argument.getSelectionModel().getSelectedItem()+" GUISearchBookController\n");
         SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText(),Session.getCurrentSession().getUser().getEmail());
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
