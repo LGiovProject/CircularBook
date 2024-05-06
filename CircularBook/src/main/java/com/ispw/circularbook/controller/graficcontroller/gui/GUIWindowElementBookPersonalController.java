@@ -31,7 +31,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
     public void viewBook() throws IOException {
         this.viewInitialization();
 
-        List<BookModel> bookModelList = Session.getCurrentSession().getUser().getBookOwnList();
+        List<BookModel> bookModelList = getSessionOwnBookList();
         for (BookModel bookModel : bookModelList) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonal.fxml"));
             Pane element = fxmlLoader.load();
@@ -48,9 +48,10 @@ public class GUIWindowElementBookPersonalController implements Observer{
         }
     }
 
-    public void viewSales(List<SalesModel> salesModelList) throws IOException{
+    public void viewSales() throws IOException{
 
         this.viewInitialization();
+        List<SalesModel> salesModelList = Session.getCurrentSession().getLibrary().getSalesModelList();
         for(SalesModel salesModel : salesModelList){
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementSalesPersonal.fxml"));
@@ -74,7 +75,6 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             for (BookModel bookModel : listBookModel) {
-                System.out.println("Ci sono entrato GUIWindowElementBookPersonalController.viewMyLendedBook\n");
                 ElementBookBean elementBookBean = new ElementBookBean(bookModel.getId());
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalTaked.fxml"));
@@ -95,7 +95,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
     public void viewMyGivenBook() throws IOException {
         this.viewInitialization();
-        List<BookModel> bookModelList = Session.getCurrentSession().getUser().getListBookGiven();
+        List<BookModel> bookModelList = getSessionBookGiven();
         for (BookModel bookModel : bookModelList) {
             ElementBookBean elementBookBean = new ElementBookBean(bookModel.getId());
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonalGiven.fxml"));
@@ -109,7 +109,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
     }
 
     public void backButton() throws IOException {
-        FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("ManagementBookUser.fxml"));
+        FXMLLoader fxmlLoader= getSessionFxmlLoader();
         Pane pane= fxmlLoader.load();
         guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
         guiHomepageController.setSideWindow(pane);
@@ -157,7 +157,42 @@ public class GUIWindowElementBookPersonalController implements Observer{
         this.currentPane= currentPane;
     }
 
-    // public void viewSales()
+    private List<BookModel> getSessionOwnBookList()
+    {
+        if(Session.getCurrentSession().getUser()!=null)
+        {
+            return Session.getCurrentSession().getUser().getBookOwnList();
+        }
+        else
+        {
+            return Session.getCurrentSession().getLibrary().getBookOwnList();
+        }
+    }
+
+    private List<BookModel> getSessionBookGiven()
+    {
+
+        if(Session.getCurrentSession().getUser()!=null)
+        {
+            return Session.getCurrentSession().getUser().getListBookGiven();
+        }
+        else
+        {
+            return Session.getCurrentSession().getLibrary().getBookGivenList();
+        }
+    }
+
+    private FXMLLoader getSessionFxmlLoader(){
+
+        if(Session.getCurrentSession().getUser()!=null)
+        {
+            return new FXMLLoader(Main.class.getResource("ManagementBookUser.fxml"));
+        }
+        else
+        {
+            return new FXMLLoader(Main.class.getResource("ManagementBookLibrary.fxml"));
+        }
+    }
 }
 
 

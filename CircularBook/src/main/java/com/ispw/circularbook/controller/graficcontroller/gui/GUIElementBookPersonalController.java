@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.List;
 
 
 public class GUIElementBookPersonalController {
@@ -100,13 +101,25 @@ public class GUIElementBookPersonalController {
 
     private BookModel getBookModel(int id)
     {
-        for(BookModel bookModel : Session.getCurrentSession().getUser().getBookOwnList())
+        for(BookModel bookModel : getBookListSession())
         {
             if(bookModel.getId()==id)
                 return bookModel;
         }
 
         return null;
+    }
+
+    private List<BookModel> getBookListSession()
+    {
+        if(Session.getCurrentSession().getUser()!=null)
+        {
+            return Session.getCurrentSession().getUser().getBookOwnList();
+        }
+        else
+        {
+            return Session.getCurrentSession().getLibrary().getBookOwnList();
+        }
     }
 
     public void setPreviuosPane(Pane pane)

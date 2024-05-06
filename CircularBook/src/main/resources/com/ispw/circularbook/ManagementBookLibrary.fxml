@@ -30,7 +30,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="78.0" layoutY="43.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="348.0" text="Visualizza i libri che hai in deposito">
+                  <Button layoutX="78.0" layoutY="43.0" mnemonicParsing="false" onAction="#searchBookGiven" prefHeight="39.0" prefWidth="348.0" text="Visualizza i libri che hai in deposito">
                      <font>
                         <Font size="18.0" />
                      </font>

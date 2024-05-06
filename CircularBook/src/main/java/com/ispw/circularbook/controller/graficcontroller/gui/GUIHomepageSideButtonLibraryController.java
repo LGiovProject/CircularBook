@@ -53,10 +53,7 @@ public class GUIHomepageSideButtonLibraryController {
         Pane pane= fxmlLoader.load();
         GUIInsertGiftBookController guiInsertGiftBookController = fxmlLoader.getController();
         guiInsertGiftBookController.startRegisterBook();
-
         guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-
-
         guiHomepageController.setSideWindow(pane);
     }
 

@@ -26,7 +26,9 @@ public class GUIManagementBookLibraryController {
 
         listBookModel = searchBookController.searchMyBook(Session.getCurrentSession().getLibrary().getEmail());
 
+
         if (!listBookModel.isEmpty()) {
+            Session.getCurrentSession().getLibrary().setBookOwnList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
@@ -34,7 +36,7 @@ public class GUIManagementBookLibraryController {
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.viewBook();
         } else {
-
+            BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessun libro registrato");
         }
     }
 
@@ -42,17 +44,35 @@ public class GUIManagementBookLibraryController {
         List<SalesModel> salesModelList;
         SearchSalesController searchSalesController = new SearchSalesController();
         salesModelList = searchSalesController.searchSales(Session.getCurrentSession().getLibrary().getEmail());
-        if(salesModelList.size()!=0)
-        {
 
+        if(!salesModelList.isEmpty())
+        {
+            Session.getCurrentSession().getLibrary().setSalesModelList(salesModelList);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
             guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
             guiHomepageController.setSideWindow(pane);
             guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.viewSales(salesModelList);
+            guiWindowElementBookPersonalController.viewSales();
         } else{
+            BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessuna inserzione registrata");
+        }
+    }
 
+
+    public void searchBookGiven() throws NoBookLendedException, IOException {
+        List<BookModel> bookModelIGivenList;
+        SearchBookController searchBookController = new SearchBookController();
+        bookModelIGivenList= searchBookController.searchMyGivenBook(Session.getCurrentSession().getLibrary().getEmail());
+        if(!bookModelIGivenList.isEmpty())
+        {
+            Session.getCurrentSession().getLibrary().setBookGivenList(bookModelIGivenList);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
+            Pane pane = fxmlLoader.load();
+            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+            guiHomepageController.setSideWindow(pane);
+            guiWindowElementBookPersonalController = fxmlLoader.getController();
+            guiWindowElementBookPersonalController.viewMyGivenBook();
         }
     }
 
