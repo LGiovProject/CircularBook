@@ -39,7 +39,7 @@ public class GUIMoreInfoBookController {
 
     public void backButton() throws IOException {
 
-        GUIHomepageController guiHomepageController;
+         GUIHomepageController guiHomepageController;
       if(object instanceof GUIElementBookPersonalController)
       {
           GUIWindowElementBookPersonalController guiWindowElementBookPersonalController;

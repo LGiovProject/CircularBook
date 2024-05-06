@@ -92,12 +92,12 @@ public class GUIWindowElementBookPersonalController implements Observer{
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
-            fxmlLoader.setController(elementBookPersonalViewFactory.createController());
-            guiElementBookPersonalController.setBookElement(bookModel,element);
-            guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
-            guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
-            guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());
-            viewMyBook.getChildren().add(element);
+            //fxmlLoader.setController(elementBookPersonalViewFactory.createController());
+            //guiElementBookPersonalController.setBookElement(bookModel,element);
+            //guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
+            //guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
+            //guiElementBookPersonalController.setCurrentScene(guiHomepageController.getCurrentScene());
+            //viewMyBook.getChildren().add(element);
         }
     }
     @Override
