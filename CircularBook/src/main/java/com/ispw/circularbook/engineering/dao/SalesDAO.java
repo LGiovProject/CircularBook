@@ -3,7 +3,7 @@ package com.ispw.circularbook.engineering.dao;
 import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-import com.ispw.circularbook.engineering.dao.Queries.Queries;
+import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.model.SalesModel;
 
@@ -70,12 +70,11 @@ public class SalesDAO {
                 SalesBean salesBean = new SalesBean();
                 salesBean.setId(resultSet.getInt(1));
                 salesBean.setEmail(resultSet.getString(2));
-                salesBean.setNameLib(resultSet.getString(3));
-                salesBean.setTypeOfSales(resultSet.getInt(4));
-                salesBean.setTitle(resultSet.getString(5));
-                salesBean.setDescription(resultSet.getString(6));
-                salesBean.setDateStart(resultSet.getString(7));
-                salesBean.setDateFinish(resultSet.getString(8));
+                salesBean.setTypeOfSales(resultSet.getInt(3));
+                salesBean.setTitle(resultSet.getString(4));
+                salesBean.setDescription(resultSet.getString(5));
+                salesBean.setDateStart(resultSet.getString(6));
+                salesBean.setDateFinish(resultSet.getString(7));
                 salesBeanList.add(salesBean);
             }while (resultSet.next());
 

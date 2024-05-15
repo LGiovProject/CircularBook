@@ -2,31 +2,29 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="337.0" prefWidth="341.0" style="-fx-background-color: #4D0E0E;" stylesheets="@Css/Component.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageSideButtonUserController">
+<AnchorPane prefHeight="337.0" prefWidth="341.0" style="-fx-background-color: #4D0E0E;" stylesheets="@Css/Component.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageSideButtonUserController">
    <VBox layoutY="1.0" prefHeight="337.0" prefWidth="341.0" spacing="15.0">
       <ToggleButton mnemonicParsing="false" onAction="#openLendBook" prefHeight="44.0" prefWidth="341.0">
          <graphic>
             <HBox prefHeight="44.0" prefWidth="280.0">
-               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metti un libro in prestito" textAlignment="CENTER" wrappingWidth="273.99993896484375">
+               <AnchorPane prefHeight="21.0" prefWidth="317.0">
                   <HBox.margin>
                      <Insets bottom="10.0" right="10.0" top="7.0" />
                   </HBox.margin>
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
-               </Text>
+                  <children>
+                     <Text layoutX="21.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Metti un libro in prestito" textAlignment="CENTER" wrappingWidth="273.99993896484375">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </AnchorPane>
             </HBox>
          </graphic>
          <VBox.margin>
@@ -36,19 +34,18 @@
       <ToggleButton mnemonicParsing="false" onAction="#giveBook" prefHeight="44.0" prefWidth="341.0">
          <graphic>
             <HBox prefHeight="26.0" prefWidth="280.0">
-               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Offri un libro in regalo" textAlignment="CENTER" wrappingWidth="271.33666801452637">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
+               <AnchorPane prefHeight="29.0" prefWidth="303.0">
                   <HBox.margin>
                      <Insets right="10.0" top="7.0" />
                   </HBox.margin>
-               </Text>
+                  <children>
+                     <Text layoutX="16.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offri un libro in regalo" textAlignment="CENTER" wrappingWidth="271.33666801452637">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </AnchorPane>
             </HBox>
          </graphic>
          <VBox.margin>
@@ -58,19 +55,18 @@
       <ToggleButton mnemonicParsing="false" onAction="#searchBook" prefHeight="44.0" prefWidth="341.0">
          <graphic>
             <HBox prefHeight="25.0" prefWidth="280.0">
-               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cerca un libro da portare a casa" textAlignment="CENTER" wrappingWidth="274.13671875">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
+               <AnchorPane prefHeight="29.0" prefWidth="321.0">
                   <HBox.margin>
                      <Insets right="10.0" top="7.0" />
                   </HBox.margin>
-               </Text>
+                  <children>
+                     <Text layoutX="20.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cerca un libro da portare a casa" textAlignment="CENTER" wrappingWidth="274.13671875">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </AnchorPane>
             </HBox>
          </graphic>
          <VBox.margin>
@@ -80,19 +76,18 @@
       <ToggleButton mnemonicParsing="false" onAction="#searchSales" prefHeight="44.0" prefWidth="341.0">
          <graphic>
             <HBox prefHeight="25.0" prefWidth="280.0">
-               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visualizza le offerte disponibili" textAlignment="CENTER" wrappingWidth="277.13671875">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
+               <AnchorPane prefHeight="29.0" prefWidth="320.0">
                   <HBox.margin>
                      <Insets right="10.0" top="7.0" />
                   </HBox.margin>
-               </Text>
+                  <children>
+                     <Text layoutX="19.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualizza le offerte disponibili" textAlignment="CENTER" wrappingWidth="277.13671875">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </AnchorPane>
             </HBox>
          </graphic>
          <VBox.margin>
@@ -102,19 +97,18 @@
       <ToggleButton mnemonicParsing="false" onAction="#showLibrary" prefHeight="44.0" prefWidth="341.0">
          <graphic>
             <HBox prefHeight="25.0" prefWidth="280.0">
-               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visualizza la tua Libreria" textAlignment="CENTER" wrappingWidth="275.13671875">
-                  <font>
-                     <Font name="System Bold" size="18.0" />
-                  </font>
+               <AnchorPane prefHeight="29.0" prefWidth="322.0">
                   <HBox.margin>
                      <Insets right="10.0" top="7.0" />
                   </HBox.margin>
-               </Text>
+                  <children>
+                     <Text layoutX="20.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visualizza la tua Libreria" textAlignment="CENTER" wrappingWidth="275.13671875">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </AnchorPane>
             </HBox>
          </graphic>
       </ToggleButton>

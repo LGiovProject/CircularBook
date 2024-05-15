@@ -9,12 +9,15 @@ public class InfoBookModel {
     int giftedBook;
     int lendedBookTaked;
     int giftedBooktaked;
+    int salesInsert;
 
     public InfoBookModel(){}
 
-    public InfoBookModel(int registerBook, int lendedBook) {
+    public InfoBookModel(int registerBook, int lendedBook,int giftedBook, int salesInsert) {
         this.registerBook = registerBook;
         this.lendedBook = lendedBook;
+        this.giftedBook= giftedBook;
+        this.salesInsert= salesInsert;
     }
 
     public InfoBookModel(int registerBook, int lendedBook, int giftedBook, int lendedBookTaked, int giftedBooktaked) {
@@ -63,5 +66,13 @@ public class InfoBookModel {
 
     public void setGiftedBooktaked(int giftedBooktaked) {
         this.giftedBooktaked = giftedBooktaked;
+    }
+
+    public int getSalesInsert() {
+        return salesInsert;
+    }
+
+    public void setSalesInsert(int salesInsert) {
+        this.salesInsert = salesInsert;
     }
 }

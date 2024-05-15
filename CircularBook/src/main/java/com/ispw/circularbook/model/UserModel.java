@@ -13,11 +13,14 @@ public class UserModel {
     private String nome;
     private String cognome;
     private City city;
+
     private List<BookModel> listBookTaked;
     private List<BookModel> listBookLastSearch;
     private List<BookModel> listBookOwnList;
+    private List<BookModel> listBookGiven;
+    private List<BookModel> lastBookListViewed;
 
-    private InfoBookModel infoBookModel;
+
     public UserModel(){};
 
     public UserModel(String email,String username,String password, String nome, String cognome, String city) {
@@ -92,13 +95,7 @@ public class UserModel {
         }
     }
 
-    public InfoBookModel getBookInfo() {
-        return infoBookModel;
-    }
 
-    public void setBookInfo(InfoBookModel infoBookModel) {
-        this.infoBookModel = infoBookModel;
-    }
 
     public void setListBookTaked(List<BookModel> listBookTaked){
         this.listBookTaked=listBookTaked;
@@ -120,5 +117,21 @@ public class UserModel {
 
     public void setBookOwnList(List<BookModel> listBookOwnList) {
         this.listBookOwnList = listBookOwnList;
+    }
+
+    public List<BookModel> getLastBookListViewed() {
+        return lastBookListViewed;
+    }
+
+    public void setLastBookListViewed(List<BookModel> lastBookListViewed) {
+        this.lastBookListViewed = lastBookListViewed;
+    }
+
+    public List<BookModel> getListBookGiven() {
+        return listBookGiven;
+    }
+
+    public void setListBookGiven(List<BookModel> listBookGiven) {
+        this.listBookGiven = listBookGiven;
     }
 }

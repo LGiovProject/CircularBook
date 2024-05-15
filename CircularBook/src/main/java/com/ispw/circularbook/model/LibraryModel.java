@@ -15,8 +15,9 @@ public class LibraryModel {
     private String via;
 
     private List<BookModel> bookOwnList;
+    private List<BookModel> bookGivenList;
 
-
+    private List<SalesModel> salesModelList;
     private InfoBookModel infoBookModel;
 
 
@@ -113,5 +114,21 @@ public class LibraryModel {
 
     public void setBookOwnList(List<BookModel> bookOwnList) {
         this.bookOwnList = bookOwnList;
+    }
+
+    public List<BookModel> getBookGivenList() {
+        return bookGivenList;
+    }
+
+    public void setBookGivenList(List<BookModel> bookGivenList) {
+        this.bookGivenList = bookGivenList;
+    }
+
+    public List<SalesModel> getSalesModelList() {
+        return salesModelList;
+    }
+
+    public void setSalesModelList(List<SalesModel> salesModelList) {
+        this.salesModelList = salesModelList;
     }
 }

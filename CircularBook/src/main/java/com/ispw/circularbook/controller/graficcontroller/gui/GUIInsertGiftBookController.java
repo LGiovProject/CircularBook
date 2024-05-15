@@ -2,7 +2,9 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
+import com.ispw.circularbook.engineering.exception.TitleCampRequiredException;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
@@ -34,15 +36,15 @@ public class GUIInsertGiftBookController {
 
     public void registerBook(){
         try {
-            BookBean bookBean = new BookBean(TakeBeanFromList.getEmailFromCurrentSession(), 2,titleTField.getText(), authorTField.getText(), argumentChBox.getSelectionModel().getSelectedItem(), nPageTField.getText(), commentTArea.getText());
+            RegistrationBookBean registrationBookBean = new RegistrationBookBean(TakeBeanFromList.getEmailFromCurrentSession(), 2,titleTField.getText(), authorTField.getText(), argumentChBox.getSelectionModel().getSelectedItem(), nPageTField.getText(), commentTArea.getText());
             InsertBookController insertBookController = new InsertBookController();
-            insertBookController.registerBook(bookBean);
+            insertBookController.registerBook(registrationBookBean);
             clearTextField();
             BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
-        }catch (WrongNpageFormatException e){
+        }catch (TitleCampRequiredException |WrongNpageFormatException e){
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }
-        }
+    }
 
     public void clearTextField()
     {

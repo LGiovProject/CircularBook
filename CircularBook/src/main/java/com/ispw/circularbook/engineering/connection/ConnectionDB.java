@@ -67,4 +67,46 @@ public class ConnectionDB {
         connection.close();
     }
 
+    public static CallableStatement insertBook() throws SQLException {
+        String procedureCall="call insert_book(?,?,?,?,?,?,?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement insertUser() throws SQLException {
+        String procedureCall ="call insert_user(?,?,?,?,?,?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement insertLibrary() throws SQLException {
+        String procedureCall ="call insert_library(?,?,?,?,?,?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+
+
+    public static CallableStatement searchBookTaked() throws SQLException {
+        String procedureCall = "call  search_book_taked(?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement removeBook() throws SQLException {
+        String procedureCall="call remove_book(?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement updateBook() throws SQLException {
+        String procedureCall="call update_book(?,?,?,?,?,?,?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement bookInfoUser() throws SQLException {
+        String procedureCall="call view_user_book_info(?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement bookInfoLibrary() throws SQLException {
+        String procedureCall="call view_library_book_info(?)";
+        return connection.prepareCall(procedureCall);
+    }
+
 }

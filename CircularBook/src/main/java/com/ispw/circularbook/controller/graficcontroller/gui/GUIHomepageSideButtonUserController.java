@@ -3,12 +3,10 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.engineering.session.Session;
 import javafx.fxml.FXMLLoader;
-
 import com.ispw.circularbook.Main;
-
 import javafx.scene.layout.Pane;
-
 import java.io.IOException;
+
 
 public class GUIHomepageSideButtonUserController {
 
@@ -64,8 +62,9 @@ public class GUIHomepageSideButtonUserController {
     public void searchBook() throws IOException {
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("SearchBook.fxml"));
         Pane pane= fxmlLoader.load();
-        GUISearchBookController homepageSearchBookController= fxmlLoader.getController();
-        homepageSearchBookController.startSetSearch();
+        GUISearchBookController searchBookController= fxmlLoader.getController();
+        searchBookController.setSearch();
+        searchBookController.setCurrentPane(pane);
         guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 
 

@@ -3,6 +3,7 @@ package com.ispw.circularbook.model;
 import com.ispw.circularbook.engineering.enums.Arguments;
 
 import java.time.LocalDate;
+import java.util.UUID;
 //import java.time.temporal.Cr;
 
 public class BookModel {
@@ -15,12 +16,16 @@ public class BookModel {
     private int nPagine;
     private String commento;
 
+
+
     //info book
     private String date_start;
     private String date_finish;
     private String emailGiver;
     private String emailTaker;
     private long daysRemaing;
+
+
 
 
 
@@ -152,7 +157,7 @@ public class BookModel {
 
     public void setNpagine(String nPagine)
     {
-       this.nPagine= Integer.getInteger(nPagine);
+        this.nPagine= Integer.parseInt(nPagine);
     }
 
     public void setNPagine(int nPagine) {
