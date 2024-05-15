@@ -20,7 +20,8 @@ public class LoginController {
    //Presi in input facciano match con quelli salvati nel database
     public void checkLogin(LoginBean loginBean) {
 
-       loginBean.setType(LoginDAO.checkLogin(loginBean));
+       //loginBean.setType(LoginDAO.checkLogin(loginBean));
+       loginBean.setType(LoginDAOCSV.checkLogin(loginBean));
 
     }
 
