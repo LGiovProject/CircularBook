@@ -71,12 +71,16 @@ public class GUIElementBookSearchedController {
             GUIMoreInfoBookController guiMoreInfoBookController;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
-            GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+
             guiMoreInfoBookController = fxmlLoader.getController();
             ElementBookBean elementBookBean = new ElementBookBean(this.panel,bookModel.getId());
             guiMoreInfoBookController.setInfoBook(elementBookBean);
             guiMoreInfoBookController.setPreviousPane(this.previuosPane);
-            guiHomepageController.setSideWindow(pane);
+
+//            GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//            guiHomepageController.setSideWindow(pane);
+
+            Session.getCurrentSession().getSceneFacade().loadScene(pane);
         }
 
         public void getBook(){

@@ -4,6 +4,7 @@ import com.ispw.circularbook.controller.appcontroller.NotifyController;
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
+import com.ispw.circularbook.engineering.facade.SceneFacade;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
@@ -52,7 +53,11 @@ public class GUIHomepageController {
     //Metodo di lancio per l'homepage sia user che library, base al tipo di utente che effettua il login
     //carica la rispettiva homepage.
     public void homePageStart(LoginBean loginBean) throws IOException {
+
         this.loginBean=loginBean;
+
+        SceneFacade sceneFacade = new SceneFacade(SideWindow);
+        Session.getCurrentSession().setSceneFacade(sceneFacade);
 
         if(this.loginBean.getType()==1) {
             this.startUserHomepage();
@@ -81,8 +86,7 @@ public class GUIHomepageController {
     public void startLibraryHomepage() throws IOException {
         FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonLibrary.fxml"));
         Pane screenA = fxmlLoaderA.load();
-        GUIHomepageSideButtonLibraryController guiHomepageSideButtonLibraryController = fxmlLoaderA.getController();
-        guiHomepageSideButtonLibraryController.setCurrentScene(getCurrentScene());
+
 
 
 

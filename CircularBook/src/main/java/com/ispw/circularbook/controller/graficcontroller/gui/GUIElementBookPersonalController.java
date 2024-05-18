@@ -67,12 +67,17 @@ public class GUIElementBookPersonalController {
         GUIMoreInfoBookController guiMoreInfoBookController;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
         Pane pane = fxmlLoader.load();
-        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+
+
         guiMoreInfoBookController = fxmlLoader.getController();
         ElementBookBean elementBookBean = new ElementBookBean(this.id);
         guiMoreInfoBookController.setPreviousPane(this.previuosPane);
         guiMoreInfoBookController.setInfoBook(elementBookBean);
-        guiHomepageController.setSideWindow(pane);
+
+//        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
+
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
     }
 
 

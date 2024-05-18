@@ -111,8 +111,11 @@ public class GUIWindowElementBookPersonalController implements Observer{
     public void backButton() throws IOException {
         FXMLLoader fxmlLoader= getSessionFxmlLoader();
         Pane pane= fxmlLoader.load();
-        guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
-        guiHomepageController.setSideWindow(pane);
+
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
+
+//        guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
     }
 
     @Override
