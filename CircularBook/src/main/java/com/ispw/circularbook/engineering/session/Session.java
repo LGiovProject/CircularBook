@@ -2,6 +2,7 @@ package com.ispw.circularbook.engineering.session;
 
 
 import com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageController;
+import com.ispw.circularbook.engineering.facade.SceneFacade;
 import com.ispw.circularbook.model.LibraryModel;
 import com.ispw.circularbook.model.UserModel;
 
@@ -12,6 +13,7 @@ public class Session {
     private UserModel userModel = null;
     private LibraryModel libraryModel= null;
     private GUIHomepageController guiHomepageController;
+    private SceneFacade sceneFacade;
 
     private Session(Object ob) {
         if(ob instanceof UserModel) {
@@ -49,7 +51,19 @@ public class Session {
         return libraryModel;
     }
 
-    public GUIHomepageController getGuiHomepageController(){ return guiHomepageController;}
+    public GUIHomepageController getGuiHomepageController(){
+        return guiHomepageController;
+    }
 
-    public void setGuiHomepageController(GUIHomepageController guiHomepageController){ this.guiHomepageController = guiHomepageController;}
+    public void setGuiHomepageController(GUIHomepageController guiHomepageController){
+        this.guiHomepageController = guiHomepageController;
+    }
+
+    public SceneFacade getSceneFacade() {
+        return sceneFacade;
+    }
+
+    public void setSceneFacade(SceneFacade sceneFacade) {
+        this.sceneFacade = sceneFacade;
+    }
 }

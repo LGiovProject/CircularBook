@@ -20,8 +20,6 @@ public class LoginDAO {
 
         Statement stmt;
         int type=0;
-
-
         try {
             stmt = ConnectionDB.getConnection();
 
@@ -49,12 +47,12 @@ public class LoginDAO {
 
         }catch (SQLException| ErrorConnectionDbException | NoAccountFoundException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-
-
         return type;
 
     }
+
+
+
 }

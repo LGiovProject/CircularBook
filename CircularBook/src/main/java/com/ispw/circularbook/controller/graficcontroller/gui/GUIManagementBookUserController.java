@@ -34,8 +34,12 @@ public class GUIManagementBookUserController {
             Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-            guiHomepageController.setSideWindow(pane);
+
+            Session.getCurrentSession().getSceneFacade().loadScene(pane);
+
+//            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//            guiHomepageController.setSideWindow(pane);
+
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.setCurrentPane(pane);
             guiWindowElementBookPersonalController.viewBook();
@@ -51,7 +55,11 @@ public class GUIManagementBookUserController {
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-            Session.getCurrentSession().getGuiHomepageController().setSideWindow(pane);
+
+            Session.getCurrentSession().getSceneFacade().loadScene(pane);
+
+//            Session.getCurrentSession().getGuiHomepageController().setSideWindow(pane);
+
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.viewMyLendedBook();
 
@@ -74,8 +82,13 @@ public class GUIManagementBookUserController {
             Session.getCurrentSession().getUser().setListBookGiven(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-            guiHomepageController.setSideWindow(pane);
+
+            Session.getCurrentSession().getSceneFacade().loadScene(pane);
+
+//            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//            guiHomepageController.setSideWindow(pane);
+
+
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.viewMyGivenBook();
 

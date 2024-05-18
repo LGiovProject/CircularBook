@@ -41,8 +41,10 @@ public class GUIMoreInfoBookController {
 
     public void backButton() throws IOException {
 
-        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-        guiHomepageController.setSideWindow(previousPane);
+        Session.getCurrentSession().getSceneFacade().loadScene(previousPane);
+
+//        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(previousPane);
     }
 
     public void setPreviousPane(Pane previousPane)

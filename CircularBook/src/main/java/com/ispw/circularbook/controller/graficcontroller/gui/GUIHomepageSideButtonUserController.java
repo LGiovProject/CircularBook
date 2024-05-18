@@ -18,19 +18,18 @@ public class GUIHomepageSideButtonUserController {
 
 
 
-
     public void openLendBook() throws IOException {
 
 
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("InsertLendBook.fxml"));
-        Pane pane= fxmlLoader.load();
+        Pane pane = fxmlLoader.load();
         GUIInsertLendBookController guiInsertLendBookController = fxmlLoader.getController();
         guiInsertLendBookController.startRegisterBook();
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 
-
-        guiHomepageController.setSideWindow(pane);
+//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
 
 
     }
@@ -41,11 +40,11 @@ public class GUIHomepageSideButtonUserController {
         Pane pane= fxmlLoader.load();
         GUIInsertGiftBookController guiInsertGiftBookController = fxmlLoader.getController();
         guiInsertGiftBookController.startRegisterBook();
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 
-
-        guiHomepageController.setSideWindow(pane);
+//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
     }
 
     public void searchSales() throws IOException {
@@ -53,10 +52,10 @@ public class GUIHomepageSideButtonUserController {
         Pane pane= fxmlLoader.load();
         GUISearchSalesController guiSearchSalesController = fxmlLoader.getController();
         guiSearchSalesController.startSetSales();
-        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-
-        guiHomepageController.setSideWindow(pane);
+//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
     }
 
     public void searchBook() throws IOException {
@@ -65,17 +64,20 @@ public class GUIHomepageSideButtonUserController {
         GUISearchBookController searchBookController= fxmlLoader.getController();
         searchBookController.setSearch();
         searchBookController.setCurrentPane(pane);
-        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
 
-        guiHomepageController.setSideWindow(pane);
+//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
     }
 
     public void showLibrary() throws IOException{
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("ManagementBookUser.fxml"));
         Pane pane= fxmlLoader.load();
-        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-        guiHomepageController.setSideWindow(pane);
+        Session.getCurrentSession().getSceneFacade().loadScene(pane);
+
+//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+//        guiHomepageController.setSideWindow(pane);
 
 
 
