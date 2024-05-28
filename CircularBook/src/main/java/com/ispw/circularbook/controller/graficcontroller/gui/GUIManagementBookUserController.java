@@ -8,6 +8,7 @@ import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -16,37 +17,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GUIManagementBookUserController {
+
     GUIHomepageController guiHomepageController;
     GUIWindowElementBookPersonalController guiWindowElementBookPersonalController;
 
+    private Scene previuosScene;
 
+    public void setPreviuosScene(Scene previuosScene) {
+        this.previuosScene = previuosScene;
+    }
 
 
     public void searchMyBook() throws IOException {
-        List<BookModel> listBookModel = new ArrayList<>();
+        List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        try {
-            listBookModel = searchBookController.searchMyBook(Session.getCurrentSession().getUser().getEmail());
-        } catch (NoBookLendedException e) {
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-        }
-        if (listBookModel!=null && !listBookModel.isEmpty()) {
-            Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
-            Pane pane = fxmlLoader.load();
+        //try {
+            listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getUser().getEmail());
 
-            Session.getCurrentSession().getSceneFacade().loadScene(pane);
+            if (listBookModel!=null && !listBookModel.isEmpty()) {
+                Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
+                Pane pane = fxmlLoader.load();
 
-//            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//            guiHomepageController.setSideWindow(pane);
+                Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-            guiWindowElementBookPersonalController = fxmlLoader.getController();
-            guiWindowElementBookPersonalController.setCurrentPane(pane);
-            guiWindowElementBookPersonalController.viewBook();
+    //            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
+    //            guiHomepageController.setSideWindow(pane);
 
-        } else {
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessun libro registrato");
-        }
+                guiWindowElementBookPersonalController = fxmlLoader.getController();
+                guiWindowElementBookPersonalController.setCurrentPane(pane);
+                guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
+                guiWindowElementBookPersonalController.viewBook();
+                if(previuosScene==null)
+                    System.out.println("errore 4");
+
+
+            } else {
+//                throw new NoBookLendedException();
+            }
+//        } catch (NoBookLendedException e) {
+//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+//        }
     }
 
     public void searchBookILendBack() throws IOException {
@@ -61,7 +72,9 @@ public class GUIManagementBookUserController {
 //            Session.getCurrentSession().getGuiHomepageController().setSideWindow(pane);
 
             guiWindowElementBookPersonalController = fxmlLoader.getController();
+            guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewMyLendedBook();
+
 
         }
         else
@@ -90,8 +103,14 @@ public class GUIManagementBookUserController {
 
 
             guiWindowElementBookPersonalController = fxmlLoader.getController();
+            guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewMyGivenBook();
 
+
+        }
+        else
+        {
+            BoxExcpetionMessage.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
         }
     }
 }

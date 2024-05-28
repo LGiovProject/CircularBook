@@ -14,24 +14,24 @@ import java.util.List;
 
 public class SearchBookController {
 
-    public List<BookModel> searchBook(SearchBookBean searchBookBean)
+    public List<BookModel> searchAvailableBook(SearchBookBean searchBookBean)
     {
         List<BookBean> listBookBean;
         List<BookModel> listBookModel= new ArrayList<>();
-        listBookBean=SearchBookDAO.searchBook(searchBookBean);
+        listBookBean=SearchBookDAO.searchAvailableBook(searchBookBean);
         for(BookBean bookBean: listBookBean)
         {
-            BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());
+            BookModel bookModel = new BookModel(bookBean.getId(),bookBean.getEmail(), bookBean.getUsername(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(),bookBean.getNPagine(),bookBean.getCommento());
             listBookModel.add(bookModel);
         }
         return listBookModel;
     }
 
-    public List<BookModel> searchMyBook(String email) throws NoBookLendedException {
+    public List<BookModel> searchMyAvailableBook(String email){
 
             List<BookBean> listBookBean;
             List<BookModel> listBookModel= new ArrayList<>();
-            listBookBean = SearchBookDAO.searchMyBook(email);
+            listBookBean = SearchBookDAO.searchMyAvailableBook(email);
 
             for (BookBean bookBean : listBookBean) {
                 BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(),  bookBean.getNPagine(), bookBean.getCommento());
@@ -47,10 +47,9 @@ public class SearchBookController {
         List<BookModel> listBookModel = new ArrayList<>();
 
         listBookBean=SearchBookDAO.searchGivenBook(email);
-
         for(BookBean bookBean: listBookBean)
         {
-            BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing(),bookBean.getEmailTaker());
+            BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getUsernameTaker(), bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(),bookBean.getDate_start(),bookBean.getDate_finish(),bookBean.getDaysRemaing());
             listBookModel.add(bookModel);
         }
         return listBookModel;

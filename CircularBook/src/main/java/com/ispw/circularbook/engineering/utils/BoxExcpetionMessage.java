@@ -2,6 +2,7 @@ package com.ispw.circularbook.engineering.utils;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.graficcontroller.gui.GUIPopUpsExceptionController;
+import com.ispw.circularbook.controller.graficcontroller.gui.GUIPopUpsGuestDeniedController;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.control.Label;
@@ -28,7 +29,24 @@ public class BoxExcpetionMessage {
              popup.show(Main.getStage());
 
          }catch (IOException e){
-             e.printStackTrace();
+             throw new RuntimeException(e);
+         }
+     }
+
+     public static void PopUpsGuestDeniedMessage()
+     {
+         try {
+             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsGuestDenied.fxml"));
+             Popup popup = new Popup();
+             Label label = fxmlLoader.load();
+             GUIPopUpsGuestDeniedController guiPopUpsGuestDeniedController = fxmlLoader.getController();
+             guiPopUpsGuestDeniedController.setPopup(popup);
+             popup.getContent().add(label);
+             popup.setAutoHide(true);
+             popup.show(Main.getStage());
+
+         }catch (IOException e){
+             throw new RuntimeException(e);
          }
      }
 

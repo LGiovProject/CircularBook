@@ -1,6 +1,6 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-import com.ispw.circularbook.controller.appcontroller.NotifyController;
+//import com.ispw.circularbook.controller.appcontroller.NotifyController;
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
@@ -68,34 +68,36 @@ public class GUIHomepageController {
 
         }
 
+
+
     }
     //Carica l'homepage per gli utenti
     public void startUserHomepage() throws IOException {
         FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonUser.fxml"));
         Pane screenA = fxmlLoaderA.load();
+        GUIHomepageSideButtonUserController guiHomepageSideButtonUserController = fxmlLoaderA.getController();
         FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
         Pane screenB = fxmlLoaderB.load();
 
         setSideButton(screenA);
         setSideWindow(screenB);
+        guiHomepageSideButtonUserController.setPreviuosScene(this.currentScene);
 
-        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getListBookTaked();
-        setBellNotify(listBookModel);
+//        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getListBookTaked();
+//        setBellNotify(listBookModel);
     }
     //carica l'homepage per le library
     public void startLibraryHomepage() throws IOException {
         FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonLibrary.fxml"));
         Pane screenA = fxmlLoaderA.load();
-
-
-
-
+        GUIHomepageSideButtonLibraryController guiHomepageSideButtonLibraryController = fxmlLoaderA.getController();
         FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
         Pane screenB = fxmlLoaderB.load();
 
-
         setSideButton(screenA);
         setSideWindow(screenB);
+
+        guiHomepageSideButtonLibraryController.setPreviuosScene(this.currentScene);
     }
 
     public void setSideButton(Pane pane) {
@@ -124,15 +126,16 @@ public class GUIHomepageController {
     }
 
     public void setting() throws IOException {
-        if(this.loginBean.getType()==1) {
-            this.settingUser();
 
-
-        }
-        else if(this.loginBean.getType()==2){
+        if(this.loginBean.getType()==1)
+            if(Session.getCurrentSession().getUser().isGuest())
+                BoxExcpetionMessage.PopUpsGuestDeniedMessage();
+            else
+                this.settingUser();
+        else//(this.loginBean.getType()==2)
             this.settingLibrary();
 
-        }
+
     }
 
     public void settingUser() throws IOException {
@@ -157,63 +160,66 @@ public class GUIHomepageController {
         Main.getStage().setScene(scene);
     }
 
-    private void setBellNotify(List<BookModel> listBookModel) throws IOException {
-        if(listBookModel!=null) {
-            for (BookModel bookModel : listBookModel) {
-
-                if (bookModel.getDaysRemaing() > 7) {
-                    notify = true;
-                    // Change to notifybean in NotifyModel!
-                    //NotifyBean notifyBean = new NotifyBean(bookBean, getMessage(bookBean));
-                    //this.notifyBeanList.add(notifyBean);
-                    Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/bellNotify.png")).openStream());
-                    bellNotify.setImage(image);
-                    bellNotify.setOpacity(1);
-                }
-            }
-        }
-        else
-        {
-            notify=false;
-        }
-        NotifyController notifyController= new NotifyController();
-        List<NotifyBean> notifyBeanList =notifyController.readNotify(Session.getCurrentSession().getUser().getEmail());
-
-        if(notifyBeanList!=null) {
-            this.notifyBeanList.addAll(notifyController.readNotify(Session.getCurrentSession().getUser().getEmail()));
-            notify=true;
-        }
-
-
-
-
-    }
+//    private void setBellNotify(List<BookModel> listBookModel) throws IOException {
+//        if(listBookModel!=null) {
+//            for (BookModel bookModel : listBookModel) {
+//
+//                if (bookModel.getDaysRemaing() > 7) {
+//                    notify = true;
+//                    // Change to notifybean in NotifyModel!
+//                    //NotifyBean notifyBean = new NotifyBean(bookBean, getMessage(bookBean));
+//                    //this.notifyBeanList.add(notifyBean);
+//                    Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/bellNotify.png")).openStream());
+//                    bellNotify.setImage(image);
+//                    bellNotify.setOpacity(1);
+//                }
+//            }
+//        }
+//        else
+//        {
+//            notify=false;
+//        }
+//        NotifyController notifyController= new NotifyController();
+//        List<NotifyBean> notifyBeanList =notifyController.readNotify(Session.getCurrentSession().getUser().getEmail());
+//
+//        if(notifyBeanList!=null) {
+//            this.notifyBeanList.addAll(notifyController.readNotify(Session.getCurrentSession().getUser().getEmail()));
+//            notify=true;
+//        }
+//
+//
+//
+//
+//    }
 
     public void seeNotify() throws IOException {
-        if(notify) {
-            Popup popup = new Popup();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsNotify.fxml"));
-            Label label = fxmlLoader.load();
-            GUIPopUpsNotifyController popUpsNotifyController= fxmlLoader.getController();
-            popUpsNotifyController.setViewNotify(this.notifyBeanList);
-            popup.getContent().add(label);
-            popup.setAutoHide(true);
 
-            popup.show(Main.getStage());
-            Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/bell.png")).openStream());
-            bellNotify.setOpacity(0.5);
-            bellNotify.setImage(image);
-        }
-        else
-        {
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
-        }
+        BoxExcpetionMessage.PopUpsExcpetionMessage("Servizio non ancora implementato");
+
+//        if(notify) {
+//            Popup popup = new Popup();
+//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsNotify.fxml"));
+//            Label label = fxmlLoader.load();
+//            GUIPopUpsNotifyController popUpsNotifyController= fxmlLoader.getController();
+//            popUpsNotifyController.setViewNotify(this.notifyBeanList);
+//            popup.getContent().add(label);
+//            popup.setAutoHide(true);
+//
+//            popup.show(Main.getStage());
+//            Image image = new Image(Objects.requireNonNull(Main.class.getResource("img/bell.png")).openStream());
+//            bellNotify.setOpacity(0.5);
+//            bellNotify.setImage(image);
+//        }
+//        else
+//        {
+//            BoxExcpetionMessage.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
+//        }
     }
 
-    private String getMessage(BookBean bookBean){
-
-        String string= "Il libro "+bookBean.getTitolo()+" che hai preso in prestito scadrà tra "+bookBean.getDaysRemaing()+" giorni";
-        return string;
-    }
+//    private String getMessage(BookBean bookBean){
+//
+//        String string= "Il libro "+bookBean.getTitolo()+" che hai preso in prestito scadrà tra "+bookBean.getDaysRemaing()+" giorni";
+//        return string;
+//    }
 
 }

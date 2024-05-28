@@ -19,14 +19,14 @@ import java.util.List;
 
 public class SearchBookDAO {
 
-    public static List<BookBean> searchBook(SearchBookBean searchBookBean) {
+    public static List<BookBean> searchAvailableBook(SearchBookBean searchBookBean){
         Statement stmt;
         ResultSet resultSet;
         List<BookBean> listBookBean= new ArrayList<>();
 
         try{
             stmt= ConnectionDB.getConnection();
-            resultSet=Queries.searchBook(stmt,searchBookBean);
+            resultSet=Queries.searchAvailableBook(stmt,searchBookBean);
 
             if(!resultSet.first())
             {
@@ -41,12 +41,13 @@ public class SearchBookDAO {
                     BookBean bookBean = new BookBean();
                     bookBean.setId(resultSet.getInt(1));
                     bookBean.setEmail(resultSet.getString(2));
-                    bookBean.setTypeOfDisponibility(resultSet.getInt(3));
-                    bookBean.setAutore(resultSet.getString(4));
-                    bookBean.setArgomento(resultSet.getString(5));
-                    bookBean.setTitolo(resultSet.getString(6));
-                    bookBean.setNPagine(resultSet.getInt(7));
-                    bookBean.setCommento(resultSet.getString(8));
+                    bookBean.setUsername(resultSet.getString(3));
+                    bookBean.setTypeOfDisponibility(resultSet.getInt(4));
+                    bookBean.setAutore(resultSet.getString(5));
+                    bookBean.setArgomento(resultSet.getString(6));
+                    bookBean.setTitolo(resultSet.getString(7));
+                    bookBean.setNPagine(resultSet.getInt(8));
+                    bookBean.setCommento(resultSet.getString(9));
 
                     listBookBean.add(bookBean);
                 } while (resultSet.next());
@@ -59,19 +60,21 @@ public class SearchBookDAO {
 
             resultSet.close();
 
-        } catch (NoBookFoundException| ErrorConnectionDbException |SQLException e) {
+        } catch (ErrorConnectionDbException |SQLException e) {
             throw new RuntimeException(e);
+        }catch (NoBookFoundException e) {
+            BoxExcpetionMessage.PopUpsExcpetionMessage("Non ci sono libri con i parametri inseriti");
         }
         return listBookBean;
     }
 
-    public static List<BookBean> searchMyBook(String email) {
+    public static List<BookBean> searchMyAvailableBook(String email) {
         Statement stmt;
         ResultSet resultSet;
         List<BookBean> listBookBean= new ArrayList<>();
         try{
             stmt= ConnectionDB.getConnection();
-            resultSet=Queries.searchMyBook(stmt,email);
+            resultSet=Queries.searchMyAvailableBook(stmt,email);
 
             if(!resultSet.first())
             {
@@ -109,49 +112,49 @@ public class SearchBookDAO {
         return listBookBean;
     }
 
-    public static BookBean searchBook(int id){
+//    public static BookBean searchBook(int id){
+//
+//        Statement stmt;
+//        ResultSet resultSet;
+//        BookBean bookBean = new BookBean();
+//        try{
+//        stmt=ConnectionDB.getConnection();
+//        resultSet = Queries.searchBookById(stmt,id);
+//
+//
+//
+//            if(!resultSet.first())
+//            {
+//                throw new NoBookFoundException();
+//
+//            }
+//
+//            resultSet.next();
+//            // Riposiziono il cursore sul primo record del result set
+//            resultSet.first();
+//
+//            bookBean.setId(resultSet.getInt(1));
+//            bookBean.setEmail(resultSet.getString(2));
+//            bookBean.setTypeOfDisponibility(resultSet.getInt(3));
+//            bookBean.setAutore(resultSet.getString(4));
+//            bookBean.setArgomento(resultSet.getString(5));
+//            bookBean.setTitolo(resultSet.getString(6));
+//            bookBean.setNPagine(resultSet.getInt(7));
+//            bookBean.setCommento(resultSet.getString(8));
+//        }catch (ErrorConnectionDbException| NoBookFoundException | SQLException e){
+//            throw new RuntimeException(e);
+//        }
+//        return bookBean;
+//    }
 
-        Statement stmt;
-        ResultSet resultSet;
-        BookBean bookBean = new BookBean();
-        try{
-        stmt=ConnectionDB.getConnection();
-        resultSet = Queries.searchBookById(stmt,id);
-
-
-
-            if(!resultSet.first())
-            {
-                throw new NoBookFoundException();
-
-            }
-
-            resultSet.next();
-            // Riposiziono il cursore sul primo record del result set
-            resultSet.first();
-
-            bookBean.setId(resultSet.getInt(1));
-            bookBean.setEmail(resultSet.getString(2));
-            bookBean.setTypeOfDisponibility(resultSet.getInt(3));
-            bookBean.setAutore(resultSet.getString(4));
-            bookBean.setArgomento(resultSet.getString(5));
-            bookBean.setTitolo(resultSet.getString(6));
-            bookBean.setNPagine(resultSet.getInt(7));
-            bookBean.setCommento(resultSet.getString(8));
-        }catch (ErrorConnectionDbException| NoBookFoundException | SQLException e){
-            throw new RuntimeException(e);
-        }
-        return bookBean;
-    }
-
-    public static List<BookBean> searchLendedBook (UserBean userBean) throws NoBookLendedException {
+    public static List<BookBean> searchTakedBook (UserBean userBean) throws NoBookLendedException {
         {
             Statement stmt;
             ResultSet resultSet;
             List<BookBean> listBookBean= new ArrayList<>();
             try{
                 stmt= ConnectionDB.getConnection();
-                resultSet=Queries.searchLendedBook(stmt,userBean);
+                resultSet=Queries.searchTakedBook(stmt,userBean);
 
                 if(!resultSet.first())
                 {
@@ -164,22 +167,24 @@ public class SearchBookDAO {
                 resultSet.first();
 
                 do {
+
                     BookBean bookBean = new BookBean();
                     bookBean.setId(resultSet.getInt(1));
-                    bookBean.setEmailTaker(resultSet.getString(2));
-                    bookBean.setEmailGiver(resultSet.getString(3));
-                    bookBean.setTypeOfDisponibility(resultSet.getInt(4));
-                    bookBean.setAutore(resultSet.getString(5));
-                    bookBean.setArgomento(resultSet.getString(6));
-                    bookBean.setTitolo(resultSet.getString(7));
-                    bookBean.setNPagine(resultSet.getInt(8));
-                    bookBean.setCommento(resultSet.getString(9));
-                    bookBean.setDate_start(resultSet.getString(10));
-                    String buffer =resultSet.getString(11);
-                    bookBean.setDate_finish(buffer);
-                    bookBean.setDaysRemaing(buffer);
-                    bookBean.setEmailGiver(resultSet.getString(12));
+                    bookBean.setUsernamePutter(resultSet.getString(2));
+                    bookBean.setAutore(resultSet.getString(3));
+                    bookBean.setArgomento(resultSet.getString(4));
+                    bookBean.setTitolo(resultSet.getString(5));
+                    bookBean.setNPagine(resultSet.getInt(6));
+                    bookBean.setCommento(resultSet.getString(7));
+                    bookBean.setTypeOfDisponibility(resultSet.getInt(8));
+                    bookBean.setDate_start(resultSet.getString(9));
+                    if(bookBean.getTypeOfDisponibility()==1) {
+                        String buffer = resultSet.getString(10);
+                        bookBean.setDate_finish(buffer);
+                        bookBean.setDaysRemaing(buffer);
+                    }
                     listBookBean.add(bookBean);
+
                 } while (resultSet.next());
 
                 resultSet.close();
@@ -212,18 +217,20 @@ public class SearchBookDAO {
             do {
                 BookBean bookBean = new BookBean();
                 bookBean.setId(resultSet.getInt(1));
-                bookBean.setEmail(resultSet.getString(2));
-                bookBean.setTypeOfDisponibility(resultSet.getInt(3));
-                bookBean.setAutore(resultSet.getString(4));
-                bookBean.setArgomento(resultSet.getString(5));
-                bookBean.setTitolo(resultSet.getString(6));
-                bookBean.setNPagine(resultSet.getInt(7));
-                bookBean.setCommento(resultSet.getString(8));
+                bookBean.setUsernameTaker(resultSet.getString(2));
+                bookBean.setAutore(resultSet.getString(3));
+                bookBean.setArgomento(resultSet.getString(4));
+                bookBean.setTitolo(resultSet.getString(5));
+                bookBean.setNPagine(resultSet.getInt(6));
+                bookBean.setCommento(resultSet.getString(7));
+                bookBean.setTypeOfDisponibility(resultSet.getInt(8));
                 bookBean.setDate_start(resultSet.getString(9));
-                String buffer =resultSet.getString(10);
-                bookBean.setDate_finish(buffer);
-                bookBean.setDaysRemaing(buffer);
-                bookBean.setEmailTaker(resultSet.getString(11));
+                if(bookBean.getTypeOfDisponibility()==1) {
+                    String buffer = resultSet.getString(10);
+                    bookBean.setDate_finish(buffer);
+                    bookBean.setDaysRemaing(buffer);
+
+                }
                 listBookBean.add(bookBean);
             } while (resultSet.next());
 

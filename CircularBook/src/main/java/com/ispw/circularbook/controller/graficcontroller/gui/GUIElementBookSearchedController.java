@@ -2,9 +2,9 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
-import com.ispw.circularbook.controller.appcontroller.NotifyController;
-import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+//import com.ispw.circularbook.controller.appcontroller.NotifyController;
+//import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.LenderBookBean;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
@@ -12,6 +12,7 @@ import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -32,6 +33,8 @@ public class GUIElementBookSearchedController {
         private Text type_of_insert;
         @FXML
         private Pane panel;
+        @FXML
+        private Button takeBook;
 
         private BookModel bookModel;
 
@@ -53,10 +56,16 @@ public class GUIElementBookSearchedController {
         }
 
 
-        public void setBookElement(ElementBookBean elementBookBean) {
+        public void setBookElement(ElementBean elementBean) {
 
-            this.bookModel=getBookModel(elementBookBean.getId());
-            this.panel=elementBookBean.getPane();
+            if(Session.getCurrentSession().getUser().isGuest())
+            {
+                takeBook.setVisible(false);
+                takeBook.setManaged(false);
+            }
+
+            this.bookModel=getBookModel(elementBean.getId());
+            this.panel= elementBean.getPane();
             this.type_of_insert.setText(this.bookModel.getTypeOfDisponibilityString());
             this.author.setText(this.bookModel.getAutore());
             this.title.setText(this.bookModel.getTitolo());
@@ -73,8 +82,8 @@ public class GUIElementBookSearchedController {
             Pane pane = fxmlLoader.load();
 
             guiMoreInfoBookController = fxmlLoader.getController();
-            ElementBookBean elementBookBean = new ElementBookBean(this.panel,bookModel.getId());
-            guiMoreInfoBookController.setInfoBook(elementBookBean);
+            ElementBean elementBean = new ElementBean(this.panel,bookModel.getId());
+            guiMoreInfoBookController.setInfoBook(elementBean);
             guiMoreInfoBookController.setPreviousPane(this.previuosPane);
 
 //            GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
@@ -84,11 +93,9 @@ public class GUIElementBookSearchedController {
         }
 
         public void getBook(){
-
             InsertBookController insertBookController = new InsertBookController();
-            LenderBookBean lenderBookBean = new LenderBookBean(bookModel.getId(),bookModel.getEmail(),Session.getCurrentSession().getUser().getUsername(), LocalDate.now());
+            LenderBookBean lenderBookBean = new LenderBookBean(bookModel.getId(),bookModel.getEmail(),bookModel.getUsername(),Session.getCurrentSession().getUser().getEmail(),Session.getCurrentSession().getUser().getUsername(),bookModel.getTypeOfDisponibility(), LocalDate.now());
             insertBookController.registerLendBook(lenderBookBean);
-
             //NotifyController notifyController = new NotifyController();
             //notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookModel,getMessage());
             bookElementSubject.notifyObserver(this.panel);

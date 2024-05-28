@@ -2,17 +2,17 @@ package com.ispw.circularbook.engineering.bean;
 
 import javafx.scene.layout.Pane;
 
-public class ElementBookBean {
+public class ElementBean {
 
     private Pane pane;
     private int id;
 
-    public ElementBookBean(Pane pane, int id) {
+    public ElementBean(Pane pane, int id) {
         this.pane = pane;
         this.id = id;
     }
 
-    public ElementBookBean(int id) {
+    public ElementBean(int id) {
         this.id = id;
     }
 

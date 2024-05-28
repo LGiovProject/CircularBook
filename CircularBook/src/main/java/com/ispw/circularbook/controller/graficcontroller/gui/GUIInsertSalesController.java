@@ -29,15 +29,17 @@ public class GUIInsertSalesController {
     @FXML
     RadioButton eventsRadioButton;
 
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     public void insertSales()
     {
         try {
-            SalesBean salesBean = new SalesBean(Session.getCurrentSession().getLibrary().getEmail(), Session.getCurrentSession().getLibrary().getNomeLib(), titleSales.getText(), typeOfSales(), descriptionSales.getText(), dateStart.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), dateFinish.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            SalesBean salesBean = new SalesBean(Session.getCurrentSession().getLibrary().getEmail(), titleSales.getText(), typeOfSales(), descriptionSales.getText(), dateStart.getValue().format(dateTimeFormatter), dateFinish.getValue().format(dateTimeFormatter));
             InsertSalesController insertSalesController = new InsertSalesController();
             insertSalesController.insertSales(salesBean);
             clearCamp();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

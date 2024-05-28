@@ -1,25 +1,29 @@
 package com.ispw.circularbook.model;
 
+import com.ispw.circularbook.engineering.enums.TypeOfSales;
+
+import java.time.LocalDate;
+
 public class SalesModel {
 
     private int id;
     private String email;
     private String nameLib;
-    private int typeOfSales;
-    private String date_start;
-    private String date_finish;
+    private TypeOfSales typeOfSales;
+    private String dateStart;
+    private String dateFinish;
     private String description;
     private String title;
 
     public SalesModel(){}
 
-    public SalesModel(int id, String email, String nameLib,int typeOfSales, String date_start, String date_finish, String description, String title) {
+    public SalesModel(int id, String email, String nameLib, int typeOfSales, String description, String title, String dateStart, String dateFinish) {
         this.id = id;
-        this.typeOfSales = typeOfSales;
+        setTypeOfSales(typeOfSales);
         this.email = email;
         this.nameLib = nameLib;
-        this.date_start = date_start;
-        this.date_finish = date_finish;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
         this.description = description;
         this.title = title;
     }
@@ -32,12 +36,37 @@ public class SalesModel {
         this.id = id;
     }
 
-    public int getTypeOfSales() {
-        return typeOfSales;
+    public int getTypeOfSalesInt()
+    {
+        return typeOfSales.getId();
+    }
+
+    public String getTypeOfSalesString()
+    {
+        return typeOfSales.getType();
+    }
+
+    public void setTypeOfSales(TypeOfSales typeOfSales) {
+        this.typeOfSales = typeOfSales;
     }
 
     public void setTypeOfSales(int typeOfSales) {
-        this.typeOfSales = typeOfSales;
+
+        switch (typeOfSales)
+        {
+            case 1:
+            {
+                this.typeOfSales=TypeOfSales.Event;
+                break;
+            }
+            case 2:
+            {
+                this.typeOfSales=TypeOfSales.Promotion;
+                break;
+
+            }
+            default: this.typeOfSales=TypeOfSales.Any;
+        }
     }
 
     public String getEmail() {
@@ -56,20 +85,26 @@ public class SalesModel {
         this.nameLib = nameLib;
     }
 
-    public String getDate_start() {
-        return date_start;
+    public String getDateStartString() {
+        return dateStart;
     }
 
-    public void setDate_start(String date_start) {
-        this.date_start = date_start;
+    public LocalDate getDateStart(){
+
+        return LocalDate.parse(dateStart);
+    }
+    public void setDateStart(String date_start) {
+        this.dateStart = date_start;
     }
 
-    public String getDate_finish() {
-        return date_finish;
+    public String getDateFinishString() {
+        return dateFinish;
     }
 
-    public void setDate_finish(String date_finish) {
-        this.date_finish = date_finish;
+    public LocalDate getDateFinish(){ return LocalDate.parse(dateFinish);}
+
+    public void setDateFinish(String date_finish) {
+        this.dateFinish = date_finish;
     }
 
     public String getDescription() {

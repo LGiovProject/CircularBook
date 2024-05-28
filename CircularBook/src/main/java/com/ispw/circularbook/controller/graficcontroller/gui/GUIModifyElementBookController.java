@@ -3,9 +3,8 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
-import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
@@ -24,6 +23,7 @@ import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class GUIModifyElementBookController {
     @FXML
@@ -67,28 +67,21 @@ public class GUIModifyElementBookController {
 
     private Scene previusScene;
 
-    private Observer observer;
-
-    public Scene getPreviusScene() {
-        return previusScene;
+    public void setPreviusScene(Scene currentScene) {
+        this.previusScene = currentScene;
     }
 
     public BookElementSubject getBookElementSubject() {
         return bookElementSubject;
     }
 
-    public void setBookElementSubject(BookElementSubject bookElementSubject) {
+    public void setBookElementSubject(BookElementSubject bookElementSubject){
         this.bookElementSubject = bookElementSubject;
     }
 
-    public void setPreviusScene(Scene currentScene) {
-        this.previusScene = currentScene;
-    }
-
-    public void setElement(ElementBookBean elementBookBean)
-    {
-        BookModel bookModel = this.getBookModel(elementBookBean.getId());
-        this.panel=elementBookBean.getPane();
+    public void setElement(ElementBean elementBean){
+        BookModel bookModel = this.getBookModel(elementBean.getId());
+        this.panel= elementBean.getPane();
         this.title.setEditable(false);
         this.author.setEditable(false);
         this.nPage.setEditable(false);
@@ -99,16 +92,17 @@ public class GUIModifyElementBookController {
         this.nPage.setText(bookModel.getNpagineString());
         this.comment.setText(bookModel.getCommento());
         this.typeOfDisponibility.setText(bookModel.getTypeOfDisponibilityString());
-        checkTypeOfDisponibility(bookModel.getTypeOfDisponibility());
+        setTypeOfDisponibility(bookModel.getTypeOfDisponibility());
         argumentChoiceBox.getItems().addAll(Arguments.values());
         argumentChoiceBox.getSelectionModel().select(bookModel.getArgomento());
         argumentChoiceBox.setVisible(false);
-
+        if(previusScene==null)
+            System.out.println("GUIModifyElementBookController.setElement() C'è un grosso problema!!");
 
 
     }
-    private void setArgument(Arguments arguments)
-    {
+
+    private void setArgument(Arguments arguments){
         if(arguments==Arguments.Any)
         {
             this.argument.setText("Inserisci Argomento");
@@ -119,7 +113,7 @@ public class GUIModifyElementBookController {
         }
     }
 
-    public void applyModify()  {
+    public void applyModify(){
         InsertBookController insertBookController = new InsertBookController();
         try {
             BookBean bookBean = new BookBean(this.id,TakeBeanFromList.getEmailFromCurrentSession(), getTypeOfDisponibility(),title.getText(),author.getText(), argument.getText(), nPage.getText(), comment.getText());
@@ -131,7 +125,7 @@ public class GUIModifyElementBookController {
         }
     }
 
-    public int getTypeOfDisponibility() {
+    public int getTypeOfDisponibility(){
         if(this.gifter.isSelected())
         {
             return 2;
@@ -141,20 +135,6 @@ public class GUIModifyElementBookController {
             return 1;
         }
         return 0;
-    }
-
-    private void checkTypeOfDisponibility(int typeOfDisponibility)
-    {
-        if(typeOfDisponibility==1)
-        {
-            this.lender.setSelected(true);
-            this.gifter.setSelected(false);
-        }
-        else
-        {
-            this.gifter.setSelected(true);
-            this.lender.setSelected(false);
-        }
     }
 
     public void rewriteField(ActionEvent event) throws FileNotFoundException {
@@ -266,16 +246,34 @@ public class GUIModifyElementBookController {
 
     public void backButton() {
         Main.getStage().setScene(this.previusScene);
+
     }
 
-    private BookModel getBookModel(int id)
-    {
-        for(BookModel bookModel : Session.getCurrentSession().getUser().getBookOwnList())
+    private void setTypeOfDisponibility(int typeOfDisponibility){
+        if(typeOfDisponibility==1)
+        {
+            this.lender.setSelected(true);
+            this.gifter.setSelected(false);
+        }
+        else
+        {
+            this.gifter.setSelected(true);
+            this.lender.setSelected(false);
+        }
+    }
+
+    private BookModel getBookModel(int id){
+        for(BookModel bookModel : getBookListSession())
         {
             if(bookModel.getId()==id)
                 return bookModel;
         }
         return null;
     }
+
+    private List<BookModel> getBookListSession(){
+        return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getBookOwnList():Session.getCurrentSession().getLibrary().getBookOwnList();
+    }
+
 
 }

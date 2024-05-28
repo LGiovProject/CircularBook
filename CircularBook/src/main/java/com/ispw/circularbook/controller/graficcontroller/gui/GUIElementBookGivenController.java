@@ -1,11 +1,12 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
+
+import java.util.List;
 
 public class GUIElementBookGivenController {
 
@@ -14,27 +15,54 @@ public class GUIElementBookGivenController {
     @FXML
     Text author;
     @FXML
-    Text emailTaker;
+    Text usernameGiver;
     @FXML
     Text daysRemaing;
 
-    public void startSetElementGivenBook(ElementBookBean elementBookBean)
+    private BookModel bookModel;
+
+    public void startSetElementGivenBook(ElementBean elementBean)
     {
-        BookModel bookModel = this.getBookModel(elementBookBean.getId());
+        bookModel = this.getBookModel(elementBean.getId());
         title.setText(bookModel.getTitolo());
         author.setText(bookModel.getAutore());
-        emailTaker.setText("E' stato preso da "+bookModel.getEmailTaker());
-        daysRemaing.setText("Rimangono "+bookModel.getDaysRemaing()+" giorni");
+        if(bookModel.getTypeOfDisponibility()==1)
+            this.setLendedBook();
+        else
+            this.setGiftedBook();
+
     }
 
     private BookModel getBookModel(int id)
     {
-        for(BookModel bookModel : Session.getCurrentSession().getUser().getListBookGiven())
+        for(BookModel bookModel : getListBookGiven())
         {
             if(bookModel.getId()==id)
                 return bookModel;
         }
 
         return null;
+    }
+
+    private List<BookModel> getListBookGiven()
+    {
+        return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getListBookGiven():Session.getCurrentSession().getLibrary().getBookGivenList();
+
+    }
+
+    private void setLendedBook(){
+
+        title.setText(bookModel.getTitolo());
+        author.setText(bookModel.getAutore());
+        usernameGiver.setText("L'hai dato a"+bookModel.getUsername());
+        daysRemaing.setText("Rimangono "+bookModel.getDaysRemaing()+" giorni");
+    }
+
+    private void setGiftedBook(){
+
+        title.setText(bookModel.getTitolo());
+        author.setText(bookModel.getAutore());
+        usernameGiver.setText("L'hai dato a"+bookModel.getUsername());
+        daysRemaing.setText("E' stato preso in prestito");
     }
 }

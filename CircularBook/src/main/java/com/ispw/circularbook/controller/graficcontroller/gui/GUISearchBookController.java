@@ -2,16 +2,14 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
-import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
+import com.ispw.circularbook.engineering.exception.NoBookFoundException;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
-import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.model.BookModel;
-import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -43,8 +41,6 @@ public class GUISearchBookController implements Observer {
 
     public void setCurrentPane(Pane currentPane){this.currentPane = currentPane;}
 
-    public Pane getCurrentPane(){return currentPane;}
-
     public void setSearch() {
         argument.getItems().addAll(Arguments.values());
         argument.getSelectionModel().select(0);
@@ -56,18 +52,25 @@ public class GUISearchBookController implements Observer {
     public void startToSearchBook() throws IOException {
 
         showResult.getChildren().clear();
+        SearchBookBean searchBookBean;
         List<BookModel> listBookModel;
-        SearchBookBean searchBookBean = new SearchBookBean(textFieldAuthor.getText(),argument.getSelectionModel().getSelectedItem(),textFieldTitle.getText(),Session.getCurrentSession().getUser().getEmail());
-        clearFieldText();
+        if(Session.getCurrentSession().getUser().isGuest()) {
+            searchBookBean = new SearchBookBean(textFieldAuthor.getText(), argument.getSelectionModel().getSelectedItem(), textFieldTitle.getText(), "null");
+        }
+        else{
+            searchBookBean = new SearchBookBean(textFieldAuthor.getText(), argument.getSelectionModel().getSelectedItem(), textFieldTitle.getText(), Session.getCurrentSession().getUser().getEmail());
+        }
+            clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchBook(searchBookBean);
+        listBookModel = searchBookController.searchAvailableBook(searchBookBean);
+
         if (!listBookModel.isEmpty()) {
-                Session.getCurrentSession().getUser().setBookLastSearch(listBookModel);
-                this.setShowResult(listBookModel);
-            } else {
-                Text text = new Text("Nessun elemento trovato con i valori che hai inserito");
-                showResult.getChildren().add(text);
-            }
+            Session.getCurrentSession().getUser().setBookLastSearch(listBookModel);
+            this.setShowResult(listBookModel);
+        } else {
+            Text text = new Text("Nessun elemento trovato con i valori che hai inserito");
+            showResult.getChildren().add(text);
+        }
     }
 
     public void clearFieldText(){
@@ -76,15 +79,15 @@ public class GUISearchBookController implements Observer {
         textFieldTitle.setText("");
     }
 
-    public void setShowResult(List<BookModel> listBookModel) throws IOException {
+    private void setShowResult(List<BookModel> listBookModel) throws IOException {
         for (BookModel bookModel : listBookModel) {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookSearched.fxml"));
             Pane element = fxmlLoader.load();
             BookElementSubject bookElementSubject = new BookElementSubject();
             bookElementSubject.register(this);
             GUIElementBookSearchedController guiElementBookSearchedController = fxmlLoader.getController();
-            ElementBookBean elementBookBean = new ElementBookBean(element,bookModel.getId());
-            guiElementBookSearchedController.setBookElement(elementBookBean);
+            ElementBean elementBean = new ElementBean(element,bookModel.getId());
+            guiElementBookSearchedController.setBookElement(elementBean);
             guiElementBookSearchedController.setBookElementSubject(bookElementSubject);
             guiElementBookSearchedController.setPreviuosPane(currentPane);
             showResult.getChildren().add(element);

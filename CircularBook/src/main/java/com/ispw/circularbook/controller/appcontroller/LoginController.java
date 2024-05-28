@@ -20,8 +20,8 @@ public class LoginController {
    //Presi in input facciano match con quelli salvati nel database
     public void checkLogin(LoginBean loginBean) {
 
-       //loginBean.setType(LoginDAO.checkLogin(loginBean));
-       loginBean.setType(LoginDAOCSV.checkLogin(loginBean));
+       loginBean.setType(LoginDAO.checkLogin(loginBean));
+       //loginBean.setType(LoginDAOCSV.checkLogin(loginBean));
 
     }
 
@@ -38,17 +38,16 @@ public class LoginController {
         List<BookModel> listBookModel = new ArrayList<>();
         UserBean userBean = UserDAO.searchUserByEmail(loginBean.getEmail());
         UserModel userModel = new UserModel(userBean.getEmail(),userBean.getUsername(),userBean.getName(), userBean.getCognome(), userBean.getCity());
-
+        userModel.setGuest(false);
 
         try {
             //Faccio una ricerca sui libri presi in prestito e che sono da restituire
-           List<BookBean> bookBeanList=(SearchBookDAO.searchLendedBook(userBean));
+           List<BookBean> bookBeanList=(SearchBookDAO.searchTakedBook(userBean));
             if(!bookBeanList.isEmpty())
             {
 
                 for (BookBean bookBean : bookBeanList) {
-
-                    BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getEmail(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing(), bookBean.getEmailGiver());
+                    BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getUsernamePutter(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing());
                     listBookModel.add(bookModel);
                 }
             }
@@ -73,7 +72,19 @@ public class LoginController {
 
         LibraryBean libraryBean= LibraryDAO.searchLibraryByEmail(loginBean.getEmail());
         LibraryModel libraryModel = new LibraryModel(libraryBean.getEmail(),libraryBean.getNomeLib(),libraryBean.getCityString(),libraryBean.getVia(),libraryBean.getTelNumber());
+        libraryModel.setGuest(false);
         Session.setSessionInstance(libraryModel);
+
+    }
+
+    public LoginBean guestSession()
+    {
+        UserModel userModel = new UserModel(null,null,null,null,null,null);
+        userModel.setGuest(true);
+        Session.setSessionInstance(userModel);
+        LoginBean loginBean = new LoginBean();
+        loginBean.setType(1);
+        return loginBean;
 
     }
 

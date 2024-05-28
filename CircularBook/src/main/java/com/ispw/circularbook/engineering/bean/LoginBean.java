@@ -16,6 +16,8 @@ public class LoginBean {
         this.email=this.checkEmail(email);
     }
 
+    public LoginBean(){}
+
     //Metodo get che ritorna il valore della variabile privata email
     public String getEmail()
     {

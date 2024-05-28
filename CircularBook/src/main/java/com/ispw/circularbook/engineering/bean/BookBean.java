@@ -4,12 +4,14 @@ import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import com.mysql.cj.util.StringUtils;
 import java.time.LocalDate;
+import java.time.Period;
 //import java.time.temporal.ChronoUnit;
 
 
 public class BookBean {
     private int id;
     private String email;
+    private String username;
     private int typeOfDisponibility;
     private String titolo;
     private String autore;
@@ -17,9 +19,10 @@ public class BookBean {
     private String nPagine;
     private String commento;
 
-    private String emailGiver;
-
+    private String emailPutter;
+    private String usernamePutter;
     private String emailTaker;
+    private String usernameTaker;
 
     //info book
     private String date_start;
@@ -27,7 +30,7 @@ public class BookBean {
     private String emailInfo;
 
 
-    private long daysRemaing;
+    private int daysRemaing;
 
 
 
@@ -38,7 +41,7 @@ public class BookBean {
     }
 
 
-    public BookBean(String titolo, String autore, String emailInfo, long daysRemaing) {
+    public BookBean(String titolo, String autore, String emailInfo, int daysRemaing) {
         this.titolo = titolo;
         this.autore = autore;
         this.emailInfo = emailInfo;
@@ -78,7 +81,7 @@ public class BookBean {
         this.commento = commento;
     }
 
-    public BookBean(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish,long daysRemaing ,String emailInfo) {
+    public BookBean(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish,int daysRemaing ,String emailInfo) {
         this.id = id;
         this.email = email;
         this.typeOfDisponibility = typeOfDisponibility;
@@ -109,6 +112,14 @@ public class BookBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setTypeOfDisponibility(int typeOfDisponibility){this.typeOfDisponibility=typeOfDisponibility;}
@@ -231,18 +242,19 @@ public class BookBean {
 
         LocalDate nowDate = LocalDate.now();
         LocalDate finishDate = LocalDate.parse(date_finish);
-        //Sostituire ChronoUnit che non viene trovato.
-        //this.daysRemaing=nowDate.until(finishDate, ChronoUnit.DAYS);
+        Period period = Period.between(nowDate, finishDate);
+        this.daysRemaing= period.getDays();
+
 
     }
-    public void setDaysRemaing(long daysRemaing){ this.daysRemaing=daysRemaing;}
+    public void setDaysRemaing(int daysRemaing){ this.daysRemaing=daysRemaing;}
 
     public String getEmailGiver() {
-        return emailGiver;
+        return emailPutter;
     }
 
     public void setEmailGiver(String emailGiver) {
-        this.emailGiver = emailGiver;
+        this.emailPutter = emailGiver;
     }
 
     public String getEmailTaker() {
@@ -251,5 +263,21 @@ public class BookBean {
 
     public void setEmailTaker(String emailTaker) {
         this.emailTaker = emailTaker;
+    }
+
+    public String getUsernamePutter() {
+        return usernamePutter;
+    }
+
+    public void setUsernamePutter(String usernameGiver) {
+        this.usernamePutter = usernameGiver;
+    }
+
+    public String getUsernameTaker() {
+        return usernameTaker;
+    }
+
+    public void setUsernameTaker(String usernameTaker) {
+        this.usernameTaker = usernameTaker;
     }
 }

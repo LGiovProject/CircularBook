@@ -9,6 +9,7 @@ import java.util.UUID;
 public class BookModel {
     private int id;
     private String email;
+    private String username;
     private int typeOfDisponibility;
     private String titolo;
     private String autore;
@@ -16,22 +17,24 @@ public class BookModel {
     private int nPagine;
     private String commento;
 
+    private String emailPutter;
+    private String usernamePutter;
+    private String emailTaker;
+    private String usernameTaker;
 
 
     //info book
     private String date_start;
     private String date_finish;
-    private String emailGiver;
-    private String emailTaker;
     private long daysRemaing;
 
 
 
 
 
-    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento, String date_start, String date_finish, long daysRemaing ,String emailGiver) {
+    public BookModel(int id, String username, int typeOfDisponibility, String titolo, String autore, Arguments argomento, int nPagine, String commento, String date_start, String date_finish, long daysRemaing) {
         this.id = id;
-        this.email = email;
+        this.username = username;
         this.typeOfDisponibility = typeOfDisponibility;
         this.titolo = titolo;
         this.autore = autore;
@@ -40,13 +43,12 @@ public class BookModel {
         this.commento = commento;
         this.date_start = date_start;
         this.date_finish = date_finish;
-        this.emailGiver = emailGiver;
         this.daysRemaing = daysRemaing;
     }
 
-    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish, long daysRemaing ,String emailGiver) {
+    public BookModel(int id,String username, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento, String date_start, String date_finish, long daysRemaing ) {
         this.id = id;
-        this.email = email;
+        this.username = username;
         this.typeOfDisponibility = typeOfDisponibility;
         this.titolo = titolo;
         this.autore = autore;
@@ -55,7 +57,6 @@ public class BookModel {
         this.commento = commento;
         this.date_start = date_start;
         this.date_finish = date_finish;
-        this.emailGiver = emailGiver;
         this.daysRemaing = daysRemaing;
     }
 
@@ -70,7 +71,19 @@ public class BookModel {
         this.commento = commento;
     }
 
-    public BookModel(int id, String email, int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento) {
+    public BookModel(int id, String email,String username ,int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento) {
+        this.id = id;
+        this.email = email;
+        this.username= username;
+        this.typeOfDisponibility = typeOfDisponibility;
+        this.titolo = titolo;
+        this.autore = autore;
+        this.argomento = argomento;
+        this.setNpagine(nPagine);
+        this.commento = commento;
+    }
+
+    public BookModel(int id, String email ,int typeOfDisponibility, String titolo, String autore, Arguments argomento, String nPagine, String commento) {
         this.id = id;
         this.email = email;
         this.typeOfDisponibility = typeOfDisponibility;
@@ -95,6 +108,14 @@ public class BookModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getTypeOfDisponibility() { return typeOfDisponibility; }
@@ -188,13 +209,37 @@ public class BookModel {
         this.date_finish = date_finish;
     }
 
-    public String getEmailGiver() { return emailGiver; }
+    public String getEmailPutter() {
+        return emailPutter;
+    }
 
-    public void setEmailGiver(String emailGiver) { this.emailGiver = emailGiver; }
+    public void setEmailPutter(String emailPutter) {
+        this.emailPutter = emailPutter;
+    }
 
-    public String getEmailTaker() { return emailTaker; }
+    public String getUsernamePutter() {
+        return usernamePutter;
+    }
 
-    public void setEmailTaker(String emailTaker) { this.emailTaker = emailTaker; }
+    public void setUsernamePutter(String usernamePutter) {
+        this.usernamePutter = usernamePutter;
+    }
+
+    public String getEmailTaker() {
+        return emailTaker;
+    }
+
+    public void setEmailTaker(String emailTaker) {
+        this.emailTaker = emailTaker;
+    }
+
+    public String getUsernameTaker() {
+        return usernameTaker;
+    }
+
+    public void setUsernameTaker(String usernameTaker) {
+        this.usernameTaker = usernameTaker;
+    }
 
     public void setDaysRemaing(long daysRemaing)
     {

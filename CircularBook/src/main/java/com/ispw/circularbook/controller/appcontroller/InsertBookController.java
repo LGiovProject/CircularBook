@@ -10,7 +10,9 @@ public class InsertBookController {
     public void registerBook(RegistrationBookBean registrationBookBean){
         BookDAO.insertBook(registrationBookBean);
     }
-    public void registerLendBook(LenderBookBean lenderBookBean){BookDAO.insertLendBook(lenderBookBean); }
+    public void registerLendBook(LenderBookBean lenderBookBean){
+        BookDAO.insertLendBook(lenderBookBean);
+    }
     public void updateBookInfo(BookBean bookBean){BookDAO.updateBook(bookBean);}
     public void removeBook(int id){BookDAO.removeBook(id);}
 }

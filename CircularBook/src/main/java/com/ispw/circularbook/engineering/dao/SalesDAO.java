@@ -3,6 +3,7 @@ package com.ispw.circularbook.engineering.dao;
 import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
+import com.ispw.circularbook.engineering.dao.queries.CRUDQueries;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
 import com.ispw.circularbook.model.SalesModel;
@@ -15,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SalesDAO {
-    public static List<SalesModel> searchSales(SearchSalesBean searchSalesBean) {
+    public static List<SalesBean> searchSales(SearchSalesBean searchSalesBean) {
 
             Statement stmt;
             ResultSet resultSet;
-            List<SalesModel> salesModelList= new ArrayList<>();
+            List<SalesBean> salesBeanList= new ArrayList<>();
             try {
                 stmt = ConnectionDB.getConnection();
                 resultSet= Queries.searchSales(stmt, searchSalesBean.getNameLib(),searchSalesBean.getMonth(),searchSalesBean.getTypeOfSales());
@@ -31,26 +32,27 @@ public class SalesDAO {
                 // Riposiziono il cursore sul primo record del result set
                 resultSet.first();
                 do{
-                    SalesModel salesModel = new SalesModel();
-                    salesModel.setId(resultSet.getInt(1));
-                    salesModel.setEmail(resultSet.getString(2));
-                    salesModel.setNameLib(resultSet.getString(3));
-                    salesModel.setTypeOfSales(resultSet.getInt(4));
-                    salesModel.setTitle(resultSet.getString(5));
-                    salesModel.setDescription(resultSet.getString(6));
-                    salesModel.setDate_start(resultSet.getString(7));
-                    salesModel.setDate_finish(resultSet.getString(8));
-                    salesModelList.add(salesModel);
+                    SalesBean salesBean = new SalesBean();
+                    salesBean.setId(resultSet.getInt(1));
+                    salesBean.setEmail(resultSet.getString(2));
+                    salesBean.setNameLib(resultSet.getString(3));
+                    salesBean.setTypeOfSales(resultSet.getInt(4));
+                    salesBean.setTitlePromotion(resultSet.getString(5));
+                    salesBean.setDescription(resultSet.getString(6));
+                    salesBean.setDateStart(resultSet.getString(7));
+                    salesBean.setDateFinish(resultSet.getString(8));
+                    salesBeanList.add(salesBean);
                 }while (resultSet.next());
 
                 resultSet.close();
-            } catch (SQLException| ErrorConnectionDbException e) {
-                e.printStackTrace();
+            } catch (SQLException | ErrorConnectionDbException | ParseException e) {
+                throw  new RuntimeException(e);
             }
 
-            return salesModelList;
+        return salesBeanList;
 
     }
+
     public static List<SalesBean> searchSales(String email) {
 
         Statement stmt;
@@ -71,7 +73,7 @@ public class SalesDAO {
                 salesBean.setId(resultSet.getInt(1));
                 salesBean.setEmail(resultSet.getString(2));
                 salesBean.setTypeOfSales(resultSet.getInt(3));
-                salesBean.setTitle(resultSet.getString(4));
+                salesBean.setTitlePromotion(resultSet.getString(4));
                 salesBean.setDescription(resultSet.getString(5));
                 salesBean.setDateStart(resultSet.getString(6));
                 salesBean.setDateFinish(resultSet.getString(7));
@@ -86,14 +88,36 @@ public class SalesDAO {
         return salesBeanList;
 
     }
-    public static void insertSales(SalesBean salesBean)
-    {
+
+    public static void insertSales(SalesBean salesBean){
         Statement stmt;
         try {
             stmt=ConnectionDB.getConnection();
-            Queries.insertSales(stmt,salesBean.getEmail(), salesBean.getNameLib(), salesBean.getTitlePromotion(), salesBean.getTypeOfSalesInt(), salesBean.getDescription(), salesBean.getDateStart(), salesBean.getDateFinish());
+            CRUDQueries.insertSales(stmt,salesBean.getEmail(), salesBean.getTitlePromotion(), salesBean.getTypeOfSalesInt(), salesBean.getDescription(), salesBean.getDateStart(), salesBean.getDateFinish());
         } catch (ErrorConnectionDbException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    public static void updateSales(SalesBean salesBean) {
+        Statement stmt;
+        try {
+            stmt=ConnectionDB.getConnection();
+            CRUDQueries.updateSales(stmt,salesBean.getId(), salesBean.getNameLib(),salesBean.getDescription(), salesBean.getDateStart(), salesBean.getDateFinish());
+        }catch (ErrorConnectionDbException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void removeSales(SalesBean salesBean){
+
+        Statement stmt;
+        try {
+            stmt=ConnectionDB.getConnection();
+            CRUDQueries.removeSales(stmt,salesBean.getId());
+        } catch (ErrorConnectionDbException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

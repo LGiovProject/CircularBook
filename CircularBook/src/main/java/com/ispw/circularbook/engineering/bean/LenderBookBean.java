@@ -8,15 +8,23 @@ import java.time.format.DateTimeFormatter;
 
 public class LenderBookBean {
     private int id;
-    private String email;
+    private String email; //chi ha reso disponibile il libro
     private String username;
+    private int typeOfDisponiblity;
+    private String emailTaker;
+    private String usernameTaker;
+
     private String dateStart;
     private String dateFinish;
 
-    public LenderBookBean(int id, String email, String username, LocalDate dateStart) {
+    public LenderBookBean(int id, String email,String username,String emailTaker,String usernameTaker,int typeOfDisponiblity , LocalDate dateStart) {
         this.id = id;
         this.email = email;
         this.username = username;
+        this.emailTaker=emailTaker;
+        this.usernameTaker = usernameTaker;
+        this.typeOfDisponiblity=typeOfDisponiblity;
+
         setDateStart(dateStart);
         setDateFinish();
     }
@@ -35,6 +43,31 @@ public class LenderBookBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailTaker() {
+        return emailTaker;
+    }
+
+    public void setEmailTaker(String emailTaker) {
+        this.emailTaker = emailTaker;
+    }
+
+    public String getUsernameTaker() {
+        return usernameTaker;
+    }
+
+    public void setUsernameTaker(String usernameTaker) {
+        this.usernameTaker = usernameTaker;
+    }
+
+
+    public int getTypeOfDisponiblity() {
+        return typeOfDisponiblity;
+    }
+
+    public void setTypeOfDisponiblity(int type_of_disponiblity) {
+        this.typeOfDisponiblity = type_of_disponiblity;
     }
 
     public String getUsername() {

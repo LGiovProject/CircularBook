@@ -75,11 +75,6 @@ public class Queries {
 
         }
 
-        public static void insertSales(Statement stmt, String email,String nameLib,String title,int typeOfSales,String description,String dateStart,String dateFinish) throws SQLException {
-            String sql="INSERT INTO sales (email,nomeLib,nameSales,typeOfSales,descriptionSales,date_start,date_finish) VALUES('"+email+"',\""+nameLib+"\",\""+title+"\","+typeOfSales+",\""+description+"\",'"+dateStart+"','"+dateFinish+"');";
-            stmt.executeUpdate(sql);
-        }
-
         public static void insertNotify(Statement stmt, String emailSender, String emailReceiver, String message, int id_book) throws SQLException {
             String sql="INSERT INTO alert (emailSender,emailReceiver,message,id_book) VALUES('"+emailSender+"','"+emailReceiver+"','"+message+"',"+id_book+");";
             stmt.executeUpdate(sql);
@@ -106,13 +101,13 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
+        public static ResultSet searchAvailableBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
             String sql="SELECT * FROM book_available_info WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (email!='"+searchBookBean.getEmail()+"')";
 
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchMyBook(Statement stmt, String email) throws SQLException {
+        public static ResultSet searchMyAvailableBook(Statement stmt, String email) throws SQLException {
             String sql="SELECT id,type_of_disponibility,author,argument,title,npage,comment FROM book_available_info WHERE email = '"+email+"';";
             return stmt.executeQuery(sql);
         }
@@ -121,20 +116,20 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchLendedBook(Statement stmt,UserBean userBean) throws SQLException {
+        public static ResultSet searchTakedBook(Statement stmt,UserBean userBean) throws SQLException {
 
-            String sql="SELECT id,email_take,email_lend,author,argument,title,npage,comment,date_start,date_finish from lended_book_info where email_take='"+userBean.getEmail()+"';";
+            String sql="SELECT id,username_putter,author,argument,title,npage,comment,type,date_taked,date_finish from book_taked where email_take='"+userBean.getEmail()+"';";
             return stmt.executeQuery(sql);
         }
 
         public static ResultSet searchGivenBook(Statement stmt,String email) throws SQLException{
-            String sql="SELECT id,email_take,email_lend,author,argument,title,npage,comment,date_start,date_finish from lended_book_info where email_lend='"+email+"';";
+            String sql="SELECT id,username_take,author,argument,title,npage,comment,type,date_taked,date_finish from book_taked where email_putter='"+email+"';";
             return stmt.executeQuery(sql);
         }
 
         public static ResultSet searchSales(Statement stmt,String nomeLib,Integer month,Integer typeOfSales) throws SQLException {
 
-            String sql="SELECT * FROM sales WHERE (nomeLib = COALESCE("+nomeLib+", nomeLib)AND TypeOfSales = COALESCE("+typeOfSales+" , TypeOfSales) AND month(date_start) <= COALESCE("+month+",month(date_start)) and month(date_finish)>=coalesce("+month+",month(date_finish))) ;";
+            String sql="SELECT * FROM sales_info WHERE (nomeLib = COALESCE("+nomeLib+", nomeLib)AND TypeOfSales = COALESCE("+typeOfSales+" , TypeOfSales) AND month(date_start) <= COALESCE("+month+",month(date_start)) and month(date_finish)>=coalesce("+month+",month(date_finish))) ;";
             return stmt.executeQuery(sql);
         }
 

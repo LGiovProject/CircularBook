@@ -86,10 +86,17 @@ public class GUILoginController {
         GUIHomepageController guiHomepageController = fxmlLoader.getController();
 
         Session.getCurrentSession().setGuiHomepageController(guiHomepageController);
-        guiHomepageController.homePageStart(loginBean);
         guiHomepageController.setCurrentScene(scene);
+        guiHomepageController.homePageStart(loginBean);
 
         Main.getStage().setScene(scene);
+    }
+
+    public void accessGuest() throws IOException {
+        LoginController loginController = new LoginController();
+        this.LunchHomepage(loginController.guestSession());
+
+
     }
 
     public void showPassword() throws IOException {

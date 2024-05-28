@@ -14,6 +14,8 @@ public class LibraryModel {
     private int telNumber;
     private String via;
 
+    private boolean guest;
+
     private List<BookModel> bookOwnList;
     private List<BookModel> bookGivenList;
 
@@ -25,16 +27,14 @@ public class LibraryModel {
 
     public LibraryModel(){}
 
-    public LibraryModel(String email, String nomeLib, City citta, String via)
-    {
+    public LibraryModel(String email, String nomeLib, City citta, String via){
         this.email=email;
         this.nomeLib=nomeLib;
         this.city=citta;
         this.via=via;
     }
 
-    public LibraryModel(String email, String nomeLib, String citta, String via, int telNumber)
-    {
+    public LibraryModel(String email, String nomeLib, String citta, String via, int telNumber){
         this.email=email;
         this.nomeLib=nomeLib;
         setCity(citta);
@@ -106,6 +106,14 @@ public class LibraryModel {
 
     public void setTelNumber(int telNumber) {
         this.telNumber = telNumber;
+    }
+
+    public boolean isGuest() {
+        return guest;
+    }
+
+    public void setGuest(boolean guest) {
+        this.guest = guest;
     }
 
     public List<BookModel> getBookOwnList() {

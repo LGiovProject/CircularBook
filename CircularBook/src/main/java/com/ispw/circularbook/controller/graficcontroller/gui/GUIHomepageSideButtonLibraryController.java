@@ -14,6 +14,16 @@ public class GUIHomepageSideButtonLibraryController {
     private GUIHomepageController guiHomepageController;
 
 
+    private Scene previuosScene;
+
+    public Scene getPreviuosScene() {
+        return previuosScene;
+    }
+
+    public void setPreviuosScene(Scene previuosScene) {
+        this.previuosScene = previuosScene;
+    }
+
     public void goInsertSales() throws IOException {
 
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("InsertSales.fxml"));
@@ -58,7 +68,10 @@ public class GUIHomepageSideButtonLibraryController {
 
         FXMLLoader fxmlLoader= new FXMLLoader(Main.class.getResource("ManagementBookLibrary.fxml"));
         Pane pane= fxmlLoader.load();
-
+        GUIManagementBookLibraryController guiManagementBookLibraryController = fxmlLoader.getController();
+        if(previuosScene==null)
+            System.out.println("GUIHomepageSideButtonLibraryController.goManagement() E' un bel bel problema ");
+        guiManagementBookLibraryController.setPreviuosScene(previuosScene);
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
 //        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();

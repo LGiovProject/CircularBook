@@ -5,16 +5,16 @@ import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.LenderBookBean;
 import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-import com.ispw.circularbook.engineering.dao.queries.Queries;
-import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
-import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
-import com.ispw.circularbook.engineering.exception.ErrorUpdateBookException;
+//import com.ispw.circularbook.engineering.dao.queries.Queries;
+//import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
+//import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+//import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
+//import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
+//import com.ispw.circularbook.engineering.exception.ErrorUpdateBookException;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 
 public class BookDAO {
@@ -51,15 +51,37 @@ public class BookDAO {
     }
 
     public static void insertLendBook(LenderBookBean lenderBookBean) {
-        Statement stmt;
+        //Statement stmt;
+        CallableStatement callableStatement;
        try {
-            stmt = ConnectionDB.getConnection();
-            Queries.registerLendBook(stmt, lenderBookBean.getId(), lenderBookBean.getEmail(), lenderBookBean.getUsername(), lenderBookBean.getDateStart(), lenderBookBean.getDateFinish());
+            // stmt = ConnectionDB.getConnection();
+            if(lenderBookBean.getTypeOfDisponiblity()==1) {
+                callableStatement = ConnectionDB.takeLendBook();
+                callableStatement.setInt(1,lenderBookBean.getId());
+                callableStatement.setString(2,lenderBookBean.getEmailTaker());
+                callableStatement.setString(3, lenderBookBean.getUsernameTaker());
+                callableStatement.setString(4,lenderBookBean.getEmail());
+                callableStatement.setString(5,lenderBookBean.getUsername());
+                callableStatement.setString(6,lenderBookBean.getDateStart());
+                callableStatement.setString(7, lenderBookBean.getDateFinish());
+                callableStatement.execute();
 
+//                Queries.registerLendBook(stmt, lenderBookBean.getId(), lenderBookBean.getEmail(), lenderBookBean.getUsername(), lenderBookBean.getDateStart(), lenderBookBean.getDateFinish());
+            }
+            else
+            {
+                callableStatement = ConnectionDB.takeGiftBook();
+                callableStatement.setInt(1,lenderBookBean.getId());
+                callableStatement.setString(2,lenderBookBean.getEmailTaker());
+                callableStatement.setString(3, lenderBookBean.getUsernameTaker());
+                callableStatement.setString(4,lenderBookBean.getEmail());
+                callableStatement.setString(5,lenderBookBean.getUsername());
+                callableStatement.setString(6,lenderBookBean.getDateStart());
+                callableStatement.execute();
+
+            }
        } catch (SQLException e) {
-
-        } catch (ErrorInsertBookException |ErrorConnectionDbException e) {
-           BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            throw  new RuntimeException(e);
        }
 
     }

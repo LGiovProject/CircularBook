@@ -1,13 +1,12 @@
 package com.ispw.circularbook.engineering.factory;
 
-import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 public interface ViewFactory {
 
-    Pane createPane(ElementBookBean elementBookBean) throws IOException;
+    Pane createPane(ElementBean elementBean) throws IOException;
     Object createController();
 }

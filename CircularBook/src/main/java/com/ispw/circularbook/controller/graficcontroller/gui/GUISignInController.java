@@ -42,7 +42,7 @@ public class GUISignInController {
         Main.getStage().setScene(scene);
     }
 
-    public void goBack() throws IOException {
+    public void goBack(){
         Main.getStage().setScene(previuosScene);
     }
 

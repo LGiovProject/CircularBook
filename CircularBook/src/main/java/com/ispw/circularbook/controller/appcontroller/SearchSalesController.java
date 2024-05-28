@@ -12,27 +12,27 @@ import java.util.List;
 
     public class SearchSalesController {
 
-    public List<SalesBean> searchSales(SearchSalesBean searchSalesBean) throws Exception {
-        List<SalesBean> salesBeanList= new ArrayList<>();
-
-        List<SalesModel> salesModelList= SalesDAO.searchSales(searchSalesBean);
-        for(SalesModel salesModel: salesModelList)
+    public List<SalesModel> searchSales(SearchSalesBean searchSalesBean) throws Exception {
+        List<SalesModel> salesModelList = new ArrayList<>();
+        List<SalesBean> salesBeanList= SalesDAO.searchSales(searchSalesBean);
+        for(SalesBean salesBean: salesBeanList)
         {
-            SalesBean salesBean= new SalesBean(salesModel.getId(),salesModel.getEmail(),salesModel.getNameLib(),salesModel.getTypeOfSales(),salesModel.getTitle(),salesModel.getDescription(),salesModel.getDate_start(),salesModel.getDate_finish());
-            salesBeanList.add(salesBean);
+            SalesModel salesModel= new SalesModel(salesBean.getId(),salesBean.getEmail(),salesBean.getNameLib(),salesBean.getTypeOfSalesInt(),salesBean.getTitlePromotion(),salesBean.getDescription(),salesBean.getDateStart(),salesBean.getDateFinish());
+            salesModelList.add(salesModel);
         }
-        return salesBeanList;
+        return salesModelList;
     }
-        public List<SalesModel> searchSales(String email) throws Exception {
+    public List<SalesModel> searchSales(String email) throws Exception {
             List<SalesBean> salesBeanList;
 
             List<SalesModel> salesModelList= new ArrayList<>();
                    salesBeanList= SalesDAO.searchSales(email);
             for(SalesBean salesBean: salesBeanList)
             {
-                SalesModel salesModel= new SalesModel(salesBean.getId(),salesBean.getEmail(),salesBean.getNameLib(),salesBean.getTypeOfSalesInt(),salesBean.getTitle(),salesBean.getDescription(),salesBean.getDateStart(),salesBean.getDateFinish());
+                SalesModel salesModel= new SalesModel(salesBean.getId(),salesBean.getEmail(),salesBean.getNameLib(),salesBean.getTypeOfSalesInt(),salesBean.getTitlePromotion(),salesBean.getDescription(),salesBean.getDateStart(),salesBean.getDateFinish());
+                System.out.println("SearchSalesController.searchSales()  "+salesModel.getDateStart()+" "+salesModel.getDateFinishString());
                 salesModelList.add(salesModel);
             }
             return salesModelList;
-        }
+    }
 }

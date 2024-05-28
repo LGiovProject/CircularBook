@@ -1,10 +1,11 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class GUIElementBookTakedController {
@@ -14,17 +15,23 @@ public class GUIElementBookTakedController {
     @FXML
     Text author;
     @FXML
-    Text emailGiver;
+    Text usernameGiver;
     @FXML
     Text daysRemaing;
+    @FXML
+    Button returnBook;
 
-    public void startSetElementTakedBook(ElementBookBean elementBookBean)
+    private BookModel bookModel;
+
+    public void startSetElementTakedBook(ElementBean elementBean)
     {
-        BookModel bookModel = this.getBookModel(elementBookBean.getId());
-        title.setText(bookModel.getTitolo());
-        author.setText(bookModel.getAutore());
-        emailGiver.setText("L'hai preso da "+bookModel.getEmailGiver());
-        daysRemaing.setText("Rimangono "+bookModel.getDaysRemaing()+" giorni");
+        bookModel = this.getBookModel(elementBean.getId());
+        returnBook.setVisible(false);
+        returnBook.setManaged(false);
+        if(bookModel.getTypeOfDisponibility()==1)
+            this.setLendedBook();
+        else
+            this.setGiftedBook();
 
     }
 
@@ -32,11 +39,35 @@ public class GUIElementBookTakedController {
     {
         for(BookModel bookModel : Session.getCurrentSession().getUser().getListBookTaked())
         {
-            System.out.println("Ci sono entrato GUIElementBookTakedController.startSetElementTakedBook/getBookModel\n");
             if(bookModel.getId()==id)
                 return bookModel;
         }
 
         return null;
     }
+
+    public void returnBook()
+    {
+        BoxExcpetionMessage.PopUpsExcpetionMessage("Non ancora implementato");
+    }
+
+    private void setLendedBook(){
+
+        title.setText(bookModel.getTitolo());
+        author.setText(bookModel.getAutore());
+        usernameGiver.setText("L'hai preso da "+bookModel.getUsername());
+        daysRemaing.setText("Rimangono "+bookModel.getDaysRemaing()+" giorni");
+        returnBook.setVisible(true);
+        returnBook.setManaged(true);
+    }
+
+    private void setGiftedBook(){
+
+        title.setText(bookModel.getTitolo());
+        author.setText(bookModel.getAutore());
+        usernameGiver.setText("L'hai preso da "+bookModel.getUsername());
+        daysRemaing.setText("E' stato preso in prestito");
+    }
+
+
 }

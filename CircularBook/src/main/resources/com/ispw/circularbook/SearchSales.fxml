@@ -26,21 +26,21 @@
                   </Text>
                </children>
             </AnchorPane>
-            <VBox layoutX="21.0" layoutY="40.0" prefHeight="387.0" prefWidth="590.0">
+            <VBox layoutX="14.0" layoutY="47.0" prefHeight="387.0" prefWidth="590.0">
                <children>
                   <AnchorPane prefHeight="129.0" prefWidth="590.0">
                      <children>
                         <HBox layoutX="1.0" prefHeight="133.0" prefWidth="592.0">
                            <children>
-                              <VBox prefHeight="139.0" prefWidth="463.0">
+                              <VBox prefHeight="145.0" prefWidth="492.0">
                                  <children>
                                     <AnchorPane prefHeight="43.0" prefWidth="307.0">
                                        <children>
-                                          <HBox layoutY="2.0" prefHeight="43.0" prefWidth="463.0" spacing="30.0">
+                                          <HBox layoutY="2.0" prefHeight="32.0" prefWidth="463.0" spacing="30.0">
                                              <children>
-                                                <AnchorPane prefHeight="43.0" prefWidth="209.0">
+                                                <AnchorPane prefHeight="43.0" prefWidth="121.0">
                                                    <children>
-                                                      <Text layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libreria" textAlignment="RIGHT" wrappingWidth="206.9345703125" AnchorPane.rightAnchor="2.0654296875">
+                                                      <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libreria" textAlignment="RIGHT" wrappingWidth="107.9345703125" AnchorPane.rightAnchor="-0.9345703125">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
@@ -49,7 +49,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="43.0" prefWidth="195.0">
                                                    <children>
-                                                      <TextField fx:id="nameLib" layoutX="6.0" layoutY="9.0" prefHeight="25.0" prefWidth="189.0" AnchorPane.leftAnchor="4.0" />
+                                                      <TextField fx:id="nameLib" layoutX="3.0" layoutY="6.0" prefHeight="25.0" prefWidth="189.0" AnchorPane.leftAnchor="3.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -58,11 +58,11 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="43.0" prefWidth="307.0">
                                        <children>
-                                          <HBox layoutY="1.0" prefHeight="43.0" prefWidth="463.0" spacing="30.0">
+                                          <HBox layoutY="1.0" prefHeight="25.0" prefWidth="463.0" spacing="30.0">
                                              <children>
-                                                <AnchorPane prefHeight="43.0" prefWidth="209.0">
+                                                <AnchorPane prefHeight="43.0" prefWidth="121.0">
                                                    <children>
-                                                      <Text layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo" textAlignment="RIGHT" wrappingWidth="206.9345703125" AnchorPane.rightAnchor="4.0654296875">
+                                                      <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo" textAlignment="RIGHT" wrappingWidth="107.9345703125" AnchorPane.rightAnchor="-0.9345703125">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
@@ -71,7 +71,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="43.0" prefWidth="195.0">
                                                    <children>
-                                                      <ChoiceBox fx:id="monthSales" layoutX="4.0" layoutY="9.0" prefHeight="25.0" prefWidth="189.0" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="4.0" />
+                                                      <ChoiceBox fx:id="monthSales" layoutX="3.0" layoutY="6.0" prefHeight="25.0" prefWidth="189.0" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="3.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -80,11 +80,11 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="43.0" prefWidth="307.0">
                                        <children>
-                                          <HBox layoutY="1.0" prefHeight="55.0" prefWidth="463.0" spacing="30.0">
+                                          <HBox layoutY="1.0" prefHeight="40.0" prefWidth="463.0" spacing="30.0">
                                              <children>
-                                                <AnchorPane prefHeight="55.0" prefWidth="209.0">
+                                                <AnchorPane prefHeight="55.0" prefWidth="121.0">
                                                    <children>
-                                                      <Text layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipologia d'offerta" textAlignment="RIGHT" wrappingWidth="206.9345703125" AnchorPane.rightAnchor="2.0654296875">
+                                                      <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipologia " textAlignment="RIGHT" wrappingWidth="107.9345703125" AnchorPane.rightAnchor="-0.9345703125">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
@@ -93,7 +93,7 @@
                                                 </AnchorPane>
                                                 <AnchorPane prefHeight="43.0" prefWidth="191.0">
                                                    <children>
-                                                      <ChoiceBox fx:id="typeSales" layoutX="6.0" layoutY="17.0" prefHeight="25.0" prefWidth="189.0" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="4.0" />
+                                                      <ChoiceBox fx:id="typeSales" layoutX="1.0" layoutY="9.0" prefHeight="25.0" prefWidth="189.0" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="1.0" />
                                                    </children>
                                                 </AnchorPane>
                                              </children>
@@ -125,9 +125,9 @@
                      </children></AnchorPane>
                   <AnchorPane prefHeight="229.0" prefWidth="593.0">
                      <children>
-                        <ScrollPane fx:id="scrollPane" layoutY="2.0" prefHeight="226.0" prefWidth="592.0">
+                        <ScrollPane fx:id="scrollPane" layoutY="2.0" prefHeight="229.0" prefWidth="593.0">
                            <content>
-                              <VBox fx:id="showResult" prefHeight="224.0" prefWidth="576.0" />
+                              <VBox fx:id="showResult" prefHeight="227.0" prefWidth="591.0" />
                            </content>
                         </ScrollPane>
                      </children>

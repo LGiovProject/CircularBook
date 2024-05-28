@@ -14,12 +14,15 @@ public class UserModel {
     private String cognome;
     private City city;
 
+    private boolean guest;
+
     private List<BookModel> listBookTaked;
     private List<BookModel> listBookLastSearch;
     private List<BookModel> listBookOwnList;
     private List<BookModel> listBookGiven;
     private List<BookModel> lastBookListViewed;
 
+    private List<SalesModel> salesModelList;
 
     public UserModel(){};
 
@@ -133,5 +136,22 @@ public class UserModel {
 
     public void setListBookGiven(List<BookModel> listBookGiven) {
         this.listBookGiven = listBookGiven;
+    }
+
+
+    public boolean isGuest() {
+        return guest;
+    }
+
+    public void setGuest(boolean guest) {
+        this.guest = guest;
+    }
+
+    public List<SalesModel> getSalesModelList() {
+        return salesModelList;
+    }
+
+    public void setSalesModelList(List<SalesModel> salesModelList) {
+        this.salesModelList = salesModelList;
     }
 }

@@ -113,25 +113,34 @@
                                           </AnchorPane>
                                           <AnchorPane prefHeight="133.0" prefWidth="544.0">
                                              <children>
-                                                <VBox layoutX="194.0" layoutY="14.0" prefHeight="126.0" prefWidth="306.0">
+                                                <VBox layoutX="195.0" prefHeight="133.0" prefWidth="306.0" spacing="10.0">
                                                    <children>
-                                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                      <AnchorPane prefHeight="42.0" prefWidth="306.0">
                                                          <children>
-                                                            <Button fx:id="buttonLogin" layoutX="40.0" layoutY="12.0" mnemonicParsing="false" onAction="#Login" prefHeight="34.0" prefWidth="226.0" text="Login">
+                                                            <Button fx:id="buttonLogin" layoutX="40.0" layoutY="6.0" mnemonicParsing="false" onAction="#Login" prefHeight="34.0" prefWidth="226.0" text="Login">
                                                                <font>
                                                                   <Font name="Times New Roman" size="18.0" />
                                                                </font>
                                                             </Button>
                                                          </children>
                                                       </AnchorPane>
-                                                      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                      <AnchorPane prefHeight="42.0" prefWidth="306.0">
                                                          <children>
-                                                            <Button layoutX="40.0" layoutY="19.0" mnemonicParsing="false" onAction="#SignIn" prefHeight="25.0" prefWidth="226.0" text="Sign In">
+                                                            <Button layoutX="40.0" layoutY="5.0" mnemonicParsing="false" onAction="#SignIn" prefHeight="34.0" prefWidth="226.0" text="Sign In">
                                                                <font>
                                                                   <Font name="Times New Roman" size="18.0" />
                                                                </font>
                                                             </Button>
                                                          </children></AnchorPane>
+                                                      <AnchorPane prefHeight="42.0" prefWidth="306.0">
+                                                         <children>
+                                                            <Button layoutX="40.0" layoutY="2.0" mnemonicParsing="false" onAction="#accessGuest" prefHeight="34.0" prefWidth="226.0" text="Guest Access">
+                                                               <font>
+                                                                  <Font name="Times New Roman" size="18.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
                                                    </children>
                                                 </VBox>
                                              </children>

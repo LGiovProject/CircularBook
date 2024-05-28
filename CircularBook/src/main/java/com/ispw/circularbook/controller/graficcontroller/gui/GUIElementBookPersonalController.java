@@ -2,7 +2,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
-import com.ispw.circularbook.engineering.bean.ElementBookBean;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
@@ -28,10 +28,9 @@ public class GUIElementBookPersonalController {
     private Text title;
     @FXML
     private Text type_of_insert;
-    @FXML
-    private Pane panel;
 
-    private Pane previuosPane;
+    private Pane element;
+
 
     private int id;
 
@@ -43,17 +42,25 @@ public class GUIElementBookPersonalController {
         this.bookElementSubject=bookElementSubject;
     }
 
+    //La scene serve per modifyBookElement
     private Scene currentScene;
 
     public void setCurrentScene(Scene currentScene) {
         this.currentScene = currentScene;
     }
 
-    public void setBookElement(ElementBookBean elementBookBean) {
-        BookModel bookModel=this.getBookModel(elementBookBean.getId());
-        this.id=elementBookBean.getId();
-        this.panel=elementBookBean.getPane();
+    //La pane serve per moreInforSearch
+    private Pane previuosPane;
 
+    public void setPreviuosPane(Pane pane)
+    {
+        this.previuosPane = pane;
+    }
+
+    public void setBookElement(ElementBean elementBean) {
+        BookModel bookModel=this.getBookModel(elementBean.getId());
+        this.id= elementBean.getId();
+        this.element = elementBean.getPane();
         this.type_of_insert.setText(bookModel.getTypeOfDisponibilityString());
         this.author.setText(bookModel.getAutore());
         this.title.setText(bookModel.getTitolo());
@@ -63,16 +70,16 @@ public class GUIElementBookPersonalController {
     }
 
     public void moreInfoSearch() throws IOException {
-        Session.getCurrentSession().getUser().setLastBookListViewed(Session.getCurrentSession().getUser().getBookOwnList());
+        setLastBookListViewed();
         GUIMoreInfoBookController guiMoreInfoBookController;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
         Pane pane = fxmlLoader.load();
 
 
         guiMoreInfoBookController = fxmlLoader.getController();
-        ElementBookBean elementBookBean = new ElementBookBean(this.id);
+        ElementBean elementBean = new ElementBean(this.id);
         guiMoreInfoBookController.setPreviousPane(this.previuosPane);
-        guiMoreInfoBookController.setInfoBook(elementBookBean);
+        guiMoreInfoBookController.setInfoBook(elementBean);
 
 //        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
 //        guiHomepageController.setSideWindow(pane);
@@ -83,7 +90,7 @@ public class GUIElementBookPersonalController {
 
     public void modifyBookElement() throws IOException {
         GUIModifyElementBookController guiModifyElementBookController;
-        ElementBookBean elementBookBean = new ElementBookBean(this.panel,this.id);
+        ElementBean elementBean = new ElementBean(this.element,this.id);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ModifyElementBook.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -93,19 +100,18 @@ public class GUIElementBookPersonalController {
         Main.getStage().setScene(scene);
         guiModifyElementBookController.setPreviusScene(currentScene);
         guiModifyElementBookController.setBookElementSubject(bookElementSubject);
-        guiModifyElementBookController.setElement(elementBookBean);
+        guiModifyElementBookController.setElement(elementBean);
     }
 
 
     public void removeBook(){
         InsertBookController insertBookController= new InsertBookController();
         insertBookController.removeBook(this.id);
-        bookElementSubject.notifyObserver(this.panel);
+        bookElementSubject.notifyObserver(this.element);
         BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato rimoso correttamente");
     }
 
-    private BookModel getBookModel(int id)
-    {
+    private BookModel getBookModel(int id) {
         for(BookModel bookModel : getBookListSession())
         {
             if(bookModel.getId()==id)
@@ -115,21 +121,14 @@ public class GUIElementBookPersonalController {
         return null;
     }
 
-    private List<BookModel> getBookListSession()
-    {
-        if(Session.getCurrentSession().getUser()!=null)
-        {
-            return Session.getCurrentSession().getUser().getBookOwnList();
-        }
-        else
-        {
-            return Session.getCurrentSession().getLibrary().getBookOwnList();
-        }
+    private List<BookModel> getBookListSession() {
+        return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getBookOwnList():Session.getCurrentSession().getLibrary().getBookOwnList();
     }
 
-    public void setPreviuosPane(Pane pane)
+    private void setLastBookListViewed()
     {
-        this.previuosPane = pane;
+        if(Session.getCurrentSession().getUser()!=null)
+            Session.getCurrentSession().getUser().setLastBookListViewed(Session.getCurrentSession().getUser().getBookOwnList());
     }
 
 

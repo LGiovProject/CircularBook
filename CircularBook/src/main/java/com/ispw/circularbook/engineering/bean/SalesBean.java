@@ -11,32 +11,45 @@ import java.time.format.DateTimeFormatter;
 
 public class SalesBean {
     private int id;
-    private String title;
+    private String titlePromotion;
     private String email;
     private String nameLib;
     private TypeOfSales typeOfSales;
-    private String titlePromotion;
     private String description;
     private LocalDate dateStart;
     private LocalDate dateFinish;
     private Month month;
-    private final SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
 
     public SalesBean(){}
 
 
-    public SalesBean(String email,String nameLib, String titlePromotion, TypeOfSales typeOfSales,String description  ,String dateStart, String dateFinish) throws Exception {
+    public SalesBean(int id){
+        this.id=id;
+    }
+
+    public SalesBean(int id, String titlePromotion, String description, LocalDate dateStart, LocalDate dateFinish) {
+        this.id = id;
+        this.titlePromotion = titlePromotion;
+        this.description = description;
+        this.dateStart = dateStart;
+        this.dateFinish = dateFinish;
+    }
+
+
+
+    public SalesBean(String email, String titlePromotion, TypeOfSales typeOfSales, String description  , String dateStart, String dateFinish) throws Exception {
 
         this.email = email;
-        this.nameLib=nameLib;
         this.typeOfSales = typeOfSales;
         this.titlePromotion = titlePromotion;
         this.description=description;
         setDateStart(dateStart);
         setDateFinish(dateFinish,dateStart);
     }
+
 
 
 
@@ -60,10 +73,6 @@ public class SalesBean {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getTitle(){return this.title;}
-
-    public void setTitle(String title){this.title=title;}
 
     public String getEmail() {
         return email;
@@ -133,15 +142,16 @@ public class SalesBean {
     }
 
     public String getDateStart() {
-        return dateStart.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return dateStart.format(dateTimeFormatter);
     }
 
     public void setDateStart(String dateStart) throws ParseException {
+
         this.dateStart=StringUtils.isEmptyOrWhitespaceOnly(dateStart)?null:LocalDate.parse(dateStart);
     }
 
     public String getDateFinish() {
-        return dateFinish.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return dateFinish.format(dateTimeFormatter);
     }
 
     public void setDateFinish(String dateFinish, String dateStart) throws Exception {

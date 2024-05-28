@@ -8,4 +8,9 @@ public class InsertSalesController {
     {
         SalesDAO.insertSales(salesBean);
     }
+    public void updateSales(SalesBean salesBean){SalesDAO.updateSales(salesBean);}
+    public void removeSales(SalesBean salesBean){
+        SalesDAO.removeSales(salesBean);
+    }
+
 }

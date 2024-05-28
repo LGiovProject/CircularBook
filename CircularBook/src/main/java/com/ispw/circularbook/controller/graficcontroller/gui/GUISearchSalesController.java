@@ -2,10 +2,13 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
+import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.enums.Month;
 import com.ispw.circularbook.engineering.enums.TypeOfSales;
+import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
@@ -30,6 +33,12 @@ public class GUISearchSalesController {
     @FXML
     ScrollPane scrollPane;
 
+    private Pane currentPane;
+
+    public void setCurrentPane(Pane currentPane){this.currentPane = currentPane;}
+
+    public Pane getCurrentPane(){return currentPane;}
+
     public void startSetSales()
     {
 
@@ -48,31 +57,40 @@ public class GUISearchSalesController {
     }
     public void startSearchSales() throws Exception {
         showResult.getChildren().clear();
-        List<SalesBean> salesBeanList;
+        List<SalesModel> salesModelList;
         SearchSalesBean searchSalesBean = new SearchSalesBean(nameLib.getText(),monthSales.getSelectionModel().getSelectedItem(),typeSales.getSelectionModel().getSelectedItem());
         //clearFieldText();
         SearchSalesController searchSalesController = new SearchSalesController();
-        salesBeanList = searchSalesController.searchSales(searchSalesBean);
-        if (salesBeanList.size() != 0) {
-
-            for (SalesBean salesBean1 : salesBeanList) {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementSales.fxml"));
-                Pane element = fxmlLoader.load();
-                GUIElementSaelesController guiElementSaelesController = fxmlLoader.getController();
-                guiElementSaelesController.setSalesElement(salesBean1);
-                showResult.getChildren().add(element);
-            }
-        } else {
+        salesModelList = searchSalesController.searchSales(searchSalesBean);
+        Session.getCurrentSession().getUser().setSalesModelList(salesModelList);
+        if (!salesModelList.isEmpty())
+            this.setShowResult(salesModelList);
+         else {
             Text text = new Text("Nessun elemento trovato con i valori che hai inserito");
             showResult.getChildren().add(text);
         }
     }
-        public void clearFieldText()
+
+    private void setShowResult(List<SalesModel> salesModelList) throws Exception {
+
+        for(SalesModel salesModel: salesModelList)
         {
+            ElementBean elementBean = new ElementBean(salesModel.getId());
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementSales.fxml"));
+            Pane element = fxmlLoader.load();
+            GUIElementSaelesController guiElementSaelesController = fxmlLoader.getController();
+            guiElementSaelesController.setSalesElement(elementBean);
+            guiElementSaelesController.setPreviuosPane(currentPane);
+            showResult.getChildren().add(element);
+        }
+    }
+
+    public void clearFieldText()
+    {
             nameLib.setText("");
             typeSales.getSelectionModel().select(0);
             monthSales.getSelectionModel().select(0);
-        }
+    }
 
 
 }
