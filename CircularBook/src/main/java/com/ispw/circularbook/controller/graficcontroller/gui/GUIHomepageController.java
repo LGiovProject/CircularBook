@@ -5,6 +5,9 @@ import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
 import com.ispw.circularbook.engineering.facade.SceneFacade;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.state.HomepageState;
+import com.ispw.circularbook.engineering.state.LibraryHomepageState;
+import com.ispw.circularbook.engineering.state.UserHomepageState;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 
 import javafx.fxml.FXML;
@@ -36,7 +39,7 @@ public class GUIHomepageController {
 
     private List<NotifyBean> notifyBeanList = new ArrayList<>();
 
-    private boolean notify;
+    private HomepageState currentState;
 
     private Scene currentScene;
 
@@ -50,51 +53,45 @@ public class GUIHomepageController {
 
     //Metodo di lancio per l'homepage sia user che library, base al tipo di utente che effettua il login
     //carica la rispettiva homepage.
+
+    public void setState(HomepageState state)
+    {
+        this.currentState=state;
+    }
     public void homePageStart(LoginBean loginBean) throws IOException {
+        if(loginBean.getType()==1)
+            this.setState(new UserHomepageState());
+        else if (loginBean.getType()==2)
+            this.setState(new LibraryHomepageState());
 
-        this.loginBean=loginBean;
-
-        SceneFacade sceneFacade = new SceneFacade(SideWindow);
-        Session.getCurrentSession().setSceneFacade(sceneFacade);
-
-        if(this.loginBean.getType()==1) {
-            this.startUserHomepage();
-
-        }
-        else if(this.loginBean.getType()==2){
-            this.startLibraryHomepage();
-
-        }
-
-
-
+        currentState.startHomepage(this);
     }
     //Carica l'homepage per gli utenti
-    public void startUserHomepage() throws IOException {
-        FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonUser.fxml"));
-        Pane screenA = fxmlLoaderA.load();
-        GUIHomepageSideButtonUserController guiHomepageSideButtonUserController = fxmlLoaderA.getController();
-        FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
-        Pane screenB = fxmlLoaderB.load();
-
-        setSideButton(screenA);
-        setSideWindow(screenB);
-        guiHomepageSideButtonUserController.setPreviuosScene(this.currentScene);
-
-    }
+//    public void startUserHomepage() throws IOException {
+//        FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonUser.fxml"));
+//        Pane screenA = fxmlLoaderA.load();
+//        GUIHomepageSideButtonUserController guiHomepageSideButtonUserController = fxmlLoaderA.getController();
+//        FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
+//        Pane screenB = fxmlLoaderB.load();
+//
+//        setSideButton(screenA);
+//        setSideWindow(screenB);
+//        guiHomepageSideButtonUserController.setPreviuosScene(this.currentScene);
+//
+//    }
     //carica l'homepage per le library
-    public void startLibraryHomepage() throws IOException {
-        FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonLibrary.fxml"));
-        Pane screenA = fxmlLoaderA.load();
-        GUIHomepageSideButtonLibraryController guiHomepageSideButtonLibraryController = fxmlLoaderA.getController();
-        FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
-        Pane screenB = fxmlLoaderB.load();
-
-        setSideButton(screenA);
-        setSideWindow(screenB);
-
-        guiHomepageSideButtonLibraryController.setPreviuosScene(this.currentScene);
-    }
+//    public void startLibraryHomepage() throws IOException {
+//        FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonLibrary.fxml"));
+//        Pane screenA = fxmlLoaderA.load();
+//        GUIHomepageSideButtonLibraryController guiHomepageSideButtonLibraryController = fxmlLoaderA.getController();
+//        FXMLLoader fxmlLoaderB = new FXMLLoader(Main.class.getResource("HomepageSideWindow.fxml"));
+//        Pane screenB = fxmlLoaderB.load();
+//
+//        setSideButton(screenA);
+//        setSideWindow(screenB);
+//
+//        guiHomepageSideButtonLibraryController.setPreviuosScene(this.currentScene);
+//    }
 
     public void setSideButton(Pane pane) {
         SideButton.getChildren().add(pane);
@@ -122,39 +119,30 @@ public class GUIHomepageController {
     }
 
     public void setting() throws IOException {
-
-        if(this.loginBean.getType()==1)
-            if(Session.getCurrentSession().getUser().isGuest())
-                BoxExcpetionMessage.PopUpsGuestDeniedMessage();
-            else
-                this.settingUser();
-        else//(this.loginBean.getType()==2)
-            this.settingLibrary();
-
-
+        currentState.setting(this);
     }
 
-    public void settingUser() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SettingUser.fxml"));
-        GUISettingUserController guiSettingUserController;
-        Parent root =fxmlLoader.load();
-        guiSettingUserController = fxmlLoader.getController();
-        guiSettingUserController.startSetting();
-        guiSettingUserController.setPreviousScene(getCurrentScene());
-        Scene scene = new Scene(root);
-        Main.getStage().setScene(scene);
-    }
-
-    public void settingLibrary() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SettingLibrary.fxml"));
-        Parent root =fxmlLoader.load();
-        GUISettingLibraryController guiSettingLibraryController;
-        guiSettingLibraryController =fxmlLoader.getController();
-        guiSettingLibraryController.startSetting();
-        guiSettingLibraryController.setPreviousScene(getCurrentScene());
-        Scene scene = new Scene(root);
-        Main.getStage().setScene(scene);
-    }
+//    public void settingUser() throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SettingUser.fxml"));
+//        GUISettingUserController guiSettingUserController;
+//        Parent root =fxmlLoader.load();
+//        guiSettingUserController = fxmlLoader.getController();
+//        guiSettingUserController.startSetting();
+//        guiSettingUserController.setPreviousScene(getCurrentScene());
+//        Scene scene = new Scene(root);
+//        Main.getStage().setScene(scene);
+//    }
+//
+//    public void settingLibrary() throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SettingLibrary.fxml"));
+//        Parent root =fxmlLoader.load();
+//        GUISettingLibraryController guiSettingLibraryController;
+//        guiSettingLibraryController =fxmlLoader.getController();
+//        guiSettingLibraryController.startSetting();
+//        guiSettingLibraryController.setPreviousScene(getCurrentScene());
+//        Scene scene = new Scene(root);
+//        Main.getStage().setScene(scene);
+//    }
 
 //    private void setBellNotify(List<BookModel> listBookModel) throws IOException {
 //        if(listBookModel!=null) {
