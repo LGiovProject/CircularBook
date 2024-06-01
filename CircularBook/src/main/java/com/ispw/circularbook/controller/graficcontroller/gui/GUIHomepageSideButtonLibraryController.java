@@ -11,14 +11,10 @@ import java.io.IOException;
 public class GUIHomepageSideButtonLibraryController {
 
 
-    private GUIHomepageController guiHomepageController;
+
 
 
     private Scene previuosScene;
-
-    public Scene getPreviuosScene() {
-        return previuosScene;
-    }
 
     public void setPreviuosScene(Scene previuosScene) {
         this.previuosScene = previuosScene;
@@ -31,8 +27,7 @@ public class GUIHomepageSideButtonLibraryController {
 
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
+
 
 
     }
@@ -46,8 +41,6 @@ public class GUIHomepageSideButtonLibraryController {
 
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
 
     }
 
@@ -60,8 +53,6 @@ public class GUIHomepageSideButtonLibraryController {
 
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 
     public void goManagement() throws IOException {
@@ -74,7 +65,5 @@ public class GUIHomepageSideButtonLibraryController {
         guiManagementBookLibraryController.setPreviuosScene(previuosScene);
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 }

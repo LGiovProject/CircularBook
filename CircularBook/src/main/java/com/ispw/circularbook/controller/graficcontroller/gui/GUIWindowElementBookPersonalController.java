@@ -24,8 +24,6 @@ public class GUIWindowElementBookPersonalController implements Observer{
     @FXML
     ScrollPane scrollPane;
 
-    private GUIHomepageController guiHomepageController;
-
     private Pane currentPane;
 
     public void setCurrentPane(Pane currentPane)
@@ -53,7 +51,6 @@ public class GUIWindowElementBookPersonalController implements Observer{
             guiElementBookPersonalController.setBookElement(elementBean);
             guiElementBookPersonalController.setPreviuosPane(currentPane);
             guiElementBookPersonalController.setBookElementSubject(bookElementSubject);
-//            guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
             if(previuosScene==null)
                 System.out.println("GUIWindowElementBookPersonalController.viewBook() ");
             guiElementBookPersonalController.setCurrentScene(previuosScene);
@@ -129,19 +126,16 @@ public class GUIWindowElementBookPersonalController implements Observer{
         Pane pane= fxmlLoader.load();
 
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
-//        guiHomepageController= Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 
     @Override
     public void update(Object object1 , Object object2) {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ElementBookPersonal.fxml"));
-        Pane element = new Pane();
+        Pane element;
         try {
             element = fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         BookModel bookModel = (BookModel) object1;
         ElementBean elementBean = new ElementBean(element,bookModel.getId());

@@ -98,12 +98,12 @@ public class GUISignInUserController {
 
         }catch (IOException e)
         {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }
 
-    public void goToLogin() throws IOException {
+    public void goToLogin(){
             Main.getStage().setScene(loginScene);
     }
 
@@ -142,14 +142,6 @@ public class GUISignInUserController {
         FileInputStream input = new FileInputStream("src/main/resources/com/ispw/circularbook/img/padlock.png");
         Image image = new Image(input);
         padlockR.setImage(image);
-    }
-
-    public Scene getLoginSceneScene() {
-        return loginScene;
-    }
-
-    public Scene getPreviousScene(){
-            return previousScene;
     }
 
     public void setLoginScene(Scene loginScene) {

@@ -2,10 +2,9 @@ package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
-import com.mysql.cj.util.StringUtils;
 import java.time.LocalDate;
 import java.time.Period;
-//import java.time.temporal.ChronoUnit;
+
 
 
 public class BookBean {
@@ -128,17 +127,6 @@ public class BookBean {
         return typeOfDisponibility;
     }
 
-    public String getTypeOfDisponibilityString () {
-
-        return switch (this.typeOfDisponibility) {
-        case 1 -> "E' messo in prestito";
-        case 2 -> "E' messo in regalo";
-        case 3 -> "E' stato prestato";
-        case 4 -> "E' stato regalato";
-        default -> "Errore con questo libro";
-        };
-    }
-
     public String getTitolo() {
         return titolo;
     }
@@ -198,12 +186,6 @@ public class BookBean {
             this.nPagine="0";
     }
 
-    public String getNpagineString()
-    {
-        return (String.valueOf(this.nPagine));
-    }
-
-
     public String getCommento() {
         return commento;
     }
@@ -227,10 +209,6 @@ public class BookBean {
     public void setDate_finish(String date_finish) {
         this.date_finish = date_finish;
     }
-
-    public String getEmailInfo() {  return emailInfo;  }
-
-    public void setEmailInfo(String emailInfo) { this.emailInfo = emailInfo; }
 
     public long getDaysRemaing()
     {

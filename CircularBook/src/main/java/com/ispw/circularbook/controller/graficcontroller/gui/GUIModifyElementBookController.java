@@ -61,8 +61,6 @@ public class GUIModifyElementBookController {
 
     private int id;
 
-    private BookBean bookBean;
-
     private BookElementSubject bookElementSubject;
 
     private Scene previusScene;
@@ -71,9 +69,7 @@ public class GUIModifyElementBookController {
         this.previusScene = currentScene;
     }
 
-    public BookElementSubject getBookElementSubject() {
-        return bookElementSubject;
-    }
+
 
     public void setBookElementSubject(BookElementSubject bookElementSubject){
         this.bookElementSubject = bookElementSubject;
@@ -81,6 +77,7 @@ public class GUIModifyElementBookController {
 
     public void setElement(ElementBean elementBean){
         BookModel bookModel = this.getBookModel(elementBean.getId());
+        this.id=elementBean.getId();
         this.panel= elementBean.getPane();
         this.title.setEditable(false);
         this.author.setEditable(false);

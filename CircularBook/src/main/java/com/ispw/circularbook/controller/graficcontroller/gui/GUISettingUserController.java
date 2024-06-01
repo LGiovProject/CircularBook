@@ -5,7 +5,6 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.UserController;
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
-import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.model.InfoBookModel;
@@ -24,8 +23,6 @@ import java.util.Objects;
 
 
 public class GUISettingUserController {
-
-    private UserModel userModel;
 
     @FXML
     private TextField email;
@@ -83,13 +80,13 @@ public class GUISettingUserController {
     public void startSetting()
     {
         InfoBookModel infoBookModel;
-        this.userModel= Session.getCurrentSession().getUser();
-        this.email.setText(this.userModel.getEmail());
+        UserModel userModel = Session.getCurrentSession().getUser();
+        this.email.setText(userModel.getEmail());
         this.email.setEditable(false);
-        this.username.setText(this.userModel.getUsername());
-        this.name.setText(this.userModel.getNome());
-        this.surname.setText(this.userModel.getCognome());
-        this.city.setText(this.userModel.getCityString());
+        this.username.setText(userModel.getUsername());
+        this.name.setText(userModel.getNome());
+        this.surname.setText(userModel.getCognome());
+        this.city.setText(userModel.getCityString());
         this.city.setEditable(false);
         SearchBookController searchBookController = new SearchBookController();
         InfoBookBean infoBookBean = new InfoBookBean(userModel.getUsername(), userModel.getEmail());
@@ -104,7 +101,7 @@ public class GUISettingUserController {
         buffer=welcomeText.getText()+" "+Session.getCurrentSession().getUser().getNome();
         welcomeText.setText(buffer);
         cityChoicheBox.getItems().addAll(City.values());
-        cityChoicheBox.getSelectionModel().select(this.userModel.getCity());
+        cityChoicheBox.getSelectionModel().select(userModel.getCity());
         cityChoicheBox.setVisible(false);
     }
 

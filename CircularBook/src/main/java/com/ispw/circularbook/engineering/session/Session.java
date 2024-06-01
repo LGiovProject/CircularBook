@@ -51,9 +51,7 @@ public class Session {
         return libraryModel;
     }
 
-    public GUIHomepageController getGuiHomepageController(){
-        return guiHomepageController;
-    }
+
 
     public void setGuiHomepageController(GUIHomepageController guiHomepageController){
         this.guiHomepageController = guiHomepageController;

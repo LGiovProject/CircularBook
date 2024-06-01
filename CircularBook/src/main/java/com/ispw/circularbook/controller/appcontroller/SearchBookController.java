@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SearchBookController {
 
+    //Cerca i libri in base ai parametri di ricerca di searchBookBeani
     public List<BookModel> searchAvailableBook(SearchBookBean searchBookBean)
     {
         List<BookBean> listBookBean;
@@ -26,7 +27,7 @@ public class SearchBookController {
         }
         return listBookModel;
     }
-
+    //Cerca i propri libri nel sistema ancora disponibili
     public List<BookModel> searchMyAvailableBook(String email){
 
             List<BookBean> listBookBean;
@@ -41,7 +42,7 @@ public class SearchBookController {
 
     }
 
-
+    //Cerca i propri libri nel sistema che sono stati presi
     public List<BookModel> searchMyGivenBook(String email) throws NoBookLendedException {
         List<BookBean> listBookBean;
         List<BookModel> listBookModel = new ArrayList<>();
@@ -54,7 +55,7 @@ public class SearchBookController {
         }
         return listBookModel;
     }
-
+    //Raccoglie le informazioni su l'utilizzo dell'applicazione in termini di libri inseriti, dati e presi.
     public InfoBookModel searchBookInfoUser(InfoBookBean infoBookBeanIn)
     {
         InfoBookBean infoBookBeanOut = SearchBookDAO.searchBookUserInfo(infoBookBeanIn);
@@ -63,6 +64,7 @@ public class SearchBookController {
         return infoBookModel;
 
     }
+    //Raccoglie le informazioni su l'utilizzo dell'applicazione da parte delle librerie in termini di libri inseriti.
     public InfoBookModel searchBookInfoLibrary(String email)
     {
         InfoBookBean infoBookBean=SearchBookDAO.searchBookLibraryInfo(email);

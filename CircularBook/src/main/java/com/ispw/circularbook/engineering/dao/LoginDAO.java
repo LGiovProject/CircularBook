@@ -19,7 +19,7 @@ public class LoginDAO {
     public static int checkLogin(LoginBean loginBean) {
 
         Statement stmt;
-        int type=0;
+        int type;
         try {
             stmt = ConnectionDB.getConnection();
 

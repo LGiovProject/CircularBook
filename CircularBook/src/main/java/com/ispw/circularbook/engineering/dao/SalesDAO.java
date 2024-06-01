@@ -6,7 +6,6 @@ import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.queries.CRUDQueries;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
-import com.ispw.circularbook.model.SalesModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

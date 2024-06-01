@@ -29,7 +29,7 @@ public class UserDAO {
              userBean=getUserInfo(resultSet);
              resultSet.close();
         }catch (SQLException| ErrorConnectionDbException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
         return userBean;
     }
@@ -42,7 +42,7 @@ public class UserDAO {
             stmt=ConnectionDB.getConnection();
             CRUDQueries.updateUser(stmt,updateInfoBean.getEmail(),updateInfoBean.getCamp(), updateInfoBean.getNewValue());
         } catch (ErrorConnectionDbException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

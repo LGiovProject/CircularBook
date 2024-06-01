@@ -52,16 +52,6 @@ public class GUIElementSaelesController {
     }
 
     public void moreInfo() throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMoreInfoSales.fxml"));
-//        LibraryController libraryController = new LibraryController();
-//        LibraryBean libraryBean = libraryController.searchLibrary(salesBean.getEmail());
-//        Popup popup = new Popup();
-//        Label label = fxmlLoader.load();
-//        GUIPopUpsMoreInfoSalesController guiPopUpsMoreInfoSalesController = fxmlLoader.getController();
-//        guiPopUpsMoreInfoSalesController.setPopUpsMoreInfoSales(salesBean,libraryBean,popup);
-//        popup.getContent().add(label);
-//        popup.setAutoHide(true);
-//        popup.show(Main.getStage());
         ElementBean elementBean =new  ElementBean(salesModel.getId());
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoSales.fxml"));
         Pane pane = fxmlLoader.load();

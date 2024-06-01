@@ -81,8 +81,6 @@ public class GUIElementBookPersonalController {
         guiMoreInfoBookController.setPreviousPane(this.previuosPane);
         guiMoreInfoBookController.setInfoBook(elementBean);
 
-//        GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
 
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
     }

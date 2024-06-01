@@ -48,17 +48,10 @@ public class GUIModifyElementSalesController {
 
     private Scene previusScene;
 
-    public Scene getPreviusScene() {
-        return previusScene;
-    }
-
     public void setPreviusScene(Scene scene){previusScene=scene;}
 
     private BookElementSubject bookElementSubject;
 
-    public BookElementSubject getBookElementSubject() {
-        return bookElementSubject;
-    }
 
     SalesModel salesModel;
 
@@ -71,10 +64,10 @@ public class GUIModifyElementSalesController {
     public void setElement(ElementBean elementBean)
     {
         salesModel=getSalesModel(elementBean.getId());
-        //this.titleSales.setEditable(false);
+        this.titleSales.setEditable(false);
         this.libreria.setEditable(false);
         this.descrizione.setEditable(false);
-       // this.titleSales.setText(salesModel.getTitle());
+        this.titleSales.setText(salesModel.getTitle());
         this.libreria.setText(salesModel.getNameLib());
         this.descrizione.setText(salesModel.getDescription());
         setTypeOfDisponibility(salesModel.getTypeOfSalesInt());

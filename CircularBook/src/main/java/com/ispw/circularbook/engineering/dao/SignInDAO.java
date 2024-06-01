@@ -5,9 +5,8 @@ import com.ispw.circularbook.engineering.bean.SignInBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
 import com.ispw.circularbook.engineering.exception.EmailUsedException;
-import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;
+
 
 
 import java.sql.*;
@@ -15,20 +14,6 @@ import java.sql.*;
 public class SignInDAO {
 
     public static void signInL(SignInBean signInBean){
-//        Statement stmt;
-//        try {
-//            stmt = ConnectionDB.getConnection();
-//
-//            Queries.insertLogin(stmt, signInBean.getEmail(), signInBean.getPassword());
-//           Queries.insertLibrary(stmt,signInBean.getEmail(),signInBean.getNomeLib(),signInBean.getCittaString(),signInBean.getVia(),signInBean.getnTel());
-//
-//        }catch (SQLException| ErrorConnectionDbException e)
-//            {
-//               e.printStackTrace();
-//
-//            } catch (ErrorRegistrationException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
 
         try {
             CallableStatement callableStatement = ConnectionDB.insertLibrary();
@@ -46,24 +31,6 @@ public class SignInDAO {
 
     public static void signInU(SignInBean signInBean)
     {
-//        Statement stmt;
-//        try {
-//            stmt = ConnectionDB.getConnection();
-//
-//            Queries.insertLogin(stmt, signInBean.getEmail(), signInBean.getPassword());
-//            Queries.insertUser(stmt,signInBean.getEmail(),signInBean.getUsername(),signInBean.getNome(),signInBean.getCognome(),signInBean.getCittaString());
-//
-//        } catch (SQLIntegrityConstraintViolationException e)
-//        {
-//               BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        } catch ( SQLException|ErrorConnectionDbException e)
-//        {
-//            e.printStackTrace();
-//
-//        } catch (ErrorRegistrationException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
-
         try {
             CallableStatement callableStatement = ConnectionDB.insertUser();
             callableStatement.setString(1,signInBean.getEmail());
@@ -92,7 +59,7 @@ public class SignInDAO {
              }
 
         } catch (ErrorConnectionDbException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

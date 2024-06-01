@@ -54,8 +54,8 @@ public class GUIElementBookGivenController {
 
         title.setText(bookModel.getTitolo());
         author.setText(bookModel.getAutore());
-        usernameGiver.setText("L'hai dato a"+bookModel.getUsername());
-        daysRemaing.setText("Rimangono "+bookModel.getDaysRemaing()+" giorni");
+        usernameGiver.setText("L'hai dato a "+bookModel.getUsername());
+        daysRemaing.setText("Rimangono \n"+bookModel.getDaysRemaing()+" giorni");
     }
 
     private void setGiftedBook(){
@@ -63,6 +63,6 @@ public class GUIElementBookGivenController {
         title.setText(bookModel.getTitolo());
         author.setText(bookModel.getAutore());
         usernameGiver.setText("L'hai dato a"+bookModel.getUsername());
-        daysRemaing.setText("E' stato preso in prestito");
+        daysRemaing.setText("E' stato preso in regalo");
     }
 }

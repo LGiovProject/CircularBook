@@ -5,33 +5,15 @@ import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.LenderBookBean;
 import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
-//import com.ispw.circularbook.engineering.dao.queries.Queries;
-//import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
-//import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-//import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
-//import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
-//import com.ispw.circularbook.engineering.exception.ErrorUpdateBookException;
-
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-//import java.sql.Statement;
+
 
 
 public class BookDAO {
 
 
     public static void insertBook(RegistrationBookBean registrationBookBean) {
-//        Statement stmt;
-//        try {
-//            stmt = ConnectionDB.getConnection();
-//            Queries.insertBook(stmt, registrationBookBean.getEmail(), registrationBookBean.getTypeOfDisponibility(), registrationBookBean.getTitle(), registrationBookBean.getAuthor(), registrationBookBean.getArgument(), registrationBookBean.getNPageInt(), registrationBookBean.getComment());
-//
-//        } catch (SQLException e) {
-//
-//        } catch (ErrorInsertBookException |ErrorConnectionDbException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
-
         try {
             CallableStatement callableStatement = ConnectionDB.insertBook();
             callableStatement.setString(1,registrationBookBean.getEmail());
@@ -51,10 +33,10 @@ public class BookDAO {
     }
 
     public static void insertLendBook(LenderBookBean lenderBookBean) {
-        //Statement stmt;
+
         CallableStatement callableStatement;
        try {
-            // stmt = ConnectionDB.getConnection();
+
             if(lenderBookBean.getTypeOfDisponiblity()==1) {
                 callableStatement = ConnectionDB.takeLendBook();
                 callableStatement.setInt(1,lenderBookBean.getId());
@@ -66,7 +48,6 @@ public class BookDAO {
                 callableStatement.setString(7, lenderBookBean.getDateFinish());
                 callableStatement.execute();
 
-//                Queries.registerLendBook(stmt, lenderBookBean.getId(), lenderBookBean.getEmail(), lenderBookBean.getUsername(), lenderBookBean.getDateStart(), lenderBookBean.getDateFinish());
             }
             else
             {
@@ -87,17 +68,6 @@ public class BookDAO {
     }
 
     public static void updateBook(BookBean bookBean){
-//        Statement stmt;
-//        try
-//        {
-//            stmt=ConnectionDB.getConnection();
-//            Queries.updateBook(stmt,bookBean.getId(),bookBean.getTypeOfDisponibility(),bookBean.getTitolo(),bookBean.getAutore(),bookBean.getArgomentoString(), bookBean.getNPagineInt(), bookBean.getCommento());
-//
-//        }catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } catch (ErrorUpdateBookException |ErrorConnectionDbException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
 
         try {
             CallableStatement callableStatement = ConnectionDB.updateBook();
@@ -116,18 +86,6 @@ public class BookDAO {
 
     public static void removeBook(int id)
     {
-//        Statement stmt;
-//        try
-//        {
-//            stmt=ConnectionDB.getConnection();
-//            Queries.removeBook(stmt,String.valueOf(id));
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ErrorRemoveBookException|ErrorConnectionDbException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
-
         try {
             CallableStatement callableStatement = ConnectionDB.removeBook();
             callableStatement.setInt(1,id);

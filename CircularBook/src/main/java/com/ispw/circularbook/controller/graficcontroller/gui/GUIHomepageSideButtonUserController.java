@@ -16,18 +16,15 @@ public class GUIHomepageSideButtonUserController {
 
     private Scene previuosScene;
 
-    public Scene getPreviuosScene() {
-        return previuosScene;
-    }
-
     public void setPreviuosScene(Scene previuosScene) {
         this.previuosScene = previuosScene;
     }
 
     public void openLendBook() throws IOException {
         try {
-        if(Session.getCurrentSession().getUser().isGuest())
-            throw new AccountRequiredException();
+
+            if(Session.getCurrentSession().getUser().isGuest())
+                throw new AccountRequiredException();
 
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("InsertLendBook.fxml"));
@@ -36,9 +33,6 @@ public class GUIHomepageSideButtonUserController {
             guiInsertLendBookController.startRegisterBook();
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
         } catch (AccountRequiredException e) {
             BoxExcpetionMessage.PopUpsGuestDeniedMessage();
         }
@@ -58,9 +52,6 @@ public class GUIHomepageSideButtonUserController {
         {
             BoxExcpetionMessage.PopUpsGuestDeniedMessage();
         }
-
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 
     public void searchSales() throws IOException {
@@ -70,9 +61,6 @@ public class GUIHomepageSideButtonUserController {
         guiSearchSalesController.startSetSales();
         guiSearchSalesController.setCurrentPane(pane);
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 
     public void searchBook() throws IOException {
@@ -83,9 +71,6 @@ public class GUIHomepageSideButtonUserController {
         guiSearchBookController.setCurrentPane(pane);
         Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
-
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
     }
 
     public void showLibrary() throws IOException{
@@ -101,11 +86,6 @@ public class GUIHomepageSideButtonUserController {
        {
            BoxExcpetionMessage.PopUpsGuestDeniedMessage();
        }
-//        guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//        guiHomepageController.setSideWindow(pane);
-
-
-
 
     }
 

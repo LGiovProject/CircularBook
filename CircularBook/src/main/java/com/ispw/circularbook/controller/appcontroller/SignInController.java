@@ -12,11 +12,12 @@ public class SignInController {
     {
         SignInDAO.signInU(signInBean);
     }
-    public void signInL(SignInBean signInBean) throws IOException {
+
+    public void signInL(SignInBean signInBean){
         SignInDAO.signInL(signInBean);
     }
 
-    public void CheckMail(String email) throws EmailUsedException {
+    public void checkMail(String email) throws EmailUsedException {
         SignInDAO.checkEmailU(email);
     }
 }

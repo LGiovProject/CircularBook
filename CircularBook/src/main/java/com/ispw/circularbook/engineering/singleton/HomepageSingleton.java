@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.singleton;
-
-public class HomepageSingleton {
-}
+//package com.ispw.circularbook.engineering.singleton;
+//
+//public class HomepageSingleton {
+//}

@@ -28,7 +28,7 @@ public class LibraryDAO {
             libraryBean= getLibraryInfo(resultSet);
             resultSet.close();
         } catch (SQLException| ErrorConnectionDbException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return libraryBean;
     }
@@ -46,7 +46,7 @@ public class LibraryDAO {
             stmt=ConnectionDB.getConnection();
             CRUDQueries.updateLibrary(stmt,updateInfoBean.getEmail(),updateInfoBean.getCamp(), updateInfoBean.getNewValue());
         } catch (ErrorConnectionDbException | SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

@@ -127,7 +127,7 @@
                      <children>
                         <ScrollPane fx:id="scrollPane" layoutY="2.0" prefHeight="229.0" prefWidth="593.0">
                            <content>
-                              <VBox fx:id="showResult" prefHeight="227.0" prefWidth="591.0" />
+                              <VBox fx:id="showResult" prefHeight="227.0" prefWidth="584.0" />
                            </content>
                         </ScrollPane>
                      </children>

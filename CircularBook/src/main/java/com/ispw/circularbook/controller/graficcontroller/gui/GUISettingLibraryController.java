@@ -24,8 +24,6 @@ import java.util.Objects;
 
 public class GUISettingLibraryController {
 
-    private LibraryModel libraryModel;
-
     @FXML
     private Text email;
     @FXML
@@ -81,14 +79,14 @@ public class GUISettingLibraryController {
     public void startSetting()
     {
         InfoBookModel infoBookModel;
-        this.libraryModel= Session.getCurrentSession().getLibrary();
-        this.email.setText(this.libraryModel.getEmail());
-        this.nameLib.setText(this.libraryModel.getNomeLib());
-        this.via.setText(this.libraryModel.getVia());
-        this.city.setText(this.libraryModel.getCityString());
-        this.ntel.setText(String.valueOf(this.libraryModel.getTelNumber()));
+        LibraryModel libraryModel = Session.getCurrentSession().getLibrary();
+        this.email.setText(libraryModel.getEmail());
+        this.nameLib.setText(libraryModel.getNomeLib());
+        this.via.setText(libraryModel.getVia());
+        this.city.setText(libraryModel.getCityString());
+        this.ntel.setText(String.valueOf(libraryModel.getTelNumber()));
         SearchBookController searchBookController = new SearchBookController();
-        infoBookModel=searchBookController.searchBookInfoLibrary(this.libraryModel.getEmail());
+        infoBookModel=searchBookController.searchBookInfoLibrary(libraryModel.getEmail());
         libraryModel.setBookInfo(infoBookModel);
         this.bookRegistered.setText(bookStringGenerator(infoBookModel.getRegisterBook()) +" registrati");
         this.bookLended.setText(bookStringGenerator(infoBookModel.getLendedBook())+"  presi in prestito");
@@ -97,7 +95,7 @@ public class GUISettingLibraryController {
         welcomeText.setText(welcomeText.getText()+" "+Session.getCurrentSession().getLibrary().getNomeLib());
 
         cityChoicheBox.getItems().addAll(City.values());
-        cityChoicheBox.getSelectionModel().select(this.libraryModel.getCity());
+        cityChoicheBox.getSelectionModel().select(libraryModel.getCity());
         cityChoicheBox.setVisible(false);
     }
 

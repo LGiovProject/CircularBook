@@ -1,28 +1,26 @@
 package com.ispw.circularbook.controller.graficcontroller.gui;
 
-//import com.ispw.circularbook.controller.appcontroller.NotifyController;
-import com.ispw.circularbook.engineering.bean.BookBean;
+
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
 import com.ispw.circularbook.engineering.facade.SceneFacade;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
-import com.ispw.circularbook.model.BookModel;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import com.ispw.circularbook.Main;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Popup;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 
 public class GUIHomepageController {
@@ -83,8 +81,6 @@ public class GUIHomepageController {
         setSideWindow(screenB);
         guiHomepageSideButtonUserController.setPreviuosScene(this.currentScene);
 
-//        List<BookModel> listBookModel=Session.getCurrentSession().getUser().getListBookTaked();
-//        setBellNotify(listBookModel);
     }
     //carica l'homepage per le library
     public void startLibraryHomepage() throws IOException {

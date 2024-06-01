@@ -3,7 +3,6 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
 import com.ispw.circularbook.engineering.bean.ElementBean;
-import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.enums.Month;
 import com.ispw.circularbook.engineering.enums.TypeOfSales;
@@ -36,8 +35,6 @@ public class GUISearchSalesController {
     private Pane currentPane;
 
     public void setCurrentPane(Pane currentPane){this.currentPane = currentPane;}
-
-    public Pane getCurrentPane(){return currentPane;}
 
     public void startSetSales()
     {

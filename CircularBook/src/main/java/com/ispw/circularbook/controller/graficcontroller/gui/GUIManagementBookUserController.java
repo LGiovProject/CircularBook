@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GUIManagementBookUserController {
 
-    GUIHomepageController guiHomepageController;
+
     GUIWindowElementBookPersonalController guiWindowElementBookPersonalController;
 
     private Scene previuosScene;
@@ -31,33 +31,23 @@ public class GUIManagementBookUserController {
     public void searchMyBook() throws IOException {
         List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        //try {
-            listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getUser().getEmail());
+        listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getUser().getEmail());
 
-            if (listBookModel!=null && !listBookModel.isEmpty()) {
-                Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
-                Pane pane = fxmlLoader.load();
+        if (listBookModel!=null && !listBookModel.isEmpty()) {
+            Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
+            Pane pane = fxmlLoader.load();
 
-                Session.getCurrentSession().getSceneFacade().loadScene(pane);
+            Session.getCurrentSession().getSceneFacade().loadScene(pane);
+            guiWindowElementBookPersonalController = fxmlLoader.getController();
+            guiWindowElementBookPersonalController.setCurrentPane(pane);
+            guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
+            guiWindowElementBookPersonalController.viewBook();
 
-    //            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-    //            guiHomepageController.setSideWindow(pane);
+        } else {
 
-                guiWindowElementBookPersonalController = fxmlLoader.getController();
-                guiWindowElementBookPersonalController.setCurrentPane(pane);
-                guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
-                guiWindowElementBookPersonalController.viewBook();
-                if(previuosScene==null)
-                    System.out.println("errore 4");
+        }
 
-
-            } else {
-//                throw new NoBookLendedException();
-            }
-//        } catch (NoBookLendedException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
-//        }
     }
 
     public void searchBookILendBack() throws IOException {
@@ -68,9 +58,6 @@ public class GUIManagementBookUserController {
             Pane pane = fxmlLoader.load();
 
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
-//            Session.getCurrentSession().getGuiHomepageController().setSideWindow(pane);
-
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewMyLendedBook();
@@ -97,9 +84,6 @@ public class GUIManagementBookUserController {
             Pane pane = fxmlLoader.load();
 
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
-//            guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//            guiHomepageController.setSideWindow(pane);
 
 
             guiWindowElementBookPersonalController = fxmlLoader.getController();

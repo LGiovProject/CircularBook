@@ -95,7 +95,7 @@ public class GUISignInLibraryController {
             BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
         }catch (IOException e)
         {
-            e.printStackTrace();
+           throw new RuntimeException(e);
         }
 
     }
@@ -140,14 +140,6 @@ public class GUISignInLibraryController {
         FileInputStream input = new FileInputStream("src/main/resources/com/ispw/circularbook/img/padlock.png");
         Image image = new Image(input);
         padlockR.setImage(image);
-    }
-
-    public Scene getLoginSceneScene() {
-        return loginScene;
-    }
-
-    public Scene getPreviousScene(){
-        return previousScene;
     }
 
     public void setLoginScene(Scene loginScene) {

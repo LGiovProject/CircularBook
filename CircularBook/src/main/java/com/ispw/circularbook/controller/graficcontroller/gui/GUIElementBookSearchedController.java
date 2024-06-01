@@ -86,9 +86,6 @@ public class GUIElementBookSearchedController {
             guiMoreInfoBookController.setInfoBook(elementBean);
             guiMoreInfoBookController.setPreviousPane(this.previuosPane);
 
-//            GUIHomepageController guiHomepageController = Session.getCurrentSession().getGuiHomepageController();
-//            guiHomepageController.setSideWindow(pane);
-
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
         }
 
@@ -96,8 +93,6 @@ public class GUIElementBookSearchedController {
             InsertBookController insertBookController = new InsertBookController();
             LenderBookBean lenderBookBean = new LenderBookBean(bookModel.getId(),bookModel.getEmail(),bookModel.getUsername(),Session.getCurrentSession().getUser().getEmail(),Session.getCurrentSession().getUser().getUsername(),bookModel.getTypeOfDisponibility(), LocalDate.now());
             insertBookController.registerLendBook(lenderBookBean);
-            //NotifyController notifyController = new NotifyController();
-            //notifyController.insertNotify(Session.getCurrentSession().getUser().getEmail(),this.bookModel,getMessage());
             bookElementSubject.notifyObserver(this.panel);
             Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
             BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");

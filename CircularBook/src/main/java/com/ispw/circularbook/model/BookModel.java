@@ -1,10 +1,8 @@
 package com.ispw.circularbook.model;
 
 import com.ispw.circularbook.engineering.enums.Arguments;
-
 import java.time.LocalDate;
-import java.util.UUID;
-//import java.time.temporal.Cr;
+
 
 public class BookModel {
     private int id;

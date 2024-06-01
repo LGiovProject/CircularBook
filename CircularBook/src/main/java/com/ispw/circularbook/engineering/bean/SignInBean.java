@@ -1,10 +1,7 @@
 package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.City;
-import com.ispw.circularbook.engineering.exception.CityCampRequiredException;
-import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
-import com.ispw.circularbook.engineering.exception.PasswordCampRequiredException;
-import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
+import com.ispw.circularbook.engineering.exception.*;
 import com.mysql.cj.util.StringUtils;
 
 import java.util.regex.Pattern;
@@ -21,8 +18,10 @@ public class SignInBean {
     private String nomeLib;
     private int nTel;
 
+    public SignInBean(){}
+
     public SignInBean(String email, String password, String nomeLib, String via, City citta, int nTel) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
-        this.email=email;
+        setEmail(email);
         this.password=password;
         this.citta=citta;
         this.via = via;
@@ -31,7 +30,7 @@ public class SignInBean {
     }
 
     public SignInBean(String email,String username,String password, String nome, String cognome, City citta) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
-        this.email=email;
+        setEmail(email);
         this.username=username;
         this.password=password;
         this.nome = nome;
@@ -47,7 +46,10 @@ public class SignInBean {
     }
 
     public void setEmail(String email) throws WrongEmailFormattException {
-        this.email = email;
+        String checkMail="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        if(!Pattern.compile(checkMail).matcher(email).matches())
+            throw new WrongEmailFormattException(email);
+        this.email=email;
     }
 
     public String getUsername(){ return username;}
@@ -91,6 +93,16 @@ public class SignInBean {
             this.citta=city;
     }
 
+    public void setCitta(String citta) throws WrongCityInsertException {
+        for (City city : City.values())
+        {
+            if(city.getCity().equals(citta))
+                this.citta= city;
+            else
+                throw new WrongCityInsertException();
+        }
+    }
+
     public String getVia() {
         return via;
     }
@@ -108,6 +120,8 @@ public class SignInBean {
     }
 
     public void setnTel(int nTel){this.nTel=nTel;}
+
+    public void setnTel(String nTel){this.nTel=Integer.parseInt(nTel);}
 
     public int getnTel(){return nTel;}
 
