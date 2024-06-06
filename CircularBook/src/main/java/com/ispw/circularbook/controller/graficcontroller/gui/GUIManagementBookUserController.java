@@ -5,7 +5,7 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.session.Session;
 
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -66,7 +66,7 @@ public class GUIManagementBookUserController {
         }
         else
         {
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
+            BoxMessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
         }
     }
 
@@ -76,7 +76,7 @@ public class GUIManagementBookUserController {
         try {
             listBookModel = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUser().getEmail());
         }catch (NoBookLendedException e){
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
         if (!listBookModel.isEmpty()) {
             Session.getCurrentSession().getUser().setListBookGiven(listBookModel);
@@ -94,7 +94,7 @@ public class GUIManagementBookUserController {
         }
         else
         {
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
+            BoxMessageSupport.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
         }
     }
 }

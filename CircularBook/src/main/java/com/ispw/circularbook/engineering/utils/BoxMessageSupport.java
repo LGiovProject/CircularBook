@@ -14,12 +14,29 @@ import javafx.stage.Popup;
 import java.io.IOException;
 
 
-public class BoxExcpetionMessage {
+public class BoxMessageSupport {
 
 
      public static void PopUpsExcpetionMessage(String message){
          try {
-             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsException.fxml"));
+             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMessage.fxml"));
+             Popup popup = new Popup();
+             Label label = fxmlLoader.load();
+             GUIPopUpsExceptionController guiPopUpsExceptionController = fxmlLoader.getController();
+             guiPopUpsExceptionController.setPopup(popup,message);
+             popup.getContent().add(label);
+             popup.setAutoHide(true);
+             popup.show(Main.getStage());
+
+         }catch (IOException e){
+             throw new RuntimeException(e);
+         }
+     }
+
+     public static void PopUpsSuccessMessage(String message)
+     {
+         try {
+             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMessage.fxml"));
              Popup popup = new Popup();
              Label label = fxmlLoader.load();
              GUIPopUpsExceptionController guiPopUpsExceptionController = fxmlLoader.getController();

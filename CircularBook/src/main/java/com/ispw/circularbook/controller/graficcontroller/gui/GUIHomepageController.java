@@ -5,10 +5,10 @@ import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.bean.NotifyBean;
 import com.ispw.circularbook.engineering.facade.SceneFacade;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.state.HomepageState;
-import com.ispw.circularbook.engineering.state.LibraryHomepageState;
-import com.ispw.circularbook.engineering.state.UserHomepageState;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.state.gui.GUIHomepageState;
+import com.ispw.circularbook.engineering.state.gui.GUIHomepageLibraryState;
+import com.ispw.circularbook.engineering.state.gui.GUIHomepageUserState;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +39,7 @@ public class GUIHomepageController {
 
     private List<NotifyBean> notifyBeanList = new ArrayList<>();
 
-    private HomepageState currentState;
+    private GUIHomepageState currentState;
 
     private Scene currentScene;
 
@@ -54,15 +54,20 @@ public class GUIHomepageController {
     //Metodo di lancio per l'homepage sia user che library, base al tipo di utente che effettua il login
     //carica la rispettiva homepage.
 
-    public void setState(HomepageState state)
+    public void setState(GUIHomepageState state)
     {
         this.currentState=state;
     }
     public void homePageStart(LoginBean loginBean) throws IOException {
+
+        SceneFacade sceneFacade = new SceneFacade(SideWindow);
+        Session.getCurrentSession().setSceneFacade(sceneFacade);
+
+
         if(loginBean.getType()==1)
-            this.setState(new UserHomepageState());
+            this.setState(new GUIHomepageUserState());
         else if (loginBean.getType()==2)
-            this.setState(new LibraryHomepageState());
+            this.setState(new GUIHomepageLibraryState());
 
         currentState.startHomepage(this);
     }
@@ -178,7 +183,7 @@ public class GUIHomepageController {
 
     public void seeNotify() throws IOException {
 
-        BoxExcpetionMessage.PopUpsExcpetionMessage("Servizio non ancora implementato");
+        BoxMessageSupport.PopUpsExcpetionMessage("Servizio non ancora implementato");
 
 //        if(notify) {
 //            Popup popup = new Popup();
@@ -196,7 +201,7 @@ public class GUIHomepageController {
 //        }
 //        else
 //        {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
+//            BoxMessageSupport.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
 //        }
     }
 

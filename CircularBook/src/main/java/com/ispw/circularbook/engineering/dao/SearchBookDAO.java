@@ -7,7 +7,7 @@ import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 
 
 import java.sql.CallableStatement;
@@ -63,7 +63,7 @@ public class SearchBookDAO {
         } catch (ErrorConnectionDbException |SQLException e) {
             throw new RuntimeException(e);
         }catch (NoBookFoundException e) {
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Non ci sono libri con i parametri inseriti");
+            BoxMessageSupport.PopUpsExcpetionMessage("Non ci sono libri con i parametri inseriti");
         }
         return listBookBean;
     }
@@ -107,7 +107,7 @@ public class SearchBookDAO {
         }
           catch (NoBookRegisteredException e)
         {
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
         return listBookBean;
     }
@@ -270,7 +270,7 @@ public class SearchBookDAO {
 //        {
 //            throw new RuntimeException(e);
 //        } catch (NoBookInfoException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+//            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
 //        }
 
         try {
@@ -299,7 +299,7 @@ public class SearchBookDAO {
         return infoBookBean;
     }
 
-    public static InfoBookBean searchBookLibraryInfo(String email)    {
+    public static InfoBookBean searchBookLibraryInfo(InfoBookBean infoBookBean)    {
 //        Statement stmt;
 //        InfoBookBean infoBookBean = new InfoBookBean();
 //        ResultSet resultSet;
@@ -323,20 +323,19 @@ public class SearchBookDAO {
 //        {
 //            throw new RuntimeException(e);
 //        } catch (NoBookInfoException e) {
-//            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+//            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
 //        }
-        InfoBookBean infoBookBean= new InfoBookBean();
 
         try {
             CallableStatement callableStatement = ConnectionDB.bookInfoLibrary();
-            callableStatement.setString(1,email);
+            callableStatement.setString(1,infoBookBean.getEmail());
             callableStatement.executeQuery();
 
             ResultSet resultSet = callableStatement.getResultSet();
             if(!resultSet.next())
                 throw new NoBookInfoException();
 
-            infoBookBean.setRegisterBook( resultSet.getInt(1));
+            infoBookBean.setRegisterBook(resultSet.getInt(1));
             infoBookBean.setSalesInsert(resultSet.getInt(2));
             infoBookBean.setLendedBook(resultSet.getInt(3));
             infoBookBean.setGiftedBook(resultSet.getInt(4));

@@ -5,7 +5,7 @@ import com.ispw.circularbook.engineering.enums.City;
 
 import java.util.List;
 
-public class LibraryModel {
+public class LibraryModel extends GenericAccountModel {
     private String email;
 
     private String password;
@@ -14,16 +14,10 @@ public class LibraryModel {
     private int telNumber;
     private String via;
 
-    private boolean guest;
-
     private List<BookModel> bookOwnList;
     private List<BookModel> bookGivenList;
 
     private List<SalesModel> salesModelList;
-    private InfoBookModel infoBookModel;
-
-
-
 
     public LibraryModel(){}
 
@@ -92,29 +86,17 @@ public class LibraryModel {
         this.via = via;
     }
 
-    public InfoBookModel getBookInfo() {
-        return infoBookModel;
-    }
-
-    public void setBookInfo(InfoBookModel infoBookModel) {
-        this.infoBookModel = infoBookModel;
-    }
-
     public int getTelNumber() {
         return telNumber;
     }
+
+    public String getTelNumberString(){ return String.valueOf(telNumber);}
 
     public void setTelNumber(int telNumber) {
         this.telNumber = telNumber;
     }
 
-    public boolean isGuest() {
-        return guest;
-    }
-
-    public void setGuest(boolean guest) {
-        this.guest = guest;
-    }
+    public void setTelNumber(String telNumber){this.telNumber = Integer.parseInt(telNumber);}
 
     public List<BookModel> getBookOwnList() {
         return bookOwnList;

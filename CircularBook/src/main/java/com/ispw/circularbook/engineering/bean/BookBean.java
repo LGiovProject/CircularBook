@@ -127,6 +127,10 @@ public class BookBean {
         return typeOfDisponibility;
     }
 
+    public String getTypeOfDisponibilityString(){
+        return typeOfDisponibility==1?"Prestito":"Regalo";
+    }
+
     public String getTitolo() {
         return titolo;
     }

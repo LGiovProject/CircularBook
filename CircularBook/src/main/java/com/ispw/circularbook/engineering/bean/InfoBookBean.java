@@ -14,8 +14,7 @@ public class InfoBookBean {
 
     public InfoBookBean(){}
 
-    public InfoBookBean(String username, String email) {
-        this.username = username;
+    public InfoBookBean(String email) {
         this.email = email;
     }
 

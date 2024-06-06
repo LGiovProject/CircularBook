@@ -85,12 +85,12 @@ public class ConnectionDB {
 
 
     public static CallableStatement takeLendBook() throws SQLException {
-        String procedureCall = "call  take_book_on_lend(?,?,?,?,?,?,?)";
+        String procedureCall = "call  take_book_on_lend(?,?,?,?,?)";
         return connection.prepareCall(procedureCall);
     }
 
     public static CallableStatement takeGiftBook() throws SQLException {
-        String procedureCall = "call  take_book_as_gift(?,?,?,?,?,?)";
+        String procedureCall = "call  take_book_as_gift(?,?,?,?)";
         return connection.prepareCall(procedureCall);
     }
 
@@ -101,6 +101,11 @@ public class ConnectionDB {
 
     public static CallableStatement updateBook() throws SQLException {
         String procedureCall="call update_book(?,?,?,?,?,?,?)";
+        return connection.prepareCall(procedureCall);
+    }
+
+    public static CallableStatement updateUser() throws SQLException{
+        String procedureCall="call update_user(?,?,?,?,?)";
         return connection.prepareCall(procedureCall);
     }
 

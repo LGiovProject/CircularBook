@@ -34,8 +34,8 @@ public class SalesBean {
         this.id = id;
         this.titlePromotion = titlePromotion;
         this.description = description;
-        this.dateStart = dateStart;
-        this.dateFinish = dateFinish;
+        setDateStart(dateStart);
+        setDateFinish(dateFinish);
     }
 
 
@@ -43,7 +43,7 @@ public class SalesBean {
     public SalesBean(String email, String titlePromotion, TypeOfSales typeOfSales, String description  , String dateStart, String dateFinish) throws Exception {
 
         this.email = email;
-        this.typeOfSales = typeOfSales;
+        setTypeOfSales(typeOfSales);
         this.titlePromotion = titlePromotion;
         this.description=description;
         setDateStart(dateStart);
@@ -145,6 +145,8 @@ public class SalesBean {
         return dateStart.format(dateTimeFormatter);
     }
 
+    public void setDateStart(LocalDate dateStart){this.dateStart=dateStart;}
+
     public void setDateStart(String dateStart) throws ParseException {
 
         this.dateStart=StringUtils.isEmptyOrWhitespaceOnly(dateStart)?null:LocalDate.parse(dateStart);
@@ -154,6 +156,8 @@ public class SalesBean {
         return dateFinish.format(dateTimeFormatter);
     }
 
+    public void setDateFinish(LocalDate dateFinish){this.dateFinish= dateFinish;}
+
     public void setDateFinish(String dateFinish, String dateStart) throws Exception {
 
         this.dateFinish = StringUtils.isEmptyOrWhitespaceOnly(dateFinish)?null:LocalDate.parse(dateFinish);
@@ -161,6 +165,12 @@ public class SalesBean {
             if(this.dateFinish.isBefore(LocalDate.parse(dateStart)))
                 throw new Exception("Error");
 
+    }
+
+    public void setDateFinish(LocalDate dateStart, LocalDate dateFinish) throws Exception {
+        this.dateFinish =dateFinish;
+        if(this.dateFinish.isBefore(dateStart))
+            throw new Exception("error");
     }
 
     public void setDateFinish(String dateFinish)

@@ -4,7 +4,7 @@ import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.TitleCampRequiredException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import javafx.fxml.FXML;
@@ -39,9 +39,9 @@ public class GUIInsertGiftBookController {
             InsertBookController insertBookController = new InsertBookController();
             insertBookController.registerBook(registrationBookBean);
             clearTextField();
-            BoxExcpetionMessage.PopUpsExcpetionMessage("La registrazione è avvenuta con successo");
+            BoxMessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
         }catch (TitleCampRequiredException |WrongNpageFormatException e){
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
     }
 

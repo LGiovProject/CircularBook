@@ -17,7 +17,7 @@ public class GUIElementBookGivenController {
     @FXML
     Text usernameGiver;
     @FXML
-    Text daysRemaing;
+    Text daysRemains;
 
     private BookModel bookModel;
 
@@ -26,10 +26,9 @@ public class GUIElementBookGivenController {
         bookModel = this.getBookModel(elementBean.getId());
         title.setText(bookModel.getTitolo());
         author.setText(bookModel.getAutore());
-        if(bookModel.getTypeOfDisponibility()==1)
-            this.setLendedBook();
-        else
-            this.setGiftedBook();
+        usernameGiver.setText("L'hai dato a "+bookModel.getUsername());
+        String daysRemains= bookModel.getTypeOfDisponibility()==1?"Rimangono \n"+bookModel.getDaysRemaing()+" giorni":"E' stato preso in regalo";
+        this.daysRemains.setText(daysRemains);
 
     }
 
@@ -48,21 +47,5 @@ public class GUIElementBookGivenController {
     {
         return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getListBookGiven():Session.getCurrentSession().getLibrary().getBookGivenList();
 
-    }
-
-    private void setLendedBook(){
-
-        title.setText(bookModel.getTitolo());
-        author.setText(bookModel.getAutore());
-        usernameGiver.setText("L'hai dato a "+bookModel.getUsername());
-        daysRemaing.setText("Rimangono \n"+bookModel.getDaysRemaing()+" giorni");
-    }
-
-    private void setGiftedBook(){
-
-        title.setText(bookModel.getTitolo());
-        author.setText(bookModel.getAutore());
-        usernameGiver.setText("L'hai dato a"+bookModel.getUsername());
-        daysRemaing.setText("E' stato preso in regalo");
     }
 }

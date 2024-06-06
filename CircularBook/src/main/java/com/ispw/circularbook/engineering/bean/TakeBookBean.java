@@ -3,9 +3,9 @@ package com.ispw.circularbook.engineering.bean;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class LenderBookBean {
+public class TakeBookBean {
     private int id;
-    private String email; //chi ha reso disponibile il libro
+    private String emailGiver; //chi ha reso disponibile il libro
     private String username;
     private int typeOfDisponiblity;
     private String emailTaker;
@@ -14,12 +14,10 @@ public class LenderBookBean {
     private String dateStart;
     private String dateFinish;
 
-    public LenderBookBean(int id, String email,String username,String emailTaker,String usernameTaker,int typeOfDisponiblity , LocalDate dateStart) {
+    public TakeBookBean(int id, String emailGiver, String emailTaker, int typeOfDisponiblity , LocalDate dateStart) {
         this.id = id;
-        this.email = email;
-        this.username = username;
+        this.emailGiver = emailGiver;
         this.emailTaker=emailTaker;
-        this.usernameTaker = usernameTaker;
         this.typeOfDisponiblity=typeOfDisponiblity;
 
         setDateStart(dateStart);
@@ -34,12 +32,12 @@ public class LenderBookBean {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailGiver() {
+        return emailGiver;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailGiver(String emailGiver) {
+        this.emailGiver = emailGiver;
     }
 
     public String getEmailTaker() {

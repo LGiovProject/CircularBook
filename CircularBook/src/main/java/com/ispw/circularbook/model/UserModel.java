@@ -1,11 +1,11 @@
 package com.ispw.circularbook.model;
 
-import com.ispw.circularbook.engineering.bean.BookBean;
+
 import com.ispw.circularbook.engineering.enums.City;
 
 import java.util.List;
 
-public class UserModel {
+public class UserModel extends GenericAccountModel {
 
     private String email;
     private String username;
@@ -13,6 +13,8 @@ public class UserModel {
     private String nome;
     private String cognome;
     private City city;
+
+
 
     private boolean guest;
 
@@ -97,8 +99,6 @@ public class UserModel {
             }
         }
     }
-
-
 
     public void setListBookTaked(List<BookModel> listBookTaked){
         this.listBookTaked=listBookTaked;

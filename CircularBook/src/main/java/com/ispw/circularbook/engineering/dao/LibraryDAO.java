@@ -22,7 +22,7 @@ public class LibraryDAO {
             stmt= ConnectionDB.getConnection();
             ResultSet resultSet = Queries.searchLibraryByEmail(stmt,email);
             if(!resultSet.first()) {
-                throw new SQLException("errore");
+                throw new SQLException();
             }
             resultSet.first();
             libraryBean= getLibraryInfo(resultSet);
@@ -44,7 +44,7 @@ public class LibraryDAO {
         try
         {
             stmt=ConnectionDB.getConnection();
-            CRUDQueries.updateLibrary(stmt,updateInfoBean.getEmail(),updateInfoBean.getCamp(), updateInfoBean.getNewValue());
+            CRUDQueries.updateLibrary(stmt,updateInfoBean.getEmail(),updateInfoBean.getNameLibrary(), updateInfoBean.getVia(),updateInfoBean.getNumberPhoneString(),updateInfoBean.getCityString());
         } catch (ErrorConnectionDbException | SQLException e) {
             throw new RuntimeException(e);
         }

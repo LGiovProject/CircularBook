@@ -122,13 +122,8 @@ public class BookModel {
 
     public String getTypeOfDisponibilityString () {
 
-        return switch (this.typeOfDisponibility) {
-            case 1 -> "E' messo in prestito";
-            case 2 -> "E' messo in regalo";
-            case 3 -> "E' stato prestato";
-            case 4 -> "E' stato regalato";
-            default -> "Errore con questo libro";
-        };
+       return  this.typeOfDisponibility==1?"Prestito":"Regalo";
+
     }
 
     public String getTitolo() {

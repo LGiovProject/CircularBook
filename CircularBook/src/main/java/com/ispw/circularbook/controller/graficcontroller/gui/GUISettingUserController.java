@@ -5,8 +5,10 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.UserController;
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
+import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.InfoBookModel;
 import com.ispw.circularbook.model.UserModel;
 import javafx.event.ActionEvent;
@@ -59,14 +61,22 @@ public class GUISettingUserController {
     private ChoiceBox<City> cityChoicheBox;
 
 
-
+    private UserModel userModel;
+    private UserBean userBean;
 
     private Scene previousScene;
 
     private final Boolean[] rwField= {true,true,true,true};
 
 
+    final String checkBoxImagePath ="img/ConfirmModify.png";
 
+    final String pencilImagePath="img/Pencil.png";
+
+
+    final String onStyle="fx-border-color: black;-fx-background-color:white;  -fx-background-radius: 40,40,40,40; -fx-text-fill: #4D0E0E";
+
+    final String offStyle="fx-border: none; -fx-background-color:none;";
 
 
 
@@ -80,7 +90,8 @@ public class GUISettingUserController {
     public void startSetting()
     {
         InfoBookModel infoBookModel;
-        UserModel userModel = Session.getCurrentSession().getUser();
+        this.userModel = Session.getCurrentSession().getUser();
+        this.userBean=this.setUserBean();
         this.email.setText(userModel.getEmail());
         this.email.setEditable(false);
         this.username.setText(userModel.getUsername());
@@ -89,7 +100,7 @@ public class GUISettingUserController {
         this.city.setText(userModel.getCityString());
         this.city.setEditable(false);
         SearchBookController searchBookController = new SearchBookController();
-        InfoBookBean infoBookBean = new InfoBookBean(userModel.getUsername(), userModel.getEmail());
+        InfoBookBean infoBookBean = new InfoBookBean(userModel.getEmail());
         infoBookModel=searchBookController.searchBookInfoUser(infoBookBean);
 
         this.bookRegistered.setText(stringGenerator(infoBookModel.getRegisterBook()) +" registrati");
@@ -118,30 +129,27 @@ public class GUISettingUserController {
     public void rewriteField(ActionEvent event) throws IOException {
 
 
-        Image checkBoxImage= new Image(Objects.requireNonNull(Main.class.getResource("img/ConfirmModify.png")).openStream());
-        Image pencilImage = new Image(Objects.requireNonNull(Main.class.getResource("img/Pencil.png")).openStream());
-        String onStyle="fx-border-color: black;-fx-background-color:white;  -fx-background-radius: 40,40,40,40; -fx-text-fill: #4D0E0E";
-        String offStyle="fx-border: none; -fx-background-color:none;";
+        Image checkBoxImage= new Image(Objects.requireNonNull(Main.class.getResource(checkBoxImagePath)).openStream());
+        Image pencilImage = new Image(Objects.requireNonNull(Main.class.getResource(pencilImagePath)).openStream());
         Button btn= (Button)event.getSource();
         String string=btn.getId();
 
         switch (string) {
             case "zero":
 
-                    if(rwField[0]){
-                        username.setEditable(true);
-                        username.setStyle(onStyle);
-                        usernameImageView.setImage(checkBoxImage);
-                        rwField[0]=false;
+                    if(this.rwField[0]){
+                        this.username.setEditable(true);
+                        this.username.setStyle(onStyle);
+                        this.usernameImageView.setImage(checkBoxImage);
+                        this.rwField[0]=false;
                     }else
                     {
-                        username.setEditable(false);
-                        username.setStyle(offStyle);
-                        usernameImageView.setImage(pencilImage);
-                        applyChange("username",username.getText());
-                        Session.getCurrentSession().getUser().setNome(username.getText());
-                        username.setText(username.getText());
-                        rwField[0]=true;
+                        this.username.setEditable(false);
+                        this.username.setStyle(this.offStyle);
+                        this.usernameImageView.setImage(pencilImage);
+                        this.userBean.setUsername(this.username.getText());
+                        this.username.setText(this.username.getText());
+                        this.rwField[0]=true;
                     }
                     break;
             case "one":
@@ -154,13 +162,12 @@ public class GUISettingUserController {
 
                     }else
                     {
-                        name.setEditable(false);
-                        name.setStyle(offStyle);
-                        nameImageView.setImage(pencilImage);
-                        applyChange("nome",name.getText());
-                        Session.getCurrentSession().getUser().setNome(name.getText());
-                        name.setText(name.getText());
-                        rwField[1]=true;
+                        this.name.setEditable(false);
+                        this.name.setStyle(this.offStyle);
+                        this.nameImageView.setImage(pencilImage);
+                        this.userBean.setNome(this.name.getText());
+                        this.name.setText(this.name.getText());
+                        this.rwField[1]=true;
                     }
                     break;
 
@@ -178,8 +185,7 @@ public class GUISettingUserController {
                         surname.setEditable(false);
                         surname.setStyle(offStyle);
                         surnameImageView.setImage(pencilImage);
-                        applyChange("cognome",surname.getText());
-                        Session.getCurrentSession().getUser().setCognome(surname.getText());
+                        userBean.setCognome(surname.getText());
                         surname.setText(surname.getText());
                         rwField[2]=true;
                     }
@@ -196,8 +202,7 @@ public class GUISettingUserController {
                         cityImageView.setImage(pencilImage);
                         cityChoicheBox.setVisible(false);
                         cityChoicheBox.setStyle("-fx-background-color: #F1C9A0; -fx-background-radius: 60;");
-                        applyChange("citta",cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
-                        Session.getCurrentSession().getUser().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
+                        userBean.setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
                         city.setText(cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
                         rwField[3]=true;
                     }
@@ -208,12 +213,26 @@ public class GUISettingUserController {
         }
     }
 
-    private void applyChange(String camp,String newCamp)
+    public void applyChange()
     {
         UserController userController = new UserController();
-        UpdateInfoBean updateInfoBean = new UpdateInfoBean(Session.getCurrentSession().getUser().getEmail(),camp,newCamp);
+        UpdateInfoBean updateInfoBean = new UpdateInfoBean(userBean.getEmail(),userBean.getCity());
+        updateInfoBean.setNameUser(userBean.getName());
+        updateInfoBean.setSurname(userBean.getCognome());
+        updateInfoBean.setUsername(userBean.getUsername());
         userController.updateUser(updateInfoBean);
+        BoxMessageSupport.PopUpsSuccessMessage("Aggiornamento effettuato con successo");
+    }
 
+    private UserBean setUserBean()
+    {
+        UserBean userBean = new UserBean();
+        userBean.setEmail(userModel.getEmail());
+        userBean.setNome(userModel.getNome());
+        userBean.setCognome(userModel.getCognome());
+        userBean.setUsername(userModel.getUsername());
+        userBean.setCity(userModel.getCityString());
+        return userBean;
     }
 
 

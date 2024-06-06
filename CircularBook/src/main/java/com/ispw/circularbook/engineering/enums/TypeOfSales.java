@@ -18,4 +18,5 @@ public enum TypeOfSales {
     public String getType() {
         return type;
     }
+
 }

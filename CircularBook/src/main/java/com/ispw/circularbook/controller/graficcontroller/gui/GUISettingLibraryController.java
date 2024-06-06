@@ -4,6 +4,8 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.LibraryController;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 
+import com.ispw.circularbook.engineering.bean.InfoBookBean;
+import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
@@ -49,24 +51,29 @@ public class GUISettingLibraryController {
     @FXML
     private ImageView nameImageView;
     @FXML
-    private ImageView surnameImageView;
+    private ImageView viaImageView;
     @FXML
     private ImageView cityImageView;
     @FXML
-    private ImageView nTelmageView;
+    private ImageView nTelImageView;
     @FXML
     private ChoiceBox<City> cityChoicheBox;
 
-
-
+    private LibraryBean libraryBean;
+    private LibraryModel libraryModel;
 
     private Scene previousScene;
 
     private final Boolean[] rwField= {true,true,true,true};
 
+    final String checkBoxImagePath ="img/ConfirmModify.png";
+
+    final String pencilImagePath="img/Pencil.png";
 
 
+    final String onStyle="fx-border-color: black;-fx-background-color:white;  -fx-background-radius: 40,40,40,40; -fx-text-fill: #4D0E0E";
 
+    final String offStyle="fx-border: none; -fx-background-color:none;";
 
 
     public void setPreviousScene(Scene scene)
@@ -79,15 +86,18 @@ public class GUISettingLibraryController {
     public void startSetting()
     {
         InfoBookModel infoBookModel;
-        LibraryModel libraryModel = Session.getCurrentSession().getLibrary();
+
+
+        this.libraryModel = Session.getCurrentSession().getLibrary();
+        this.libraryBean = this.setLibraryBean();
         this.email.setText(libraryModel.getEmail());
         this.nameLib.setText(libraryModel.getNomeLib());
         this.via.setText(libraryModel.getVia());
         this.city.setText(libraryModel.getCityString());
         this.ntel.setText(String.valueOf(libraryModel.getTelNumber()));
         SearchBookController searchBookController = new SearchBookController();
-        infoBookModel=searchBookController.searchBookInfoLibrary(libraryModel.getEmail());
-        libraryModel.setBookInfo(infoBookModel);
+        InfoBookBean infoBookBean = new InfoBookBean(libraryModel.getEmail());
+        infoBookModel = searchBookController.searchBookInfoLibrary(infoBookBean);
         this.bookRegistered.setText(bookStringGenerator(infoBookModel.getRegisterBook()) +" registrati");
         this.bookLended.setText(bookStringGenerator(infoBookModel.getLendedBook())+"  presi in prestito");
         this.bookGifted.setText(bookStringGenerator(infoBookModel.getGiftedBook())+" dati in regalo");
@@ -111,11 +121,9 @@ public class GUISettingLibraryController {
 
     private String salesStringGenerator(int i){ return i==1?"Hai "+i+" evento inserito":"Hai "+i+" eventi inseriti";}
 
-    public void modifyInfo(ActionEvent event) throws IOException {
-        Image checkBoxImage= new Image(Objects.requireNonNull(Main.class.getResource("img/ConfirmModify.png")).openStream());
-        Image pencilImage = new Image(Objects.requireNonNull(Main.class.getResource("img/Pencil.png")).openStream());
-        String onStyle="fx-border-color: black;-fx-background-color:white;  -fx-background-radius: 40,40,40,40; -fx-text-fill: #4D0E0E";
-        String offStyle="fx-border: none; -fx-background-color:none;";
+    public void rewriteField(ActionEvent event) throws IOException {
+        Image checkBoxImage= new Image(Objects.requireNonNull(Main.class.getResource(checkBoxImagePath)).openStream());
+        Image pencilImage = new Image(Objects.requireNonNull(Main.class.getResource(pencilImagePath)).openStream());
         Button btn= (Button)event.getSource();
         String string=btn.getId();
 
@@ -133,8 +141,7 @@ public class GUISettingLibraryController {
                     nameLib.setEditable(false);
                     nameLib.setStyle(offStyle);
                     nameImageView.setImage(pencilImage);
-                    applyChange("nomeLib",nameLib.getText());
-                    Session.getCurrentSession().getLibrary().setNomeLib(nameLib.getText());
+                    this.libraryBean.setNomeLib(nameLib.getText());
                     nameLib.setText(nameLib.getText());
                     rwField[0]=true;
                 }
@@ -146,22 +153,21 @@ public class GUISettingLibraryController {
                 {
                     via.setEditable(true);
                     via.setStyle(onStyle);
-                    surnameImageView.setImage(checkBoxImage);
+                    viaImageView.setImage(checkBoxImage);
 
                     rwField[1]=false;
                 }else
                 {
                     via.setEditable(false);
                     via.setStyle(offStyle);
-                    surnameImageView.setImage(pencilImage);
-                    applyChange("via",via.getText());
-                    Session.getCurrentSession().getLibrary().setVia(via.getText());
+                    viaImageView.setImage(pencilImage);
+                    this.libraryBean.setVia(via.getText());
                     via.setText(via.getText());
                     rwField[1]=true;
                 }
                 break;
 
-            case "thre":
+            case "four":
                 if(rwField[2])
                 {
                     cityImageView.setImage(checkBoxImage);
@@ -172,27 +178,25 @@ public class GUISettingLibraryController {
                     cityImageView.setImage(pencilImage);
                     cityChoicheBox.setVisible(false);
                     cityChoicheBox.setStyle("-fx-background-color: #F1C9A0; -fx-background-radius: 60;");
-                    applyChange("citta",cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
-                    Session.getCurrentSession().getLibrary().setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
+                    this.libraryBean.setCity(cityChoicheBox.getSelectionModel().getSelectedItem());
                     city.setText(cityChoicheBox.getSelectionModel().getSelectedItem().getCity());
                     rwField[2]=true;
                 }
                 break;
-            case "four":
+            case "three":
                 if(rwField[3])
                 {
                     ntel.setEditable(true);
                     ntel.setStyle(onStyle);
-                    nTelmageView.setImage(checkBoxImage);
+                    nTelImageView.setImage(checkBoxImage);
                     rwField[3]=false;
                 }
                 else
                 {
                     ntel.setEditable(false);
                     ntel.setStyle(offStyle);
-                    nTelmageView.setImage(pencilImage);
-                    applyChange("ntel",ntel.getText());
-                    Session.getCurrentSession().getLibrary().setTelNumber(Integer.parseInt(ntel.getText()));
+                    nTelImageView.setImage(pencilImage);
+                    this.libraryBean.setTelNumber(Integer.parseInt(ntel.getText()));
                     ntel.setText(ntel.getText());
                     rwField[3]=true;
 
@@ -203,13 +207,27 @@ public class GUISettingLibraryController {
         }
     }
 
-    private void applyChange(String camp,String newCamp)
+
+
+    public void applyChange()
     {
         LibraryController libraryController = new LibraryController();
-        UpdateInfoBean updateInfoBean = new UpdateInfoBean(Session.getCurrentSession().getLibrary().getEmail(),camp,newCamp);
+        UpdateInfoBean updateInfoBean = new UpdateInfoBean(libraryBean.getEmail(),libraryBean.getCity());
+        updateInfoBean.setNameLibrary(libraryBean.getNomeLib());
+        updateInfoBean.setVia(libraryBean.getVia());
+        updateInfoBean.setNumberPhone(libraryBean.getTelNumber());
         libraryController.updateLibrary(updateInfoBean);
     }
 
+    private LibraryBean setLibraryBean()
+    {
+        LibraryBean libraryBean = new LibraryBean();
+        libraryBean.setNomeLib(libraryModel.getNomeLib());
+        libraryBean.setVia(libraryModel.getVia());
+        libraryBean.setTelNumber(libraryModel.getTelNumber());
+        libraryBean.setCity(libraryModel.getCity());
+        return libraryBean;
+    }
 
 
 

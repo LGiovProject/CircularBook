@@ -3,11 +3,8 @@ package com.ispw.circularbook.controller.graficcontroller.cli;
 import com.ispw.circularbook.controller.appcontroller.LoginController;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.view.cli.CLILoginView;
-import com.ispw.circularbook.view.cli.CLISignInView;
-
-import java.io.IOException;
 
 public class CLILoginController {
 
@@ -15,6 +12,7 @@ public class CLILoginController {
         private CLISignInController cliSingInController;
         private LoginBean loginBean;
         private LoginController loginController;
+
         public void start(){
                 loginBean = new LoginBean();
                 loginController = new LoginController();
@@ -31,7 +29,7 @@ public class CLILoginController {
                                 this.startLogin();
                                 break;
                         case 2:
-                                cliSingInController.start();
+                                this.startSignIn();
                                 break;
                         case 3:
                                 this.startLoginGuest();
@@ -58,20 +56,30 @@ public class CLILoginController {
                 endLogin(loginBean);
         }
 
+        public void startSignIn()
+        {
+                cliSingInController = new CLISignInController();
+                cliSingInController.start();
+        }
+
         private void endLogin(LoginBean loginBean)
         {
                 loginController = new LoginController();
                 if (loginBean.getType() == 1) {
 
                         loginController.userSession(loginBean);
+                        CLIHomepageController cliHomepageController = new CLIHomepageController();
+                        cliHomepageController.homepageStart(loginBean);
 
 
                 } else if (loginBean.getType() == 2) {
 
                         loginController.librarySession(loginBean);
+                        CLIHomepageController cliHomepageController = new CLIHomepageController();
+                        cliHomepageController.homepageStart(loginBean);
 
                 } else {
-                        BoxExcpetionMessage.PopUpsExcpetionMessage("La mail o la password sono errate");
+                        System.out.println("La mail o la password sono errate");
                         this.start();
                 }
         }

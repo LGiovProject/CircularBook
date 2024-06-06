@@ -3,7 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
 import com.ispw.circularbook.controller.appcontroller.LoginController;
 import javafx.fxml.FXML;
@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 
 public class GUILoginController {
@@ -50,11 +49,11 @@ public class GUILoginController {
                 this.LunchHomepage(loginBean);
 
             } else {
-                BoxExcpetionMessage.PopUpsExcpetionMessage("La mail o la password sono errate");
+                BoxMessageSupport.PopUpsSuccessMessage("La mail o la password sono errate");
             }
 
         } catch (WrongEmailFormattException e) {
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
     }
 

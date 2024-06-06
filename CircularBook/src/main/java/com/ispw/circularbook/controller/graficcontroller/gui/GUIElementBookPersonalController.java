@@ -5,7 +5,7 @@ import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,7 +61,7 @@ public class GUIElementBookPersonalController {
         BookModel bookModel=this.getBookModel(elementBean.getId());
         this.id= elementBean.getId();
         this.element = elementBean.getPane();
-        this.type_of_insert.setText(bookModel.getTypeOfDisponibilityString());
+        this.type_of_insert.setText("E' messo in "+bookModel.getTypeOfDisponibilityString());
         this.author.setText(bookModel.getAutore());
         this.title.setText(bookModel.getTitolo());
         this.argument.setText(bookModel.getArgomentoString());
@@ -106,7 +106,7 @@ public class GUIElementBookPersonalController {
         InsertBookController insertBookController= new InsertBookController();
         insertBookController.removeBook(this.id);
         bookElementSubject.notifyObserver(this.element);
-        BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato rimoso correttamente");
+        BoxMessageSupport.PopUpsSuccessMessage("Il libro è stato rimoso correttamente");
     }
 
     private BookModel getBookModel(int id) {

@@ -1,11 +1,11 @@
-package com.ispw.circularbook.engineering.state;
+package com.ispw.circularbook.engineering.state.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageController;
 import com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageSideButtonUserController;
 import com.ispw.circularbook.controller.graficcontroller.gui.GUISettingUserController;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class UserHomepageState implements HomepageState{
+public class GUIHomepageUserState implements GUIHomepageState {
     @Override
     public void startHomepage(GUIHomepageController context) throws IOException {
         FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonUser.fxml"));
@@ -30,7 +30,7 @@ public class UserHomepageState implements HomepageState{
     @Override
     public void setting(GUIHomepageController context) throws IOException {
             if(Session.getCurrentSession().getUser().isGuest())
-                BoxExcpetionMessage.PopUpsGuestDeniedMessage();
+                BoxMessageSupport.PopUpsGuestDeniedMessage();
             else {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SettingUser.fxml"));
                 GUISettingUserController guiSettingUserController;

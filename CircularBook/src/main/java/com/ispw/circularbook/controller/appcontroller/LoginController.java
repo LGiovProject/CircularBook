@@ -21,7 +21,6 @@ public class LoginController {
     public void checkLogin(LoginBean loginBean) {
 
        loginBean.setType(LoginDAO.checkLogin(loginBean));
-       //loginBean.setType(LoginDAOCSV.checkLogin(loginBean));
 
     }
 
@@ -37,7 +36,7 @@ public class LoginController {
 
         List<BookModel> listBookModel = new ArrayList<>();
         UserBean userBean = UserDAO.searchUserByEmail(loginBean.getEmail());
-        UserModel userModel = new UserModel(userBean.getEmail(),userBean.getUsername(),userBean.getName(), userBean.getCognome(), userBean.getCity());
+        UserModel userModel = new UserModel(userBean.getEmail(),userBean.getUsername(),userBean.getName(), userBean.getCognome(), userBean.getCityString());
         userModel.setGuest(false);
 
         try {
@@ -66,15 +65,9 @@ public class LoginController {
     //sta usando l'applicazione.
     public void librarySession(LoginBean loginBean){
 
-//        LibraryModel libraryModel= LibraryDAO.searchLibraryByEmail(loginBean.getEmail());
-//        LibraryBean libraryBean = new LibraryBean(libraryModel.getEmail(), libraryModel.getNomeLib(), libraryModel.getCitta(), libraryModel.getVia(),libraryModel.getTelNumber());
-//        Session.setSessionInstance(libraryBean);
-
         LibraryBean libraryBean= LibraryDAO.searchLibraryByEmail(loginBean.getEmail());
         LibraryModel libraryModel = new LibraryModel(libraryBean.getEmail(),libraryBean.getNomeLib(),libraryBean.getCityString(),libraryBean.getVia(),libraryBean.getTelNumber());
-        libraryModel.setGuest(false);
         Session.setSessionInstance(libraryModel);
-
     }
 
     public LoginBean guestSession()

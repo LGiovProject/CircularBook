@@ -45,22 +45,22 @@
                                                 </Button>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane prefHeight="74.0" prefWidth="427.0">
                                              <children>
-                                                <TextField fx:id="email" layoutY="24.0" text="email">
+                                                <TextField fx:id="email" layoutY="6.0" text="email">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextField>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane prefHeight="73.0" prefWidth="427.0">
                                              <children>
-                                                <HBox prefHeight="99.0" prefWidth="427.0">
+                                                <HBox layoutY="6.0" prefHeight="73.0" prefWidth="427.0">
                                                    <children>
-                                                      <AnchorPane prefWidth="290.0">
+                                                      <AnchorPane prefHeight="50.0" prefWidth="290.0">
                                                          <children>
-                                                            <TextField fx:id="username" layoutY="24.0" prefHeight="51.0" prefWidth="213.0" text="username">
+                                                            <TextField fx:id="username" layoutY="12.0" prefHeight="51.0" prefWidth="213.0" text="username">
                                                                <font>
                                                                   <Font size="24.0" />
                                                                </font>
@@ -69,7 +69,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <Button fx:id="zero" layoutY="34.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
+                                                            <Button fx:id="zero" layoutY="21.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
                                                                <graphic>
                                                                   <ImageView fx:id="usernameImageView" fitHeight="20.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" styleClass="imageClickable">
                                                                      <image>
@@ -87,13 +87,13 @@
                                                 </HBox>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane prefHeight="84.0" prefWidth="427.0">
                                              <children>
-                                                <HBox prefHeight="100.0" prefWidth="427.0">
+                                                <HBox layoutY="11.0" prefHeight="60.0" prefWidth="427.0">
                                                    <children>
-                                                      <AnchorPane prefWidth="290.0">
+                                                      <AnchorPane prefHeight="55.0" prefWidth="290.0">
                                                          <children>
-                                                            <TextField fx:id="name" layoutY="25.0" prefHeight="51.0" prefWidth="213.0" style="-fx-background-color: none;" text="name">
+                                                            <TextField fx:id="name" layoutY="8.0" prefHeight="51.0" prefWidth="213.0" style="-fx-background-color: none;" text="name">
                                                                <font>
                                                                   <Font size="24.0" />
                                                                </font>
@@ -102,7 +102,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <Button fx:id="one" layoutY="34.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
+                                                            <Button fx:id="one" layoutY="17.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
                                                                <graphic>
                                                                   <ImageView fx:id="nameImageView" fitHeight="20.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" styleClass="imageClickable">
                                                                      <image>
@@ -120,13 +120,13 @@
                                                 </HBox>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane prefHeight="90.0" prefWidth="427.0">
                                              <children>
-                                                <HBox prefHeight="100.0" prefWidth="427.0">
+                                                <HBox prefHeight="71.0" prefWidth="427.0">
                                                    <children>
                                                       <AnchorPane prefHeight="61.0" prefWidth="290.0">
                                                          <children>
-                                                            <TextField fx:id="surname" layoutY="25.0" prefHeight="51.0" prefWidth="196.0" text="surname">
+                                                            <TextField fx:id="surname" layoutY="13.0" prefHeight="51.0" prefWidth="196.0" text="surname">
                                                                <font>
                                                                   <Font size="24.0" />
                                                                </font>
@@ -135,7 +135,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane>
                                                          <children>
-                                                            <Button fx:id="two" layoutY="34.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
+                                                            <Button fx:id="two" layoutY="20.0" mnemonicParsing="false" onAction="#rewriteField" prefHeight="32.0" prefWidth="34.0" styleClass="imageClickable">
                                                                <graphic>
                                                                   <ImageView fx:id="surnameImageView" fitHeight="20.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" styleClass="imageClickable">
                                                                      <image>
@@ -153,7 +153,7 @@
                                                 </HBox>
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane prefHeight="101.0" prefWidth="427.0">
                                              <children>
                                                 <HBox prefHeight="98.0" prefWidth="427.0">
                                                    <children>
@@ -197,6 +197,15 @@
                                                       </AnchorPane>
                                                    </children>
                                                 </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="103.0" prefWidth="427.0">
+                                             <children>
+                                                <Button layoutX="87.0" layoutY="23.0" mnemonicParsing="false" onAction="#applyChange" prefHeight="51.0" prefWidth="254.0" text="Apply Change">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </AnchorPane>
                                        </children>

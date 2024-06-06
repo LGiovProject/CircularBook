@@ -1,4 +1,4 @@
-package com.ispw.circularbook.engineering.state;
+package com.ispw.circularbook.engineering.state.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.graficcontroller.gui.GUIHomepageController;
@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class LibraryHomepageState implements HomepageState{
+public class GUIHomepageLibraryState implements GUIHomepageState {
     @Override
     public void startHomepage(GUIHomepageController context) throws IOException {
         FXMLLoader fxmlLoaderA = new FXMLLoader(Main.class.getResource("HomepageSideButtonLibrary.fxml"));

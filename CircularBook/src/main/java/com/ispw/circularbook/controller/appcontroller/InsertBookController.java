@@ -1,7 +1,7 @@
 package com.ispw.circularbook.controller.appcontroller;
 
 import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.LenderBookBean;
+import com.ispw.circularbook.engineering.bean.TakeBookBean;
 import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.dao.BookDAO;
 
@@ -11,9 +11,7 @@ public class InsertBookController {
         BookDAO.insertBook(registrationBookBean);
     }
 
-    public void registerLendBook(LenderBookBean lenderBookBean){
-        BookDAO.insertLendBook(lenderBookBean);
-    }
+    public void registerLendBook(TakeBookBean takeBookBean){BookDAO.insertLendBook(takeBookBean);}
 
     public void updateBookInfo(BookBean bookBean){BookDAO.updateBook(bookBean);}
 

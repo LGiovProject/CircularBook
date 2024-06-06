@@ -2,8 +2,6 @@ package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.City;
 
-import java.util.List;
-
 public class UserBean {
 
     private String email;
@@ -11,7 +9,7 @@ public class UserBean {
     private String password;
     private String nome;
     private String cognome;
-    private String city;
+    private City city;
 
     public UserBean(){};
 
@@ -67,12 +65,24 @@ public class UserBean {
         this.cognome = cognome;
     }
 
-    public String getCity() {
-        return this.city;
+    public String getCityString() {
+        return this.city.getCity();
+    }
+
+    public City getCity(){return this.city;}
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public void setCity(String city) {
-        this.city = city;
+        for(City city1: City.values())
+        {
+            if(city1.getCity().equals(city))
+            {
+                this.city=city1;
+            }
+        }
     }
 
     public void setBookInfo(){}

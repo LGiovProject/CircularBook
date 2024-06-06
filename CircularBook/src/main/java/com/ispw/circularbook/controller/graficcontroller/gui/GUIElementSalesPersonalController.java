@@ -6,7 +6,7 @@ import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,7 +98,7 @@ public class GUIElementSalesPersonalController {
         SalesBean salesBean= new SalesBean(salesModel.getId());
         insertSalesController.removeSales(salesBean);
         bookElementSubject.notifyObserver(this.element);
-        BoxExcpetionMessage.PopUpsExcpetionMessage("la sales è stato rimossa correttamente");
+        BoxMessageSupport.PopUpsSuccessMessage("la sales è stato rimossa correttamente");
 
     }
 

@@ -5,8 +5,8 @@ import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 //import com.ispw.circularbook.controller.appcontroller.NotifyController;
 //import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.ElementBean;
-import com.ispw.circularbook.engineering.bean.LenderBookBean;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.bean.TakeBookBean;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
@@ -66,7 +66,7 @@ public class GUIElementBookSearchedController {
 
             this.bookModel=getBookModel(elementBean.getId());
             this.panel= elementBean.getPane();
-            this.type_of_insert.setText(this.bookModel.getTypeOfDisponibilityString());
+            this.type_of_insert.setText("E' messo in "+this.bookModel.getTypeOfDisponibilityString());
             this.author.setText(this.bookModel.getAutore());
             this.title.setText(this.bookModel.getTitolo());
             this.argument.setText(this.bookModel.getArgomentoString());
@@ -91,11 +91,11 @@ public class GUIElementBookSearchedController {
 
         public void getBook(){
             InsertBookController insertBookController = new InsertBookController();
-            LenderBookBean lenderBookBean = new LenderBookBean(bookModel.getId(),bookModel.getEmail(),bookModel.getUsername(),Session.getCurrentSession().getUser().getEmail(),Session.getCurrentSession().getUser().getUsername(),bookModel.getTypeOfDisponibility(), LocalDate.now());
-            insertBookController.registerLendBook(lenderBookBean);
+            TakeBookBean takeBookBean = new TakeBookBean(bookModel.getId(),bookModel.getEmail(),Session.getCurrentSession().getUser().getEmail(),bookModel.getTypeOfDisponibility(), LocalDate.now());
+            insertBookController.registerLendBook(takeBookBean);
             bookElementSubject.notifyObserver(this.panel);
             Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Il libro è stato preso correttamente");
+            BoxMessageSupport.PopUpsSuccessMessage("Il libro è stato preso correttamente");
         }
 
         private String getMessage()

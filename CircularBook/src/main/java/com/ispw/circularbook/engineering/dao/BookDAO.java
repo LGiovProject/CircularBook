@@ -2,7 +2,7 @@ package com.ispw.circularbook.engineering.dao;
 
 
 import com.ispw.circularbook.engineering.bean.BookBean;
-import com.ispw.circularbook.engineering.bean.LenderBookBean;
+import com.ispw.circularbook.engineering.bean.TakeBookBean;
 import com.ispw.circularbook.engineering.bean.RegistrationBookBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import java.sql.CallableStatement;
@@ -32,32 +32,28 @@ public class BookDAO {
 
     }
 
-    public static void insertLendBook(LenderBookBean lenderBookBean) {
+    public static void insertLendBook(TakeBookBean takeBookBean) {
 
         CallableStatement callableStatement;
        try {
 
-            if(lenderBookBean.getTypeOfDisponiblity()==1) {
+            if(takeBookBean.getTypeOfDisponiblity()==1) {
                 callableStatement = ConnectionDB.takeLendBook();
-                callableStatement.setInt(1,lenderBookBean.getId());
-                callableStatement.setString(2,lenderBookBean.getEmailTaker());
-                callableStatement.setString(3, lenderBookBean.getUsernameTaker());
-                callableStatement.setString(4,lenderBookBean.getEmail());
-                callableStatement.setString(5,lenderBookBean.getUsername());
-                callableStatement.setString(6,lenderBookBean.getDateStart());
-                callableStatement.setString(7, lenderBookBean.getDateFinish());
+                callableStatement.setInt(1, takeBookBean.getId());
+                callableStatement.setString(2, takeBookBean.getEmailTaker());
+                callableStatement.setString(3, takeBookBean.getEmailGiver());
+                callableStatement.setString(4, takeBookBean.getDateStart());
+                callableStatement.setString(5, takeBookBean.getDateFinish());
                 callableStatement.execute();
 
             }
             else
             {
                 callableStatement = ConnectionDB.takeGiftBook();
-                callableStatement.setInt(1,lenderBookBean.getId());
-                callableStatement.setString(2,lenderBookBean.getEmailTaker());
-                callableStatement.setString(3, lenderBookBean.getUsernameTaker());
-                callableStatement.setString(4,lenderBookBean.getEmail());
-                callableStatement.setString(5,lenderBookBean.getUsername());
-                callableStatement.setString(6,lenderBookBean.getDateStart());
+                callableStatement.setInt(1, takeBookBean.getId());
+                callableStatement.setString(2, takeBookBean.getEmailTaker());
+                callableStatement.setString(3, takeBookBean.getEmailGiver());
+                callableStatement.setString(4, takeBookBean.getDateStart());
                 callableStatement.execute();
 
             }

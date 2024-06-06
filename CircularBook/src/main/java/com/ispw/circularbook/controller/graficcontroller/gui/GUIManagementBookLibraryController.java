@@ -5,7 +5,7 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
-import com.ispw.circularbook.engineering.utils.BoxExcpetionMessage;
+import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class GUIManagementBookLibraryController {
             guiWindowElementBookPersonalController.viewSales();
 
         } else{
-            BoxExcpetionMessage.PopUpsExcpetionMessage("Non hai nessuna inserzione registrata");
+            BoxMessageSupport.PopUpsExcpetionMessage("Non hai nessuna inserzione registrata");
         }
     }
 
@@ -84,7 +84,7 @@ public class GUIManagementBookLibraryController {
         try {
             bookModelIGivenList = searchBookController.searchMyGivenBook(Session.getCurrentSession().getLibrary().getEmail());
         }catch (NoBookLendedException e){
-            BoxExcpetionMessage.PopUpsExcpetionMessage(e.getMessage());
+            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
         if(!bookModelIGivenList.isEmpty())
         {

@@ -20,3 +20,10 @@ ChoiceBox
     -fx-background-color:none;
     -fx-cursor:hand;
 }
+
+Button
+{
+    -fx-background-color: #F1C9A0;
+    -fx-text-fill: #4D0E0E;
+    -fx-background-radius: 40,40,40,40;
+}

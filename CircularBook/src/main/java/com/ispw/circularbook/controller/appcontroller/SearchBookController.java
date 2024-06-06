@@ -65,11 +65,11 @@ public class SearchBookController {
 
     }
     //Raccoglie le informazioni su l'utilizzo dell'applicazione da parte delle librerie in termini di libri inseriti.
-    public InfoBookModel searchBookInfoLibrary(String email)
+    public InfoBookModel searchBookInfoLibrary(InfoBookBean infoBookBeanIn)
     {
-        InfoBookBean infoBookBean=SearchBookDAO.searchBookLibraryInfo(email);
+        InfoBookBean infoBookBeanOut=SearchBookDAO.searchBookLibraryInfo(infoBookBeanIn);
         InfoBookModel infoBookModel;
-        infoBookModel = new InfoBookModel(infoBookBean.getRegisterBook(),infoBookBean.getLendedBook(),infoBookBean.getGiftedBook(),infoBookBean.getSalesInsert());
+        infoBookModel = new InfoBookModel(infoBookBeanOut.getRegisterBook(),infoBookBeanOut.getLendedBook(),infoBookBeanOut.getGiftedBook(),infoBookBeanOut.getSalesInsert());
 
         return infoBookModel;
     }

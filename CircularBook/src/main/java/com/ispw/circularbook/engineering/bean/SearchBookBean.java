@@ -17,10 +17,17 @@ public class SearchBookBean {
     public SearchBookBean(String author, Arguments argument, String title, String email)
    {
        this.author= this.checkAuthor(author);
-       this.argument= this.checkArguments(argument);
+       setArgument(checkArguments(argument));
        this.title=this.checkTitle(title);
        this.email=email;
    }
+
+    public SearchBookBean(String author, String argument, String title,String email) {
+        this.author = author;
+        setArgument(argument);
+        this.title = title;
+        this.email=email;
+    }
 
     public String getAuthor() {
         return author;
@@ -41,7 +48,20 @@ public class SearchBookBean {
 
     }
 
+    public void setArgument(String argomento){
 
+        if(argomento==null)
+        {
+            this.argument=Arguments.Any;
+        }
+        else {
+            for (Arguments arguments : Arguments.values()) {
+                if (arguments.getArgument().equals(argomento)) {
+                    this.argument = arguments;
+                }
+            }
+        }
+    }
 
     public void setArgument(Arguments argument) {
 
