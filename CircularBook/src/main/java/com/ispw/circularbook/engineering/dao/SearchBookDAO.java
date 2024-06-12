@@ -3,11 +3,10 @@ package com.ispw.circularbook.engineering.dao;
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
-import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.*;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 
 
 import java.sql.CallableStatement;
@@ -63,7 +62,7 @@ public class SearchBookDAO {
         } catch (ErrorConnectionDbException |SQLException e) {
             throw new RuntimeException(e);
         }catch (NoBookFoundException e) {
-            BoxMessageSupport.PopUpsExcpetionMessage("Non ci sono libri con i parametri inseriti");
+            MessageSupport.PopUpsExcpetionMessage("Non ci sono libri con i parametri inseriti");
         }
         return listBookBean;
     }
@@ -107,7 +106,7 @@ public class SearchBookDAO {
         }
           catch (NoBookRegisteredException e)
         {
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
         return listBookBean;
     }
@@ -147,14 +146,14 @@ public class SearchBookDAO {
 //        return bookBean;
 //    }
 
-    public static List<BookBean> searchTakedBook (UserBean userBean) throws NoBookLendedException {
+    public static List<BookBean> searchTakedBook (String email) throws NoBookLendedException {
         {
             Statement stmt;
             ResultSet resultSet;
             List<BookBean> listBookBean= new ArrayList<>();
             try{
                 stmt= ConnectionDB.getConnection();
-                resultSet=Queries.searchTakedBook(stmt,userBean);
+                resultSet=Queries.searchTakedBook(stmt,email);
 
                 if(!resultSet.first())
                 {
@@ -270,7 +269,7 @@ public class SearchBookDAO {
 //        {
 //            throw new RuntimeException(e);
 //        } catch (NoBookInfoException e) {
-//            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+//            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
 //        }
 
         try {
@@ -323,7 +322,7 @@ public class SearchBookDAO {
 //        {
 //            throw new RuntimeException(e);
 //        } catch (NoBookInfoException e) {
-//            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+//            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
 //        }
 
         try {

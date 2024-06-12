@@ -14,15 +14,7 @@ public class CLIHomepageUserState implements CLIHomepageState{
         return cliHomepageUserView.start();
     }
 
-    public void insertLenderBook()
-    {
-        context.insertLenderBook();
-    }
-
-    public void insertGiftBook()
-    {
-        context.insertGiftBook();
-    }
+    public void insertBook(){context.insertBook();}
 
     public void searchBook()
     {
@@ -38,7 +30,7 @@ public class CLIHomepageUserState implements CLIHomepageState{
 
     public void manageOwn()
     {
-        CLIManageUserController cliManageUserController = new CLIManageUserController();
+        CLIManageUserController cliManageUserController = new CLIManageUserController(context);
         cliManageUserController.start();
     }
 
@@ -58,24 +50,21 @@ public class CLIHomepageUserState implements CLIHomepageState{
         switch (i)
         {
             case 1:
-                this.insertLenderBook();
+                this.insertBook();
                 break;
             case 2:
-                this.insertGiftBook();
-                break;
-            case 3:
                 this.searchBook();
                 break;
-            case 4:
+            case 3:
                 this.searchSales();
                 break;
-            case 5:
+            case 4:
                 this.manageOwn();
                 break;
-            case 6:
+            case 5:
                 this.setting();
                 break;
-            case 7:
+            case 6:
                 this.logOut();
                 break;
             default:

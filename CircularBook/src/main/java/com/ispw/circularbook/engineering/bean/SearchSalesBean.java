@@ -10,13 +10,13 @@ public class SearchSalesBean {
     private TypeOfSales typeOfSales;
 
     public SearchSalesBean(String nameLib, Month month, TypeOfSales typeOfSales) {
-        this.nameLib= nameLib;
+        setNameLib(nameLib);
         setTypeOfSales(typeOfSales);
         setMonth(month);
     }
 
     public SearchSalesBean(String nameLib, String month, String typeOfSales) {
-        this.nameLib= nameLib;
+        setNameLib(nameLib);
         setTypeOfSales(typeOfSales);
         setMonth(month);
     }
@@ -43,15 +43,12 @@ public class SearchSalesBean {
     }
 
     public String getNameLib() {
-        String nameLib;
-        if(StringUtils.isEmptyOrWhitespaceOnly(this.nameLib))
-            return null;
-        else
-            return nameLib="'"+this.nameLib+"'";
+
+       return this.nameLib;
     }
 
     public void setNameLib(String nameLib) {
-        this.nameLib = nameLib;
+        this.nameLib = checkNameLib(nameLib);
     }
 
     public Integer getTypeOfSales() {
@@ -73,5 +70,13 @@ public class SearchSalesBean {
             this.typeOfSales=TypeOfSales.Promotion;
         else
             this.typeOfSales=TypeOfSales.Any;
+    }
+
+    private String checkNameLib(String nameLib)
+    {
+        if(StringUtils.isEmptyOrWhitespaceOnly(nameLib))
+            return null;
+        else
+            return "'"+nameLib+"'";
     }
 }

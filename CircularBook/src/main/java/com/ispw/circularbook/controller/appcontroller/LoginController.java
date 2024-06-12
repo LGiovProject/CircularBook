@@ -30,32 +30,11 @@ public class LoginController {
     //Tramite lo userModel appena istanziato creiamo una istanza di userBean che viene poi passata a session per tenere traccia di quale utente al momento
     //sta usando l'applicazione.
     //Facciamo anche una ricerca su quali libri si hanno in prestito,così da avere la notifica se manca poco alla scadenza della riconsegna.
-    public void userSession(LoginBean loginBean){
-
-//
-
-        List<BookModel> listBookModel = new ArrayList<>();
+    public void userSession(LoginBean loginBean)
+    {
         UserBean userBean = UserDAO.searchUserByEmail(loginBean.getEmail());
         UserModel userModel = new UserModel(userBean.getEmail(),userBean.getUsername(),userBean.getName(), userBean.getCognome(), userBean.getCityString());
         userModel.setGuest(false);
-
-        try {
-            //Faccio una ricerca sui libri presi in prestito e che sono da restituire
-           List<BookBean> bookBeanList=(SearchBookDAO.searchTakedBook(userBean));
-            if(!bookBeanList.isEmpty())
-            {
-
-                for (BookBean bookBean : bookBeanList) {
-                    BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getUsernamePutter(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing());
-                    listBookModel.add(bookModel);
-                }
-            }
-
-        }catch (NoBookLendedException e) {
-            e.printStackTrace();
-        }
-
-        userModel.setListBookTaked(listBookModel);
         Session.setSessionInstance(userModel);
     }
 

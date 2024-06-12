@@ -16,25 +16,18 @@ public class CLIHomepageLibraryState implements CLIHomepageState{
 
     }
 
-    public void insertLenderBook()
-    {
-        context.insertLenderBook();
-    }
+    public void insertBook(){context.insertBook();}
 
-    public void insertGiftBook()
-    {
-        context.insertGiftBook();
-    }
 
     public void insertSales()
     {
-        CLIInsertSalesController cliInsertSalesController = new CLIInsertSalesController();
+        CLIInsertSalesController cliInsertSalesController = new CLIInsertSalesController(context);
         cliInsertSalesController.start();
     }
 
     public void manageOwn()
     {
-        CLIManageLibraryController cliManageLibraryController = new CLIManageLibraryController();
+        CLIManageLibraryController cliManageLibraryController = new CLIManageLibraryController(context);
         cliManageLibraryController.start();
     }
 
@@ -55,21 +48,18 @@ public class CLIHomepageLibraryState implements CLIHomepageState{
         switch (i)
         {
             case 1:
-                this.insertLenderBook();
+                this.insertBook();
                 break;
             case 2:
-                this.insertGiftBook();
-                break;
-            case 3:
                 this.insertSales();
                 break;
-            case 4:
+            case 3:
                 this.manageOwn();
                 break;
-            case 5:
+            case 4:
                 this.setting();
                 break;
-            case 6:
+            case 5:
                 this.logOut();
                 break;
             default:

@@ -25,7 +25,7 @@ public class CLISettingLibraryView {
         System.out.println("3)Show circular book use");
         System.out.println("4)go back");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public void showInfoCircularBook(InfoBookBean infoBookBean)
@@ -64,7 +64,7 @@ public class CLISettingLibraryView {
         System.out.println("1)Per continuare a modificare");
         System.out.println("2)Per confermare le modfiche");
         System.out.println("3)Per annullare");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public void errorMessage(String errorMessage)

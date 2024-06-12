@@ -3,10 +3,14 @@ package com.ispw.circularbook.controller.graficcontroller.cli;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
+import com.ispw.circularbook.engineering.enums.Arguments;
+import com.ispw.circularbook.engineering.exception.WrongArgumentInsertException;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.view.cli.CLISearchBookView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CLISearchBookController {
@@ -18,7 +22,9 @@ public class CLISearchBookController {
     public CLISearchBookController(CLIHomepageController cliHomepageController)
     {
         this.cliHomepageController=cliHomepageController;
-        searchBookBean = new SearchBookBean("","","", Session.getCurrentSession().getUser().getEmail());
+
+        searchBookBean = new SearchBookBean("", Arguments.Any,"", Session.getCurrentSession().getUser().getEmail());
+
         cliSearchBookView = new CLISearchBookView(this);
         start();
     }
@@ -60,7 +66,15 @@ public class CLISearchBookController {
 
     public void insertArgument()
     {
-        searchBookBean.setArgument(cliSearchBookView.insertArgument());
+        boolean check =true;
+        while(check) {
+            try {
+                searchBookBean.setArgument(cliSearchBookView.insertArgument());
+                check = false;
+            } catch (WrongArgumentInsertException e) {
+                MessageSupport.cliExceptionSMessage(e.getMessage());
+            }
+        }
         start();
     }
 
@@ -74,14 +88,17 @@ public class CLISearchBookController {
     {
         SearchBookController searchBookController = new SearchBookController();
         List<BookModel> bookModelList = searchBookController.searchAvailableBook(searchBookBean);
-        showBook(bookModelList);
+        CLIShowBookController cliShowBookController = new CLIShowBookController();
+        cliShowBookController.showBookAvailable(getBookBeanList(bookModelList));
     }
 
-    public void showBook(List<BookModel> bookModelList)
+
+    private List<BookBean> getBookBeanList(List<BookModel> bookModelList)
     {
-        BookBean bookBean = new BookBean();
+        List<BookBean> bookBeanList = new ArrayList<>();
         for(BookModel bookModel: bookModelList)
         {
+            BookBean bookBean = new BookBean();
             bookBean.setTitolo(bookModel.getTitolo());
             bookBean.setUsername(bookModel.getUsername());
             bookBean.setAutore(bookModel.getAutore());
@@ -89,8 +106,9 @@ public class CLISearchBookController {
             bookBean.setTypeOfDisponibility(bookModel.getTypeOfDisponibility());
             bookBean.setNPagine(bookModel.getnPagine());
             bookBean.setCommento(bookModel.getCommento());
-            cliSearchBookView.showBook(bookBean);
+            bookBeanList.add(bookBean);
         }
+        return bookBeanList;
     }
 
 

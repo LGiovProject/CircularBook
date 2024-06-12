@@ -36,7 +36,6 @@ public class CLISignInLibraryController {
 
 
     public void endSignInL(){
-        cliSignInLibraryView.closeScanner();
         signInController.signInL(signInBean);
         CLILoginController cliLoginController = new CLILoginController();
         cliLoginController.start();

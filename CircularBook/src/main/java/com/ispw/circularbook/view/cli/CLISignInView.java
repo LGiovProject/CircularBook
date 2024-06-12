@@ -21,7 +21,7 @@ public class CLISignInView {
         System.out.println("1)Come Utente\n");
         System.out.println("2)Come Libreria\n");
         System.out.println("3)Torna al Login\n");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
 //    public void startSignInU(){

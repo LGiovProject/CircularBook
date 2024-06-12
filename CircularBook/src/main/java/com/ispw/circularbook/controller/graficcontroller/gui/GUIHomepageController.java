@@ -8,7 +8,7 @@ import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.state.gui.GUIHomepageState;
 import com.ispw.circularbook.engineering.state.gui.GUIHomepageLibraryState;
 import com.ispw.circularbook.engineering.state.gui.GUIHomepageUserState;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +35,6 @@ public class GUIHomepageController {
     @FXML
     private ImageView bellNotify;
 
-    private LoginBean loginBean;
-
     private List<NotifyBean> notifyBeanList = new ArrayList<>();
 
     private GUIHomepageState currentState;
@@ -58,6 +56,7 @@ public class GUIHomepageController {
     {
         this.currentState=state;
     }
+
     public void homePageStart(LoginBean loginBean) throws IOException {
 
         SceneFacade sceneFacade = new SceneFacade(SideWindow);
@@ -183,11 +182,11 @@ public class GUIHomepageController {
 
     public void seeNotify() throws IOException {
 
-        BoxMessageSupport.PopUpsExcpetionMessage("Servizio non ancora implementato");
+        MessageSupport.PopUpsExcpetionMessage("Servizio non ancora implementato");
 
 //        if(notify) {
 //            Popup popup = new Popup();
-//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsNotify.fxml"));
+//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource());
 //            Label label = fxmlLoader.load();
 //            GUIPopUpsNotifyController popUpsNotifyController= fxmlLoader.getController();
 //            popUpsNotifyController.setViewNotify(this.notifyBeanList);
@@ -201,7 +200,7 @@ public class GUIHomepageController {
 //        }
 //        else
 //        {
-//            BoxMessageSupport.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
+//            MessageSupport.PopUpsExcpetionMessage("Non ci sono nuove notifiche");
 //        }
     }
 

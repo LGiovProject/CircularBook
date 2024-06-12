@@ -14,7 +14,7 @@ import javafx.stage.Popup;
 import java.io.IOException;
 
 
-public class BoxMessageSupport {
+public class MessageSupport {
 
 
      public static void PopUpsExcpetionMessage(String message){
@@ -65,6 +65,14 @@ public class BoxMessageSupport {
          }catch (IOException e){
              throw new RuntimeException(e);
          }
+     }
+
+
+     public static void cliExceptionSMessage(String exception)
+     {
+         System.out.println("\n**************************\n");
+         System.out.println(exception);
+         System.out.println("\n**************************\n");
      }
 
 

@@ -3,7 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.cli;
 import com.ispw.circularbook.controller.appcontroller.LoginController;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.view.cli.CLILoginView;
 
 public class CLILoginController {
@@ -43,7 +43,7 @@ public class CLILoginController {
 
         public void startLogin()
         {
-             this.setEmail();
+             setEmail();
              String password = cliLoginView.getPassword();
              loginBean.setPassword(password);
              checkCredential(loginBean);
@@ -79,7 +79,7 @@ public class CLILoginController {
                         cliHomepageController.homepageStart(loginBean);
 
                 } else {
-                        System.out.println("La mail o la password sono errate");
+                        MessageSupport.cliExceptionSMessage("La mail o la password sono errate");
                         this.start();
                 }
         }
@@ -93,15 +93,15 @@ public class CLILoginController {
         {
                 String email;
 
-                boolean emailIsValid = false;
+                boolean emailIsValid = true;
 
-                while (!emailIsValid) {
+                while (emailIsValid) {
                         try {
                                 email = cliLoginView.getEmail();
                                 loginBean.setEmail(email);
-                                emailIsValid=true;
+                                emailIsValid=false;
                         } catch (WrongEmailFormattException e) {
-                                throw new RuntimeException(e);
+                                MessageSupport.cliExceptionSMessage(e.getMessage());
                         }
                 }
         }

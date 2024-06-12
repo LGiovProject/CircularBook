@@ -5,7 +5,7 @@ import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.model.SalesModel;
 import javafx.fxml.FXML;
@@ -102,7 +102,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             }
         }else
         {
-            BoxMessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
+            MessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
         }
     }
 

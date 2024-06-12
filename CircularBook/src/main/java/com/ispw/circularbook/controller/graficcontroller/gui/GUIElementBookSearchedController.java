@@ -6,7 +6,7 @@ import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 //import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.TakeBookBean;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
@@ -95,7 +95,7 @@ public class GUIElementBookSearchedController {
             insertBookController.registerLendBook(takeBookBean);
             bookElementSubject.notifyObserver(this.panel);
             Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
-            BoxMessageSupport.PopUpsSuccessMessage("Il libro è stato preso correttamente");
+            MessageSupport.PopUpsSuccessMessage("Il libro è stato preso correttamente");
         }
 
         private String getMessage()

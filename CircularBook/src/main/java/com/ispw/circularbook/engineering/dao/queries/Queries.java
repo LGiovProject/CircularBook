@@ -22,11 +22,13 @@
 package com.ispw.circularbook.engineering.dao.queries;
 
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
+import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.exception.ErrorInsertBookException;
 import com.ispw.circularbook.engineering.exception.ErrorRegistrationException;
 import com.ispw.circularbook.engineering.exception.ErrorRemoveBookException;
 import com.ispw.circularbook.engineering.exception.ErrorUpdateBookException;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 
 import java.sql.*;
 
@@ -103,7 +105,6 @@ public class Queries {
 
         public static ResultSet searchAvailableBook(Statement stmt, SearchBookBean searchBookBean) throws SQLException {
             String sql="SELECT * FROM book_available_info WHERE (author = COALESCE("+searchBookBean.getAuthor()+", author) AND argument = COALESCE("+searchBookBean.getArgument()+", argument) AND title= COALESCE("+searchBookBean.getTitle()+",title)) and (email!='"+searchBookBean.getEmail()+"')";
-
             return stmt.executeQuery(sql);
         }
 
@@ -116,9 +117,9 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchTakedBook(Statement stmt,UserBean userBean) throws SQLException {
+        public static ResultSet searchTakedBook(Statement stmt,String email) throws SQLException {
 
-            String sql="SELECT id,username_putter,author,argument,title,npage,comment,type,date_taked,date_finish from book_taked where email_take='"+userBean.getEmail()+"';";
+            String sql="SELECT id,username_putter,author,argument,title,npage,comment,type,date_taked,date_finish from book_taked where email_take='"+email+"';";
             return stmt.executeQuery(sql);
         }
 
@@ -127,9 +128,9 @@ public class Queries {
             return stmt.executeQuery(sql);
         }
 
-        public static ResultSet searchSales(Statement stmt,String nomeLib,Integer month,Integer typeOfSales) throws SQLException {
+        public static ResultSet searchSales(Statement stmt, SearchSalesBean searchSalesBean) throws SQLException {
 
-            String sql="SELECT * FROM sales_info WHERE (nomeLib = COALESCE("+nomeLib+", nomeLib)AND TypeOfSales = COALESCE("+typeOfSales+" , TypeOfSales) AND month(date_start) <= COALESCE("+month+",month(date_start)) and month(date_finish)>=coalesce("+month+",month(date_finish))) ;";
+            String sql="SELECT * FROM sales_info WHERE (nomeLib = COALESCE("+searchSalesBean.getNameLib()+", nomeLib)AND TypeOfSales = COALESCE("+searchSalesBean.getTypeOfSales()+" , TypeOfSales) AND month(date_start) <= COALESCE("+searchSalesBean.getMonth()+",month(date_start)) and month(date_finish)>=coalesce("+searchSalesBean.getMonth()+",month(date_finish))) ;";
             return stmt.executeQuery(sql);
         }
 

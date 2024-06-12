@@ -26,7 +26,7 @@ public class CLISearchSalesView {
         System.out.println("3)Tipologia di inserzione\n");
         System.out.println("4)Effetua ricerca\n");
         System.out.println("5)go back\n");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public String insertLibraryName()

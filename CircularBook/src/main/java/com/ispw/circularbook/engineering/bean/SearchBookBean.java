@@ -1,31 +1,32 @@
 package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.Arguments;
+import com.ispw.circularbook.engineering.exception.WrongArgumentInsertException;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.mysql.cj.util.StringUtils;
 
 public class SearchBookBean {
 
    private String email;
    private String author;
-   private Arguments argument;
+   private String argument;
    private String title;
 
     public SearchBookBean(String email) {
         this.email = email;
     }
 
-    public SearchBookBean(String author, Arguments argument, String title, String email)
-   {
+    public SearchBookBean(String author, Arguments argument, String title, String email) {
        this.author= this.checkAuthor(author);
-       setArgument(checkArguments(argument));
+       setArgument(argument);
        this.title=this.checkTitle(title);
        this.email=email;
    }
 
-    public SearchBookBean(String author, String argument, String title,String email) {
-        this.author = author;
-        setArgument(argument);
-        this.title = title;
+    public SearchBookBean(String author, String argument, String title,String email) throws WrongArgumentInsertException {
+        this.author= this.checkAuthor(author);
+        setArgument(checkArguments(argument));
+        this.title=this.checkTitle(title);
         this.email=email;
     }
 
@@ -35,37 +36,24 @@ public class SearchBookBean {
 
     public void setAuthor(String author) {
 
-       this.author=author;
+       this.author=checkAuthor(author);
 
     }
 
     public String getArgument() {
 
-       if(this.argument==null)
-           return "null";
-       else
-           return this.argument.getArgument();
+        return this.argument;
 
     }
 
-    public void setArgument(String argomento){
+    public void setArgument(String argument) throws WrongArgumentInsertException {
 
-        if(argomento==null)
-        {
-            this.argument=Arguments.Any;
-        }
-        else {
-            for (Arguments arguments : Arguments.values()) {
-                if (arguments.getArgument().equals(argomento)) {
-                    this.argument = arguments;
-                }
-            }
-        }
+        this.argument = checkArguments(argument);
     }
 
     public void setArgument(Arguments argument) {
 
-            this.argument=argument;
+            this.argument=checkArguments(argument);
     }
 
     public String getTitle() {
@@ -74,7 +62,7 @@ public class SearchBookBean {
 
     public void setTitle(String title) {
 
-            this.title=title;
+        this.title=checkTitle(title);
 
     }
 
@@ -90,23 +78,43 @@ public class SearchBookBean {
 
     private String checkAuthor(String author) {
         if (StringUtils.isEmptyOrWhitespaceOnly(author))
-            return null;
+            return "null";
         else
             return "'" + author + "'";
     }
 
-    private Arguments checkArguments(Arguments arguments)
+    private String checkArguments(Arguments arguments)
     {
-        if(StringUtils.isEmptyOrWhitespaceOnly(arguments.getArgument()))
-            return null;
+        if(arguments==Arguments.Any)
+            return "null";
         else
-            return arguments;
+            return "'"+arguments.getArgument()+"'";
+    }
+
+    private String checkArguments(String arguments) throws WrongArgumentInsertException {
+
+        String check=null;
+
+        if(StringUtils.isEmptyOrWhitespaceOnly(arguments))
+            return "null";
+        else {
+            for (Arguments arguments1 : Arguments.values()) {
+                if (arguments1.getArgument().equals(arguments))
+                      check=arguments1.getArgument();
+            }
+            if (check==null)
+                throw new WrongArgumentInsertException();
+            else
+                return "'" + check + "'";
+        }
+
+
     }
 
     private String checkTitle(String title)
     {
         if(StringUtils.isEmptyOrWhitespaceOnly(title))
-            return null;
+            return "null";
         else
             return "'"+title+"'";
     }

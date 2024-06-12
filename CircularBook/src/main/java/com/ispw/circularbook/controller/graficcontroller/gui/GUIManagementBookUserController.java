@@ -5,7 +5,7 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.session.Session;
 
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,15 +23,21 @@ public class GUIManagementBookUserController {
 
     private Scene previuosScene;
 
+    private String email;
+
+    public GUIManagementBookUserController()
+    {
+        email = Session.getCurrentSession().getUser().getEmail();
+    }
+
     public void setPreviuosScene(Scene previuosScene) {
         this.previuosScene = previuosScene;
     }
 
-
     public void searchMyBook() throws IOException {
         List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getUser().getEmail());
+        listBookModel = searchBookController.searchMyAvailableBook(email);
 
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
@@ -52,8 +58,10 @@ public class GUIManagementBookUserController {
 
     public void searchBookILendBack() throws IOException {
         List<BookModel> listBookModel;
-        listBookModel = Session.getCurrentSession().getUser().getListBookTaked();
+        SearchBookController searchBookController = new SearchBookController();
+        listBookModel = searchBookController.searchMyBookTaked(email);
         if (listBookModel!=null && !listBookModel.isEmpty()) {
+            Session.getCurrentSession().getUser().setListBookTaked(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
 
@@ -66,7 +74,7 @@ public class GUIManagementBookUserController {
         }
         else
         {
-            BoxMessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
+            MessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
         }
     }
 
@@ -74,9 +82,9 @@ public class GUIManagementBookUserController {
         List<BookModel> listBookModel= new ArrayList<>();
         SearchBookController searchBookController = new SearchBookController();
         try {
-            listBookModel = searchBookController.searchMyGivenBook(Session.getCurrentSession().getUser().getEmail());
+            listBookModel = searchBookController.searchMyGivenBook(email);
         }catch (NoBookLendedException e){
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
         if (!listBookModel.isEmpty()) {
             Session.getCurrentSession().getUser().setListBookGiven(listBookModel);
@@ -94,7 +102,7 @@ public class GUIManagementBookUserController {
         }
         else
         {
-            BoxMessageSupport.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
+            MessageSupport.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
         }
     }
 }

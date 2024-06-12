@@ -25,7 +25,7 @@ public class CLILoginView {
         System.out.println("2)Sign in\n");
         System.out.println("3)Guest Access\n");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public String getEmail(){

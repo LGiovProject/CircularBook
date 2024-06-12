@@ -2,7 +2,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,7 +49,7 @@ public class GUIElementBookTakedController {
 
     public void returnBook()
     {
-        BoxMessageSupport.PopUpsExcpetionMessage("Non ancora implementato");
+        MessageSupport.PopUpsExcpetionMessage("Non ancora implementato");
     }
 
     private void setLendedBook(){
@@ -67,7 +67,7 @@ public class GUIElementBookTakedController {
         title.setText(bookModel.getTitolo());
         author.setText(bookModel.getAutore());
         usernameGiver.setText("L'hai preso da "+bookModel.getUsername());
-        daysRemaing.setText("E' stato preso in prestito");
+        daysRemaing.setText("E' stato preso in regalo");
     }
 
 

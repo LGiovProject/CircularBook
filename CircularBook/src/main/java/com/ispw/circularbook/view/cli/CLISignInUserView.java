@@ -43,8 +43,4 @@ public class CLISignInUserView {
         return scanner.nextLine();
     }
 
-    public void closeScanner()
-    {
-        scanner.close();
-    }
 }

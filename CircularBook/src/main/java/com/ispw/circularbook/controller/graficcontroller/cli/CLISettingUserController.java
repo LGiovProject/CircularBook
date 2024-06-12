@@ -55,11 +55,13 @@ public class CLISettingUserController {
     private void showPersonalInfo()
     {
         this.cliSettingUserView.showPersonalInfo(this.setUserBean());
+        startSetting();
     }
 
     private void showCircularBookUse()
     {
         this.cliSettingUserView.showInfoCircularBook(this.setInfoBookBean());
+        startSetting();
     }
 
     private void modifyPersonalInfo()

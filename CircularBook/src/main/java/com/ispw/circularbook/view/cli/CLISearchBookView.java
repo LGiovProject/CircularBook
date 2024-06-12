@@ -23,7 +23,7 @@ public class CLISearchBookView {
         System.out.println("3)Inserisci Autore\n");
         System.out.println("4)Effetua ricerca\n");
         System.out.println("5)go back\n");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public String insertTitle()
@@ -49,16 +49,16 @@ public class CLISearchBookView {
         return scanner.nextLine();
     }
 
-    public void showBook(BookBean bookBean)
-    {
-        System.out.println("*************************************\n");
-        System.out.println("Titolo :"+bookBean.getTitolo());
-        System.out.println("Username :"+bookBean.getUsername());
-        System.out.println("Tipologia :"+bookBean.getTypeOfDisponibilityString());
-        System.out.println("Autore :"+bookBean.getAutore());
-        System.out.println("Argomento :"+bookBean.getArgomento());
-        System.out.println("Numero pagine :"+bookBean.getNPagine());
-        System.out.println("Commento :"+bookBean.getCommento());
-        System.out.println("*************************************\n");
-    }
+//    public void showBook(BookBean bookBean)
+//    {
+//        System.out.println("*************************************\n");
+//        System.out.println("Titolo :"+bookBean.getTitolo());
+//        System.out.println("Username :"+bookBean.getUsername());
+//        System.out.println("Tipologia :"+bookBean.getTypeOfDisponibilityString());
+//        System.out.println("Autore :"+bookBean.getAutore());
+//        System.out.println("Argomento :"+bookBean.getArgomento());
+//        System.out.println("Numero pagine :"+bookBean.getNPagine());
+//        System.out.println("Commento :"+bookBean.getCommento());
+//        System.out.println("*************************************\n");
+//    }
 }

@@ -26,6 +26,12 @@ public class CLIHomepageGuestState implements CLIHomepageState{private CLIHomepa
         context.start();
     }
 
+    public void insertBook()
+    {
+        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
+        context.start();
+    }
+
     public void searchBook()
     {
         CLISearchBookController cliSearchBookController = new CLISearchBookController(context);
@@ -60,24 +66,21 @@ public class CLIHomepageGuestState implements CLIHomepageState{private CLIHomepa
         switch (i)
         {
             case 1:
-                this.insertLenderBook();
+                this.insertBook();
                 break;
             case 2:
-                this.insertGiftBook();
-                break;
-            case 3:
                 this.searchBook();
                 break;
-            case 4:
+            case 3:
                 this.searchSales();
                 break;
-            case 5:
+            case 4:
                 this.manageOwn();
                 break;
-            case 6:
+            case 5:
                 this.setting();
                 break;
-            case 7:
+            case 6:
                 this.logOut();
                 break;
             default:

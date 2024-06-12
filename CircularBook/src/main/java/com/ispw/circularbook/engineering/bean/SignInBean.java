@@ -98,9 +98,10 @@ public class SignInBean {
         {
             if(city.getCity().equals(citta))
                 this.citta= city;
-            else
-                throw new WrongCityInsertException();
         }
+        if(this.citta==null)
+            throw new WrongCityInsertException();
+
     }
 
     public String getVia() {

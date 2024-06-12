@@ -3,7 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.engineering.exception.AccountRequiredException;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import javafx.fxml.FXMLLoader;
 import com.ispw.circularbook.Main;
 import javafx.scene.Scene;
@@ -34,7 +34,7 @@ public class GUIHomepageSideButtonUserController {
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
 
         } catch (AccountRequiredException e) {
-            BoxMessageSupport.PopUpsGuestDeniedMessage();
+            MessageSupport.PopUpsGuestDeniedMessage();
         }
 
     }
@@ -50,7 +50,7 @@ public class GUIHomepageSideButtonUserController {
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
         }catch (AccountRequiredException e)
         {
-            BoxMessageSupport.PopUpsGuestDeniedMessage();
+            MessageSupport.PopUpsGuestDeniedMessage();
         }
     }
 
@@ -84,7 +84,7 @@ public class GUIHomepageSideButtonUserController {
            Session.getCurrentSession().getSceneFacade().loadScene(pane);
        }catch (AccountRequiredException e)
        {
-           BoxMessageSupport.PopUpsGuestDeniedMessage();
+           MessageSupport.PopUpsGuestDeniedMessage();
        }
 
     }

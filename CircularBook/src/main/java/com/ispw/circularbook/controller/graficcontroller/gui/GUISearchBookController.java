@@ -5,6 +5,7 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
+import com.ispw.circularbook.engineering.exception.WrongArgumentInsertException;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
@@ -38,28 +39,32 @@ public class GUISearchBookController implements Observer {
 
     private Pane currentPane;
 
+    private SearchBookBean searchBookBean;
+
     public void setCurrentPane(Pane currentPane){this.currentPane = currentPane;}
 
-    public void setSearch() {
+    public void setSearch(){
         argument.getItems().addAll(Arguments.values());
         argument.getSelectionModel().select(0);
         scrollPane.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         scrollPane.setHvalue(scrollPane.getHmax());
         showResult.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        searchBookBean = new SearchBookBean("null",Arguments.Any,"null","null");
     }
 
     public void startToSearchBook() throws IOException {
 
         showResult.getChildren().clear();
-        SearchBookBean searchBookBean;
+
         List<BookModel> listBookModel;
-        if(Session.getCurrentSession().getUser().isGuest()) {
-            searchBookBean = new SearchBookBean(textFieldAuthor.getText(), argument.getSelectionModel().getSelectedItem(), textFieldTitle.getText(), "null");
-        }
-        else{
-            searchBookBean = new SearchBookBean(textFieldAuthor.getText(), argument.getSelectionModel().getSelectedItem(), textFieldTitle.getText(), Session.getCurrentSession().getUser().getEmail());
-        }
-            clearFieldText();
+
+        searchBookBean.setAuthor(textFieldAuthor.getText());
+        searchBookBean.setArgument(argument.getSelectionModel().getSelectedItem());
+        searchBookBean.setTitle(textFieldTitle.getText());
+        String email = Session.getCurrentSession().getUser().isGuest()?"null":Session.getCurrentSession().getUser().getEmail();
+        searchBookBean.setEmail(email);
+
+        clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
         listBookModel = searchBookController.searchAvailableBook(searchBookBean);
 

@@ -8,7 +8,7 @@ import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.InfoBookModel;
 import com.ispw.circularbook.model.UserModel;
 import javafx.event.ActionEvent;
@@ -221,7 +221,7 @@ public class GUISettingUserController {
         updateInfoBean.setSurname(userBean.getCognome());
         updateInfoBean.setUsername(userBean.getUsername());
         userController.updateUser(updateInfoBean);
-        BoxMessageSupport.PopUpsSuccessMessage("Aggiornamento effettuato con successo");
+        MessageSupport.PopUpsSuccessMessage("Aggiornamento effettuato con successo");
     }
 
     private UserBean setUserBean()

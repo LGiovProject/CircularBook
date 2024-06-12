@@ -24,7 +24,7 @@ public class LoginBean {
         return this.email;
     }
     //Metodo set che imposta la variabile privata mail con la stringa in ingresso
-    public void setEmail(String email) throws WrongEmailFormattException {this.email = email;}
+    public void setEmail(String email) throws WrongEmailFormattException {this.email = checkEmail(email);}
     //Metodo get che ritorna il valore della  variabile privata passoword
     public String getPassword()
     {

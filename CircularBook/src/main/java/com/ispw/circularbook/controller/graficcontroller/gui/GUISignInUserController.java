@@ -6,7 +6,7 @@ import com.ispw.circularbook.engineering.bean.SignInBean;
 
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.exception.*;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,11 +90,11 @@ public class GUISignInUserController {
 
             Main.getStage().setScene(scene);
 
-            BoxMessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
+            MessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
 
         }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
         {
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
 
         }catch (IOException e)
         {

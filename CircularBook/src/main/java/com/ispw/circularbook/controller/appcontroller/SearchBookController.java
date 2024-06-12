@@ -27,6 +27,7 @@ public class SearchBookController {
         }
         return listBookModel;
     }
+
     //Cerca i propri libri nel sistema ancora disponibili
     public List<BookModel> searchMyAvailableBook(String email){
 
@@ -42,6 +43,23 @@ public class SearchBookController {
 
     }
 
+    //Cerca i libri che sono stati presi in prestito o regalo
+    public List<BookModel> searchMyBookTaked(String email)
+    {
+        List<BookModel> listBookModel=new ArrayList<>();
+        try {
+            List<BookBean> bookBeanList=(SearchBookDAO.searchTakedBook(email));
+            for (BookBean bookBean : bookBeanList) {
+                BookModel bookModel = new BookModel(bookBean.getId(), bookBean.getUsernamePutter(), bookBean.getTypeOfDisponibility(), bookBean.getTitolo(), bookBean.getAutore(), bookBean.getArgomento(), bookBean.getNPagine(), bookBean.getCommento(), bookBean.getDate_start(), bookBean.getDate_finish(), bookBean.getDaysRemaing());
+                listBookModel.add(bookModel);
+
+            }
+        }catch (NoBookLendedException e) {
+            throw new RuntimeException(e);
+        }
+        return listBookModel;
+    }
+
     //Cerca i propri libri nel sistema che sono stati presi
     public List<BookModel> searchMyGivenBook(String email) throws NoBookLendedException {
         List<BookBean> listBookBean;
@@ -55,6 +73,7 @@ public class SearchBookController {
         }
         return listBookModel;
     }
+
     //Raccoglie le informazioni su l'utilizzo dell'applicazione in termini di libri inseriti, dati e presi.
     public InfoBookModel searchBookInfoUser(InfoBookBean infoBookBeanIn)
     {
@@ -64,6 +83,7 @@ public class SearchBookController {
         return infoBookModel;
 
     }
+
     //Raccoglie le informazioni su l'utilizzo dell'applicazione da parte delle librerie in termini di libri inseriti.
     public InfoBookModel searchBookInfoLibrary(InfoBookBean infoBookBeanIn)
     {

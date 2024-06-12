@@ -7,7 +7,7 @@ import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.engineering.utils.TakeBeanFromList;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 import com.ispw.circularbook.model.BookModel;
@@ -116,9 +116,9 @@ public class GUIModifyElementBookController {
             BookBean bookBean = new BookBean(this.id,TakeBeanFromList.getEmailFromCurrentSession(), getTypeOfDisponibility(),title.getText(),author.getText(), argument.getText(), nPage.getText(), comment.getText());
             insertBookController.updateBookInfo(bookBean);
             this.bookElementSubject.notifyObserver(bookBean,panel);
-            BoxMessageSupport.PopUpsSuccessMessage("Modifiche salvate");
+            MessageSupport.PopUpsSuccessMessage("Modifiche salvate");
         }catch (WrongNpageFormatException e){
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
     }
 

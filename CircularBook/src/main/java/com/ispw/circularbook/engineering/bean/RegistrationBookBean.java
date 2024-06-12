@@ -2,6 +2,7 @@ package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.Arguments;
 import com.ispw.circularbook.engineering.exception.TitleCampRequiredException;
+import com.ispw.circularbook.engineering.exception.WrongArgumentInsertException;
 import com.ispw.circularbook.engineering.exception.WrongNpageFormatException;
 
 public class RegistrationBookBean {
@@ -12,6 +13,8 @@ public class RegistrationBookBean {
     Arguments argument;
     String nPage;
     String comment;
+
+    public RegistrationBookBean(){}
 
     public RegistrationBookBean(String email,int typeOfDisponibility,String title, String author, Arguments argument, String nPage, String comment) throws TitleCampRequiredException, WrongNpageFormatException {
         this.email = email;
@@ -74,6 +77,20 @@ public class RegistrationBookBean {
             this.argument=argument;
     }
 
+    public void setArgument(String argument) throws WrongArgumentInsertException {
+        if(argument.isEmpty() || argument.isBlank())
+            this.argument=Arguments.None;
+        else {
+            for (Arguments arguments : Arguments.values()) {
+                if (arguments.getArgument().equals(argument)) {
+                    this.argument = arguments;
+                }
+            }
+            if(this.argument==null)
+                throw new WrongArgumentInsertException();
+        }
+    }
+
     public String getNPage() {
         return this.nPage;
     }
@@ -84,13 +101,19 @@ public class RegistrationBookBean {
 
     public void setNPage(String nPage) throws WrongNpageFormatException {
         if(nPage.isEmpty() || nPage.isBlank())
-            this.nPage = "0";
+            this.nPage ="0";
         else
             if(nPage.matches("^\\d+$"))
                 this.nPage=nPage;
             else
                 throw new WrongNpageFormatException();
     }
+
+    public void setNPage(int nPage)
+    {
+        this.nPage=String.valueOf(nPage);
+    }
+
 
     public String getComment() {
         return comment;

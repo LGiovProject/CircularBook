@@ -4,7 +4,7 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SignInController;
 import com.ispw.circularbook.engineering.bean.SignInBean;
 import com.ispw.circularbook.engineering.enums.City;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.engineering.exception.CityCampRequiredException;
 import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
 import com.ispw.circularbook.engineering.exception.PasswordCampRequiredException;
@@ -87,12 +87,12 @@ public class GUISignInLibraryController {
 
             Main.getStage().setScene(scene);
 
-            BoxMessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
+            MessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
 
 
         }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e)
         {
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }catch (IOException e)
         {
            throw new RuntimeException(e);

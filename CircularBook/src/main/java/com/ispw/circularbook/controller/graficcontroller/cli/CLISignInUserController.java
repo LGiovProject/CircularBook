@@ -6,6 +6,7 @@ import com.ispw.circularbook.engineering.exception.EmailUsedException;
 import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
 import com.ispw.circularbook.engineering.exception.WrongCityInsertException;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.view.cli.CLISignInUserView;
 
 public class CLISignInUserController {
@@ -35,7 +36,6 @@ public class CLISignInUserController {
     }
 
     public void endSignInU(){
-        cliSignInUserView.closeScanner();
         signInController.signInU(signInBean);
         CLILoginController cliLoginController = new CLILoginController();
         cliLoginController.start();
@@ -54,7 +54,7 @@ public class CLISignInUserController {
                 signInBean.setCitta(citta);
                 cityIsValid=true;
             } catch (WrongCityInsertException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliExceptionSMessage(e.getMessage());
             }
         }
     }
@@ -74,7 +74,7 @@ public class CLISignInUserController {
                 emailIsValid = true; // Esce dal ciclo se l'email è valida
 
             } catch (EmailUsedException | WrongEmailFormattException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliExceptionSMessage(e.getMessage());
             }
         }
 
@@ -94,7 +94,7 @@ public class CLISignInUserController {
                 signInBean.setPassword(password);
                 passwordIsValid = true;
             }catch (NoMatchPasswordException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliExceptionSMessage(e.getMessage());
             }
         }
 

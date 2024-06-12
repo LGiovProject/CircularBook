@@ -147,9 +147,11 @@ public class SalesBean {
 
     public void setDateStart(LocalDate dateStart){this.dateStart=dateStart;}
 
-    public void setDateStart(String dateStart) throws ParseException {
+    public void setDateStart(String dateStart) {
 
         this.dateStart=StringUtils.isEmptyOrWhitespaceOnly(dateStart)?null:LocalDate.parse(dateStart);
+
+
     }
 
     public String getDateFinish() {

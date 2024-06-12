@@ -3,7 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.engineering.bean.LoginBean;
 import com.ispw.circularbook.engineering.session.Session;
-import com.ispw.circularbook.engineering.utils.BoxMessageSupport;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
 import com.ispw.circularbook.controller.appcontroller.LoginController;
 import javafx.fxml.FXML;
@@ -49,11 +49,11 @@ public class GUILoginController {
                 this.LunchHomepage(loginBean);
 
             } else {
-                BoxMessageSupport.PopUpsSuccessMessage("La mail o la password sono errate");
+                MessageSupport.PopUpsExcpetionMessage("La mail o la password sono errate");
             }
 
         } catch (WrongEmailFormattException e) {
-            BoxMessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
         }
     }
 
@@ -65,10 +65,6 @@ public class GUILoginController {
         GUISignInController guiSignInController = fxmlLoader.getController();
         Scene scene = new Scene(root);
         guiSignInController.setCurrentScene(scene);
-        if(currentScene==null)
-        {
-            System.out.println("test GUILoginController button SignIn currentScene is null");
-        }
         guiSignInController.setPreviuosScene(currentScene);
         Main.getStage().setScene(scene);
     }

@@ -36,17 +36,16 @@ public class CLIHomepageController {
         this.command(currentState.startHomepage(this));
     }
 
-    public void insertLenderBook()
-    {
-
-    }
-
-    public void insertGiftBook(){}
-
     public void logOut(){
         CLILoginController cliLoginController = new CLILoginController();
         Session.closeSession();
         cliLoginController.start();
+    }
+
+    public void insertBook()
+    {
+        CLIInsertBookController cliInsertBookController = new CLIInsertBookController(this);
+        cliInsertBookController.start();
     }
 
     public void command(int value)

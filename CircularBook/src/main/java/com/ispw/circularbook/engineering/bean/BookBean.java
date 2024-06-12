@@ -168,6 +168,7 @@ public class BookBean {
                     this.argomento = arguments;
                 }
             }
+
         }
     }
 

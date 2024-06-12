@@ -15,6 +15,6 @@ public class CLIHomepageLibraryView {
         System.out.println("5)Setting\n");
         System.out.println("6)Logout\n");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 }

@@ -22,7 +22,7 @@ public class SalesDAO {
             List<SalesBean> salesBeanList= new ArrayList<>();
             try {
                 stmt = ConnectionDB.getConnection();
-                resultSet= Queries.searchSales(stmt, searchSalesBean.getNameLib(),searchSalesBean.getMonth(),searchSalesBean.getTypeOfSales());
+                resultSet= Queries.searchSales(stmt, searchSalesBean);
                 if(!resultSet.first())
                 {
                 }
@@ -44,7 +44,7 @@ public class SalesDAO {
                 }while (resultSet.next());
 
                 resultSet.close();
-            } catch (SQLException | ErrorConnectionDbException | ParseException e) {
+            } catch (SQLException | ErrorConnectionDbException  e) {
                 throw  new RuntimeException(e);
             }
 
@@ -80,7 +80,7 @@ public class SalesDAO {
             }while (resultSet.next());
 
             resultSet.close();
-        } catch (SQLException | ErrorConnectionDbException | ParseException e) {
+        } catch (SQLException | ErrorConnectionDbException e) {
             throw new RuntimeException(e);
         }
 
