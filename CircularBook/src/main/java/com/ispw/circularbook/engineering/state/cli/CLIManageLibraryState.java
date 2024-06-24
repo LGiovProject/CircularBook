@@ -1,81 +1,90 @@
-package com.ispw.circularbook.controller.graficcontroller.cli;
+package com.ispw.circularbook.engineering.state.cli;
 
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
+import com.ispw.circularbook.controller.graficcontroller.cli.*;
 import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
+import com.ispw.circularbook.engineering.exception.NoBookRegisteredException;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.model.SalesModel;
+import com.ispw.circularbook.view.cli.CLIManageLibraryView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CLIManageLibraryController {
+public class CLIManageLibraryState implements CLIManageState{
+
+    private CLIManageController context;
+
+    private CLIManageLibraryView cliManageLibraryView;
 
     String sessionEmail;
-    CLIHomepageController cliHomepageController;
 
-    public CLIManageLibraryController(CLIHomepageController cliHomepageController){this.cliHomepageController=cliHomepageController;}
-
-    public void start()
+    public CLIManageLibraryState(CLIManageController cliManageController)
     {
-        sessionEmail=Session.getCurrentSession().getLibrary().getEmail();
+        context=cliManageController;
+        cliManageLibraryView = new CLIManageLibraryView();
+        sessionEmail = Session.getCurrentSession().getLibrary().getEmail();
     }
 
+    @Override
+    public int start() {
+       return cliManageLibraryView.start();
+    }
+
+    @Override
     public void command(int i)
     {
         switch (i)
         {
             case 1:
-                showMyAvailableBook();
+                manageMyAvailableBook();
                 break;
             case 2:
-                showMySales();
+                manageMySales();
                 break;
             case 3:
-                showMyBookTook();
+                manageBookIGive();
                 break;
             case 4:
-                cliHomepageController.start();
+                context.goBack();
                 break;
         }
     }
 
-    public void showMyAvailableBook()
+    @Override
+    public void manageMyAvailableBook()
     {
-        List<BookModel> listBookModel;
-        SearchBookController searchBookController = new SearchBookController();
-        CLIShowBookController cliShowBookController = new CLIShowBookController();
-        listBookModel = searchBookController.searchMyAvailableBook(sessionEmail);
-        cliShowBookController.showBookAvailable(getBookBeanList(listBookModel));
+        CLIManageMyAvailableBookController cliManageMyAvailableBookController= new CLIManageMyAvailableBookController(context);
+        cliManageMyAvailableBookController.startManage();
+
     }
 
-    public void showMySales()
+    public void manageMySales()
     {
-        List<SalesModel> salesModelList;
-        SearchSalesController searchSalesController = new SearchSalesController();
-        CLIShowSalesController cliShowSalesController = new CLIShowSalesController();
-        try {
-            salesModelList=searchSalesController.searchSales(sessionEmail);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        cliShowSalesController.showSales(getSalesBeanList(salesModelList));
+        CLIManageMySalesController cliManageMySalesController = new CLIManageMySalesController(context);
+        cliManageMySalesController.start();
     }
 
-    public void showMyBookTook()
+    @Override
+    public void manageBookIGive()
     {
         List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
         CLIShowBookController cliShowBookController = new CLIShowBookController();
         try {
             listBookModel = searchBookController.searchMyGivenBook(sessionEmail);
+            cliShowBookController.showBookAvailable(getBookBeanList(listBookModel));
+            context.start();
         } catch (NoBookLendedException e) {
-            throw new RuntimeException(e);
+            MessageSupport.cliExceptionSMessage(e.getMessage());
+            context.start();
         }
-        cliShowBookController.showBookAvailable(getBookBeanList(listBookModel));
+
     }
 
     private List<BookBean> getBookBeanList(List<BookModel> bookModelList)

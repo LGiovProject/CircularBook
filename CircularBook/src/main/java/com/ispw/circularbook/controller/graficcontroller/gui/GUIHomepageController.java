@@ -182,7 +182,7 @@ public class GUIHomepageController {
 
     public void seeNotify() throws IOException {
 
-        MessageSupport.PopUpsExcpetionMessage("Servizio non ancora implementato");
+        MessageSupport.PopUpsExceptionMessage("Servizio non ancora implementato");
 
 //        if(notify) {
 //            Popup popup = new Popup();

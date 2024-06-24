@@ -38,7 +38,7 @@ public class GUIElementBookTakedController {
 
     private BookModel getBookModel(int id)
     {
-        for(BookModel bookModel : Session.getCurrentSession().getUser().getListBookTaked())
+        for(BookModel bookModel : Session.getCurrentSession().getUser().getBookTakedList())
         {
             if(bookModel.getId()==id)
                 return bookModel;
@@ -49,7 +49,7 @@ public class GUIElementBookTakedController {
 
     public void returnBook()
     {
-        MessageSupport.PopUpsExcpetionMessage("Non ancora implementato");
+        MessageSupport.PopUpsExceptionMessage("Non ancora implementato");
     }
 
     private void setLendedBook(){

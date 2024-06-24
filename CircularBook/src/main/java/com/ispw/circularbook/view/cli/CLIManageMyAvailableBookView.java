@@ -9,66 +9,24 @@ public class CLIManageMyAvailableBookView {
     public int start()
     {
 
-        System.out.println("************** Personal Book Available **************");
-        System.out.println("1)Modify book info");
-        System.out.println("2)Deleted book from list");
-        System.out.println("3)go back");
+        System.out.println("\n************** Personal Book Available **************\n");
+        System.out.println("1)Modify book info\n");
+        System.out.println("2)Deleted book from list\n");
+        System.out.println("3)go back\n");
         return scanner.nextInt();
     }
 
     public int modifyBook()
     {
-        System.out.println("Insert book id to modify");
+        System.out.println("\nInsert book id to modify\n");
+        System.out.println("Insert -1 per tornare indietro\n");
         return scanner.nextInt();
-    }
-
-    public String insertTitle()
-    {
-        System.out.println("Insert title\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-        return scanner.nextLine();
-    }
-
-    public String insertAuthor()
-    {
-        System.out.println("Insert Author\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-        return scanner.nextLine();
-    }
-
-    public String insertArgument()
-    {
-        System.out.println("Insert Argument\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-        return scanner.nextLine();
-    }
-
-    public int insertTypeOfBook()
-    {
-        System.out.println("Insert TypeOfBook\n");
-        System.out.println("1 for lend Book 2 for a gift book\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-
-        return Integer.parseInt(scanner.nextLine());
-    }
-
-    public int insertNPage()
-    {
-        System.out.println("Insert number of book page digit only number\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-        return Integer.parseInt(scanner.nextLine());
-    }
-
-    public String insertComment()
-    {
-        System.out.println("Insert a description for a Book\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
-        return scanner.nextLine();
     }
 
     public int deleteBook()
     {
-        System.out.println("Insert book id to delete");
+        System.out.println("\nInsert book id to delete\n");
+        System.out.println("Inserisci -1 per tornare indietro\n");
         return scanner.nextInt();
     }
 

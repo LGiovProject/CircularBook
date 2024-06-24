@@ -18,11 +18,11 @@ public class UserModel extends GenericAccountModel {
 
     private boolean guest;
 
-    private List<BookModel> listBookTaked;
-    private List<BookModel> listBookLastSearch;
-    private List<BookModel> listBookOwnList;
-    private List<BookModel> listBookGiven;
-    private List<BookModel> lastBookListViewed;
+    private List<BookModel> bookTakedList;
+    private List<BookModel> bookLastSearchList;
+    private List<BookModel> bookOwnList;
+    private List<BookModel> bookGivenList;
+    private List<BookModel> bookLastViewedList;
 
     private List<SalesModel> salesModelList;
 
@@ -100,42 +100,42 @@ public class UserModel extends GenericAccountModel {
         }
     }
 
-    public void setListBookTaked(List<BookModel> listBookTaked){
-        this.listBookTaked=listBookTaked;
+    public void setBookTakedList(List<BookModel> bookTakedList){
+        this.bookTakedList = bookTakedList;
     }
 
-    public List<BookModel> getListBookTaked(){return this.listBookTaked;}
+    public List<BookModel> getBookTakedList(){return this.bookTakedList;}
 
     public List<BookModel> getBookLastSearch() {
-        return listBookLastSearch;
+        return bookLastSearchList;
     }
 
     public void setBookLastSearch(List<BookModel> listBookLastSearch) {
-        this.listBookLastSearch = listBookLastSearch;
+        this.bookLastSearchList = listBookLastSearch;
     }
 
     public List<BookModel> getBookOwnList() {
-        return listBookOwnList;
+        return bookOwnList;
     }
 
     public void setBookOwnList(List<BookModel> listBookOwnList) {
-        this.listBookOwnList = listBookOwnList;
+        this.bookOwnList = listBookOwnList;
     }
 
-    public List<BookModel> getLastBookListViewed() {
-        return lastBookListViewed;
+    public List<BookModel> getBookLastViewedList() {
+        return bookLastViewedList;
     }
 
-    public void setLastBookListViewed(List<BookModel> lastBookListViewed) {
-        this.lastBookListViewed = lastBookListViewed;
+    public void setBookLastViewedList(List<BookModel> bookLastViewedList) {
+        this.bookLastViewedList = bookLastViewedList;
     }
 
-    public List<BookModel> getListBookGiven() {
-        return listBookGiven;
+    public List<BookModel> getBookGivenList() {
+        return bookGivenList;
     }
 
-    public void setListBookGiven(List<BookModel> listBookGiven) {
-        this.listBookGiven = listBookGiven;
+    public void setBookGivenList(List<BookModel> bookGivenList) {
+        this.bookGivenList = bookGivenList;
     }
 
 

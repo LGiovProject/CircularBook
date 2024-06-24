@@ -7,6 +7,7 @@ import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UpdateInfoBean;
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.InfoBookModel;
 import com.ispw.circularbook.model.LibraryModel;
 import com.ispw.circularbook.view.cli.CLISettingLibraryView;
@@ -85,7 +86,7 @@ public class CLISettingLibraryController {
             case "Citta":
                 while(!checkCity(value))
                 {
-                    cliSettingLibraryView.errorMessage("Il valore citta inserito non è stato trovato!");
+                    MessageSupport.cliExceptionSMessage("Il valore citta inserito non è stato trovato!");
                     value= cliSettingLibraryView.setCamp();
                 }
                 libraryModel.setCity(value);

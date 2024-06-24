@@ -84,7 +84,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
     public void viewMyLendedBook() throws IOException {
 
         this.viewInitialization();
-        List<BookModel> listBookModel= Session.getCurrentSession().getUser().getListBookTaked();
+        List<BookModel> listBookModel= Session.getCurrentSession().getUser().getBookTakedList();
 
         if (listBookModel!=null && !listBookModel.isEmpty()) {
             for (BookModel bookModel : listBookModel) {
@@ -102,7 +102,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
             }
         }else
         {
-            MessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
+            MessageSupport.PopUpsExceptionMessage("Non hai nessun libro preso in prestito");
         }
     }
 
@@ -180,7 +180,7 @@ public class GUIWindowElementBookPersonalController implements Observer{
 
         if(Session.getCurrentSession().getUser()!=null)
         {
-            return Session.getCurrentSession().getUser().getListBookGiven();
+            return Session.getCurrentSession().getUser().getBookGivenList();
         }
         else
         {

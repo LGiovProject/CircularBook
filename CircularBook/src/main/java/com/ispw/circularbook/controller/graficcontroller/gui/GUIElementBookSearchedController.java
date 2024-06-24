@@ -76,7 +76,7 @@ public class GUIElementBookSearchedController {
 
         public void moreInfoSearch() throws IOException {
 
-            Session.getCurrentSession().getUser().setLastBookListViewed(Session.getCurrentSession().getUser().getBookLastSearch());
+            Session.getCurrentSession().getUser().setBookLastViewedList(Session.getCurrentSession().getUser().getBookLastSearch());
             GUIMoreInfoBookController guiMoreInfoBookController;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MoreInfoBook.fxml"));
             Pane pane = fxmlLoader.load();
@@ -91,10 +91,10 @@ public class GUIElementBookSearchedController {
 
         public void getBook(){
             InsertBookController insertBookController = new InsertBookController();
-            TakeBookBean takeBookBean = new TakeBookBean(bookModel.getId(),bookModel.getEmail(),Session.getCurrentSession().getUser().getEmail(),bookModel.getTypeOfDisponibility(), LocalDate.now());
+            TakeBookBean takeBookBean = new TakeBookBean(bookModel.getId(),bookModel.getTypeOfDisponibility(),bookModel.getEmail(),Session.getCurrentSession().getUser().getEmail(), LocalDate.now());
             insertBookController.registerLendBook(takeBookBean);
             bookElementSubject.notifyObserver(this.panel);
-            Session.getCurrentSession().getUser().getListBookTaked().add(this.bookModel);
+            Session.getCurrentSession().getUser().getBookTakedList().add(this.bookModel);
             MessageSupport.PopUpsSuccessMessage("Il libro è stato preso correttamente");
         }
 

@@ -2,11 +2,13 @@ package com.ispw.circularbook.model;
 
 import com.ispw.circularbook.engineering.enums.City;
 
+import java.util.List;
+
 public abstract class GenericAccountModel {
 
     private String email;
     private String password;
-    private City city;
+    private List<BookModel> bookOwnList;
 
     public String getEmail() {
         return email;
@@ -24,23 +26,11 @@ public abstract class GenericAccountModel {
         this.password = password;
     }
 
-    public City getCity() {
-        return city;
+    public void setBookOwnList(List<BookModel> bookOwnList) {
+        this.bookOwnList = bookOwnList;
     }
 
-    public String getCityString(){return this.city.getCity();}
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public void setCity(String city) {
-        for(City city1: City.values())
-        {
-            if(city1.getCity().equals(city))
-            {
-                this.city=city1;
-            }
-        }
+    public List<BookModel> getBookOwnList() {
+        return bookOwnList;
     }
 }

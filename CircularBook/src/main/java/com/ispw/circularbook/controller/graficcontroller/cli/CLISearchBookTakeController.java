@@ -1,91 +1,74 @@
 package com.ispw.circularbook.controller.graficcontroller.cli;
 
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
-import com.ispw.circularbook.controller.appcontroller.SearchBookController;
-import com.ispw.circularbook.engineering.bean.BookBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.bean.TakeBookBean;
+import com.ispw.circularbook.engineering.exception.NoBookFoundException;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.view.cli.CLISearchBookTakeView;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CLISearchBookTakeController {
 
     SearchBookBean searchBookBean;
 
-    CLIManageUserController cliManageUserController;
+    CLISearchBookController cliSearchBookController;
 
     String sessionEmail;
 
-    List<BookBean> bookBeanList;
+    List<BookModel> bookModelList;
 
-    private CLISearchBookTakeController(SearchBookBean searchBookBean,CLIManageUserController cliManageUserController)
+    CLISearchBookTakeView cliSearchBookTakeView;
+
+    public CLISearchBookTakeController(CLISearchBookController cliSearchBookController)
     {
         sessionEmail = Session.getCurrentSession().getUser().getEmail();
-        this.searchBookBean=searchBookBean;
-        this.cliManageUserController=cliManageUserController;
+        this.cliSearchBookController=cliSearchBookController;
+        cliSearchBookTakeView = new CLISearchBookTakeView();
     }
 
     public void start()
     {
-        SearchBookController searchBookController = new SearchBookController();
-        List<BookModel> bookModelList = searchBookController.searchAvailableBook(searchBookBean);
-        CLIShowBookController cliShowBookController = new CLIShowBookController();
-        CLISearchBookTakeView cliSearchBookTakeView = new CLISearchBookTakeView();
-        bookBeanList=getBookBeanList(bookModelList);
-        cliShowBookController.showBookAvailable(bookBeanList);
-        String value = cliSearchBookTakeView.start();
-
-        //command(Integer.parseInt(value));
+        bookModelList = Session.getCurrentSession().getUser().getBookLastSearch();
+        command(Integer.parseInt(cliSearchBookTakeView.start()));
     }
 
-    public void command(int i){
+    private void command(int i){
         if(i>0) {
             takeBook(i);
         }else
-            cliManageUserController.start();
+            cliSearchBookController.start();
     }
 
 
     private void takeBook(int i)
     {
-        BookBean bookBean = getBookBean(i,bookBeanList);
-        if(bookBean!=null) {
-            TakeBookBean takeBookBean = new TakeBookBean(i, bookBean.getEmail(), sessionEmail, bookBean.getTypeOfDisponibility(), LocalDate.now());
+        try {
+            TakeBookBean takeBookBean = getTakeBookBean(bookModelList,i);
             InsertBookController insertBookController = new InsertBookController();
             insertBookController.registerLendBook(takeBookBean);
+            MessageSupport.cliSuccessMessage("Il libro è stato preso correttamente");
+            cliSearchBookController.start();
+        } catch (NoBookFoundException e) {
+            MessageSupport.cliExceptionSMessage(e.getMessage());
+            cliSearchBookController.start();
         }
     }
 
 
-    private BookBean getBookBean(int id,List<BookBean> bookBeanList)
-    {
-        for(BookBean bookBean: bookBeanList)
-            if (bookBean.getId()==id)
-                return bookBean;
-        return null;
-    }
+    private TakeBookBean getTakeBookBean(List<BookModel> bookModelList,int i) throws NoBookFoundException {
 
-
-    private List<BookBean> getBookBeanList(List<BookModel> bookModelList)
-    {
-        List<BookBean> bookBeanList = new ArrayList<>();
         for(BookModel bookModel: bookModelList)
         {
-            BookBean bookBean = new BookBean();
-            bookBean.setTitolo(bookModel.getTitolo());
-            bookBean.setUsername(bookModel.getUsername());
-            bookBean.setAutore(bookModel.getAutore());
-            bookBean.setArgomento(bookModel.getArgomento());
-            bookBean.setTypeOfDisponibility(bookModel.getTypeOfDisponibility());
-            bookBean.setNPagine(bookModel.getnPagine());
-            bookBean.setCommento(bookModel.getCommento());
-            bookBeanList.add(bookBean);
+            if(bookModel.getId()==i){
+                return new TakeBookBean(bookModel.getId(),bookModel.getTypeOfDisponibility(),bookModel.getEmail(),sessionEmail,LocalDate.now());
+            }
         }
-        return bookBeanList;
+        throw new NoBookFoundException();
+
     }
 }

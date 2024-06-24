@@ -41,7 +41,7 @@ public class GUIInsertGiftBookController {
             clearTextField();
             MessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
         }catch (TitleCampRequiredException |WrongNpageFormatException e){
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 

@@ -3,6 +3,7 @@ package com.ispw.circularbook.view.cli;
 import com.ispw.circularbook.controller.graficcontroller.cli.CLISettingUserController;
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
 
 import java.util.Scanner;
 
@@ -27,6 +28,7 @@ public class CLISettingUserView {
 
     public void showInfoCircularBook(InfoBookBean infoBookBean)
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println(infoBookBean.getRegisterBook()+" registrati\n");
         System.out.println(infoBookBean.getLendedBook()+" messi in prestito\n");
         System.out.println(infoBookBean.getGiftedBook()+" messi in regalo\n");
@@ -36,14 +38,16 @@ public class CLISettingUserView {
 
     public void showPersonalInfo(UserBean userBean)
     {
-        System.out.println("Nome: "+userBean.getName()+"\n");
-        System.out.println("Cognome: "+userBean.getCognome()+"\n");
-        System.out.println("Username: "+userBean.getUsername()+"\n");
-        System.out.println("Citta: "+userBean.getCityString()+"\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("Nome: "+userBean.getName());
+        System.out.println("Cognome: "+userBean.getCognome());
+        System.out.println("Username: "+userBean.getUsername());
+        System.out.println("Citta: "+userBean.getCityString());
     }
 
     public String choseCamp()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Scegli il campo che vuoi modificare\n");
         System.out.println("Inserisci None per annullare\n");
         return scanner.nextLine();
@@ -52,16 +56,18 @@ public class CLISettingUserView {
 
     public String setCamp()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Inserisci il nuovo valore\n");
         return scanner.nextLine();
     }
 
     public int confirmChoice()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Insert\n");
-        System.out.println("1)Per continuare a modificare");
-        System.out.println("2)Per confermare le modfiche");
-        System.out.println("3)Per annullare");
+        System.out.println("1)Per continuare a modificare\n");
+        System.out.println("2)Per confermare le modfiche\n");
+        System.out.println("3)Per annullare\n");
         return Integer.parseInt(scanner.nextLine());
     }
 

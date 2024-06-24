@@ -5,20 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 public class TakeBookBean {
     private int id;
+    private int typeOfDisponibility;
     private String emailGiver; //chi ha reso disponibile il libro
-    private String username;
-    private int typeOfDisponiblity;
     private String emailTaker;
-    private String usernameTaker;
-
     private String dateStart;
     private String dateFinish;
 
-    public TakeBookBean(int id, String emailGiver, String emailTaker, int typeOfDisponiblity , LocalDate dateStart) {
+    public TakeBookBean(int id,int typeOfDisponibility ,String emailGiver, String emailTaker, LocalDate dateStart) {
         this.id = id;
+        this.typeOfDisponibility= typeOfDisponibility;
         this.emailGiver = emailGiver;
         this.emailTaker=emailTaker;
-        this.typeOfDisponiblity=typeOfDisponiblity;
 
         setDateStart(dateStart);
         setDateFinish();
@@ -30,6 +27,16 @@ public class TakeBookBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setTypeOfDisponibility(int typeOfDisponibility){this.typeOfDisponibility=typeOfDisponibility;}
+
+    public int getTypeOfDisponibility() {
+        return typeOfDisponibility;
+    }
+
+    public String getTypeOfDisponibilityString(){
+        return typeOfDisponibility==1?"Prestito":"Regalo";
     }
 
     public String getEmailGiver() {
@@ -46,31 +53,6 @@ public class TakeBookBean {
 
     public void setEmailTaker(String emailTaker) {
         this.emailTaker = emailTaker;
-    }
-
-    public String getUsernameTaker() {
-        return usernameTaker;
-    }
-
-    public void setUsernameTaker(String usernameTaker) {
-        this.usernameTaker = usernameTaker;
-    }
-
-
-    public int getTypeOfDisponiblity() {
-        return typeOfDisponiblity;
-    }
-
-    public void setTypeOfDisponiblity(int type_of_disponiblity) {
-        this.typeOfDisponiblity = type_of_disponiblity;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getDateStart() {

@@ -1,5 +1,7 @@
 package com.ispw.circularbook.view.cli;
 
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
+
 import java.util.Scanner;
 
 public class CLISignInLibraryView {
@@ -8,41 +10,59 @@ public class CLISignInLibraryView {
 
     public void startSignInL()
     {
-        System.out.println("*******************Sign In as LIBRARY******************\n");
+        System.out.println("\n*******************Sign In as LIBRARY******************\n");
     }
 
     public String getEmailSignIn()
     {
-        System.out.println("Inserisci email\n");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci email\n");
+        MessageCLISupport.campObligatoryMessage();
+        MessageCLISupport.backValueMessage();
         return  scanner.nextLine();
     }
 
     public String getPasswordSignIn() {
-        System.out.println("Inserisci password\n");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci password\n");
+        MessageCLISupport.campObligatoryMessage();
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String getCittaSignIn()
     {
-        System.out.println("Inserisci la citta, capolugo di regione , con l'iniziale maiuscola");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci la citta, capolugo di regione , con l'iniziale maiuscola\n");
+        MessageCLISupport.campObligatoryMessage();
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String getNomeLibreria()
     {
-        System.out.println("Inserisci nome libreria\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci nome libreria\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String getNumeroTelefono()
     {
-        System.out.println("Inserisci il numero di telefono della libreria\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci il numero di telefono della libreria\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String getVia()
     {
-        System.out.println("Inserisci la via della libreria\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci la via della libreria\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 

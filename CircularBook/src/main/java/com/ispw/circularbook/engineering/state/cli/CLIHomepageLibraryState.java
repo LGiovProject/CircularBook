@@ -6,41 +6,21 @@ import com.ispw.circularbook.view.cli.CLIHomepageLibraryView;
 public class CLIHomepageLibraryState implements CLIHomepageState{
 
     private CLIHomepageController context;
+    private CLIHomepageLibraryView cliHomepageLibraryView;
+
+    public CLIHomepageLibraryState(CLIHomepageController context)
+    {
+        this.context=context;
+        cliHomepageLibraryView = new CLIHomepageLibraryView();
+    }
 
     @Override
-    public int startHomepage(CLIHomepageController context) {
-        this.context=context;
+    public int startHomepage() {
 
-        CLIHomepageLibraryView cliHomepageLibraryView = new CLIHomepageLibraryView();
+
+
         return cliHomepageLibraryView.start();
 
-    }
-
-    public void insertBook(){context.insertBook();}
-
-
-    public void insertSales()
-    {
-        CLIInsertSalesController cliInsertSalesController = new CLIInsertSalesController(context);
-        cliInsertSalesController.start();
-    }
-
-    public void manageOwn()
-    {
-        CLIManageLibraryController cliManageLibraryController = new CLIManageLibraryController(context);
-        cliManageLibraryController.start();
-    }
-
-    @Override
-    public void setting(){
-
-        CLISettingLibraryController cliSettingLibraryController = new CLISettingLibraryController(context);
-        cliSettingLibraryController.start();
-    }
-
-    @Override
-    public void logOut() {
-        context.logOut();
     }
 
     @Override
@@ -67,4 +47,33 @@ public class CLIHomepageLibraryState implements CLIHomepageState{
         }
 
     }
+
+
+    public void insertBook(){context.insertBook();}
+
+
+    public void insertSales()
+    {
+        CLIInsertSalesController cliInsertSalesController = new CLIInsertSalesController(context);
+        cliInsertSalesController.start();
+    }
+
+    public void manageOwn()
+    {
+        CLIManageController cliManageController = new CLIManageController(context);
+        cliManageController.startManage(2);
+    }
+
+    @Override
+    public void setting(){
+
+        CLISettingLibraryController cliSettingLibraryController = new CLISettingLibraryController(context);
+        cliSettingLibraryController.start();
+    }
+
+    @Override
+    public void logOut() {
+        context.logOut();
+    }
+
 }

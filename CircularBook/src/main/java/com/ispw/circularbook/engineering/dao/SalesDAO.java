@@ -6,6 +6,8 @@ import com.ispw.circularbook.engineering.connection.ConnectionDB;
 import com.ispw.circularbook.engineering.dao.queries.CRUDQueries;
 import com.ispw.circularbook.engineering.dao.queries.Queries;
 import com.ispw.circularbook.engineering.exception.ErrorConnectionDbException;
+import com.ispw.circularbook.engineering.exception.NoSalesFoundException;
+import com.ispw.circularbook.engineering.exception.WrongDataFormatException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SalesDAO {
-    public static List<SalesBean> searchSales(SearchSalesBean searchSalesBean) {
+    public static List<SalesBean> searchSales(SearchSalesBean searchSalesBean) throws NoSalesFoundException, WrongDataFormatException {
 
             Statement stmt;
             ResultSet resultSet;
@@ -25,6 +27,7 @@ public class SalesDAO {
                 resultSet= Queries.searchSales(stmt, searchSalesBean);
                 if(!resultSet.first())
                 {
+                    throw new NoSalesFoundException();
                 }
 
                 resultSet.next();
@@ -52,7 +55,7 @@ public class SalesDAO {
 
     }
 
-    public static List<SalesBean> searchSales(String email) {
+    public static List<SalesBean> searchSales(String email) throws NoSalesFoundException, WrongDataFormatException {
 
         Statement stmt;
         ResultSet resultSet;
@@ -62,6 +65,7 @@ public class SalesDAO {
             resultSet= Queries.searchSales(stmt,email);
             if(!resultSet.first())
             {
+                throw new NoSalesFoundException();
             }
 
             resultSet.next();

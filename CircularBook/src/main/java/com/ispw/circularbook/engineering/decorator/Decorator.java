@@ -1,13 +1,15 @@
 package com.ispw.circularbook.engineering.decorator;
 
-public abstract class Decorator implements SignInComponent {
+public abstract class Decorator implements ICLISearchBookComponent {
 
-    private SignInComponent signInComponent;
+    private ICLISearchBookComponent icliSearchBookComponent;
 
-//    protected Decorator(SignInComponent signInComponent){this.signInComponent = signInComponent;}
-
-    @Override
-    public String getInfo() {
-        return "";
+    public Decorator(ICLISearchBookComponent icliSearchBookComponent)
+    {
+        this.icliSearchBookComponent=icliSearchBookComponent;
     }
+
+    public void start(){}
+
+    public void command(int i){}
 }

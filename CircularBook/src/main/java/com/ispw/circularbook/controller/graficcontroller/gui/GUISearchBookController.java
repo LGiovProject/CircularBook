@@ -5,10 +5,11 @@ import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.bean.ElementBean;
 import com.ispw.circularbook.engineering.bean.SearchBookBean;
 import com.ispw.circularbook.engineering.enums.Arguments;
-import com.ispw.circularbook.engineering.exception.WrongArgumentInsertException;
+import com.ispw.circularbook.engineering.exception.NoBookFoundException;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.observer.Observer;
 import com.ispw.circularbook.engineering.observer.concreteSubject.BookElementSubject;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+
 
 
 
@@ -66,14 +67,13 @@ public class GUISearchBookController implements Observer {
 
         clearFieldText();
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchAvailableBook(searchBookBean);
 
-        if (!listBookModel.isEmpty()) {
+        try {
+            listBookModel = searchBookController.searchAvailableBook(searchBookBean);
             Session.getCurrentSession().getUser().setBookLastSearch(listBookModel);
             this.setShowResult(listBookModel);
-        } else {
-            Text text = new Text("Nessun elemento trovato con i valori che hai inserito");
-            showResult.getChildren().add(text);
+        } catch (NoBookFoundException e) {
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 

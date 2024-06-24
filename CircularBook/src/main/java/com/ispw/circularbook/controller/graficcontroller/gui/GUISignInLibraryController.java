@@ -4,11 +4,8 @@ import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SignInController;
 import com.ispw.circularbook.engineering.bean.SignInBean;
 import com.ispw.circularbook.engineering.enums.City;
+import com.ispw.circularbook.engineering.exception.*;
 import com.ispw.circularbook.engineering.utils.MessageSupport;
-import com.ispw.circularbook.engineering.exception.CityCampRequiredException;
-import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
-import com.ispw.circularbook.engineering.exception.PasswordCampRequiredException;
-import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
 import com.mysql.cj.util.StringUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,7 +72,7 @@ public class GUISignInLibraryController {
             checkPassword(this.passwordTField.getText(),this.repasswordTField.getText());
             checkCity(this.choiceBoxCity.getSelectionModel().getSelectedItem());
 
-            SignInBean signInBean = new SignInBean(this.emailTField.getText(), this.passwordTField.getText(), this.nomeLTField.getText(), this.ViaTField.getText(),this.choiceBoxCity.getSelectionModel().getSelectedItem(), Integer.parseInt(this.nTelTField.getText()));
+            SignInBean signInBean = new SignInBean(this.emailTField.getText(), this.passwordTField.getText(), this.nomeLTField.getText(), this.ViaTField.getText(),this.choiceBoxCity.getSelectionModel().getSelectedItem(), this.nTelTField.getText());
             SignInController signInController = new SignInController();
             signInController.signInL(signInBean);
 
@@ -90,9 +87,9 @@ public class GUISignInLibraryController {
             MessageSupport.PopUpsSuccessMessage("La registrazione è avvenuta con successo");
 
 
-        }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e)
+        }catch (NoMatchPasswordException | WrongEmailFormattException | WrongNPhoneFormatException | PasswordCampRequiredException | CityCampRequiredException e)
         {
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }catch (IOException e)
         {
            throw new RuntimeException(e);

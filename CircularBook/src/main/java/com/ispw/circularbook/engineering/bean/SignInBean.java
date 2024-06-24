@@ -2,7 +2,6 @@ package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.City;
 import com.ispw.circularbook.engineering.exception.*;
-import com.mysql.cj.util.StringUtils;
 
 import java.util.regex.Pattern;
 
@@ -16,17 +15,17 @@ public class SignInBean {
     private City citta;
     private String via;
     private String nomeLib;
-    private int nTel;
+    private String nTel;
 
     public SignInBean(){}
 
-    public SignInBean(String email, String password, String nomeLib, String via, City citta, int nTel) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
+    public SignInBean(String email, String password, String nomeLib, String via, City citta, String nTel) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException, WrongNPhoneFormatException {
         setEmail(email);
         this.password=password;
         this.citta=citta;
         this.via = via;
         this.nomeLib = nomeLib;
-        this.nTel=nTel;
+        setNTel(nTel);
     }
 
     public SignInBean(String email,String username,String password, String nome, String cognome, City citta) throws WrongEmailFormattException, NoMatchPasswordException, PasswordCampRequiredException, CityCampRequiredException {
@@ -120,11 +119,13 @@ public class SignInBean {
         this.nomeLib = nomeLib;
     }
 
-    public void setnTel(int nTel){this.nTel=nTel;}
+    public void setNTel(String nTel) throws WrongNPhoneFormatException {
+        String checkNumber="\\d+";
+        if(!Pattern.compile(checkNumber).matcher(nTel).matches())
+            throw new WrongNPhoneFormatException();
+    }
 
-    public void setnTel(String nTel){this.nTel=Integer.parseInt(nTel);}
-
-    public int getnTel(){return nTel;}
+    public String getnTel(){return nTel;}
 
 
 

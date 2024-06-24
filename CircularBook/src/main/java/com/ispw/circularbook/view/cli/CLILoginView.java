@@ -2,6 +2,7 @@ package com.ispw.circularbook.view.cli;
 
 import com.ispw.circularbook.controller.graficcontroller.cli.CLILoginController;
 import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -29,12 +30,14 @@ public class CLILoginView {
     }
 
     public String getEmail(){
-        System.out.println("Insert Email\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInsert Email\n");
         return scanner.nextLine();
     }
 
     public String getPassword(){
-        System.out.println("Insert Password\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInsert Password\n");
         return scanner.nextLine();
     }
 

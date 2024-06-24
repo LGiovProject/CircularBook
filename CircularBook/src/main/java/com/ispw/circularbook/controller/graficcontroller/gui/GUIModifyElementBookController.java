@@ -118,7 +118,7 @@ public class GUIModifyElementBookController {
             this.bookElementSubject.notifyObserver(bookBean,panel);
             MessageSupport.PopUpsSuccessMessage("Modifiche salvate");
         }catch (WrongNpageFormatException e){
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 

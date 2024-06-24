@@ -1,34 +1,33 @@
 package com.ispw.circularbook.engineering.state.cli;
 
 import com.ispw.circularbook.controller.graficcontroller.cli.*;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.view.cli.CLIHomepageUserView;
 
 
 
-public class CLIHomepageGuestState implements CLIHomepageState{private CLIHomepageController context;
+public class CLIHomepageGuestState implements CLIHomepageState{
 
-    @Override
-    public int startHomepage(CLIHomepageController context){
+    private CLIHomepageController context;
+
+    private CLIHomepageUserView cliHomepageUserView;
+
+
+    public CLIHomepageGuestState(CLIHomepageController context)
+    {
         this.context= context;
         CLIHomepageUserView cliHomepageUserView = new CLIHomepageUserView();
+    }
+
+    @Override
+    public int startHomepage(){
+
         return cliHomepageUserView.start();
-    }
-
-    public void insertLenderBook()
-    {
-        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
-        context.start();
-    }
-
-    public void insertGiftBook()
-    {
-        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
-        context.start();
     }
 
     public void insertBook()
     {
-        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
+        MessageSupport.cliExceptionSMessage("Serve aver fatto il login per eseguire questa operazione!");
         context.start();
     }
 
@@ -46,14 +45,14 @@ public class CLIHomepageGuestState implements CLIHomepageState{private CLIHomepa
 
     public void manageOwn()
     {
-        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
+        MessageSupport.cliExceptionSMessage("Serve aver fatto il login per eseguire questa operazione!");
         context.start();
     }
 
     @Override
     public void setting()
     {
-        System.out.println("Serve aver fatto il login per eseguire questa operazione!");
+        MessageSupport.cliExceptionSMessage("Serve aver fatto il login per eseguire questa operazione!");
         context.start();
     }
     @Override

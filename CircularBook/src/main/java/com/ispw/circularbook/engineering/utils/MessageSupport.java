@@ -17,7 +17,7 @@ import java.io.IOException;
 public class MessageSupport {
 
 
-     public static void PopUpsExcpetionMessage(String message){
+     public static void PopUpsExceptionMessage(String message){
          try {
              FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMessage.fxml"));
              Popup popup = new Popup();
@@ -33,8 +33,7 @@ public class MessageSupport {
          }
      }
 
-     public static void PopUpsSuccessMessage(String message)
-     {
+     public static void PopUpsSuccessMessage(String message){
          try {
              FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsMessage.fxml"));
              Popup popup = new Popup();
@@ -50,8 +49,7 @@ public class MessageSupport {
          }
      }
 
-     public static void PopUpsGuestDeniedMessage()
-     {
+     public static void PopUpsGuestDeniedMessage(){
          try {
              FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PopUpsGuestDenied.fxml"));
              Popup popup = new Popup();
@@ -68,11 +66,17 @@ public class MessageSupport {
      }
 
 
-     public static void cliExceptionSMessage(String exception)
-     {
+     public static void cliExceptionSMessage(String exception){
          System.out.println("\n**************************\n");
          System.out.println(exception);
          System.out.println("\n**************************\n");
+     }
+
+     public static void cliSuccessMessage(String success){
+         System.out.println("\n**************************\n");
+         System.out.println(success);
+         System.out.println("\n**************************\n");
+
      }
 
 

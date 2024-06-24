@@ -2,6 +2,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
+import com.ispw.circularbook.engineering.exception.NoBookRegisteredException;
 import com.ispw.circularbook.engineering.session.Session;
 
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
@@ -35,11 +36,12 @@ public class GUIManagementBookUserController {
     }
 
     public void searchMyBook() throws IOException {
-        List<BookModel> listBookModel;
+        List<BookModel> listBookModel=null;
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchMyAvailableBook(email);
+        try {
+            listBookModel = searchBookController.searchMyAvailableBook(email);
 
-        if (listBookModel!=null && !listBookModel.isEmpty()) {
+
             Session.getCurrentSession().getUser().setBookOwnList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
@@ -50,8 +52,8 @@ public class GUIManagementBookUserController {
             guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewBook();
 
-        } else {
-
+        } catch (NoBookRegisteredException e) {
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
 
     }
@@ -59,9 +61,9 @@ public class GUIManagementBookUserController {
     public void searchBookILendBack() throws IOException {
         List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchMyBookTaked(email);
-        if (listBookModel!=null && !listBookModel.isEmpty()) {
-            Session.getCurrentSession().getUser().setListBookTaked(listBookModel);
+        try {
+            listBookModel = searchBookController.searchMyBookTaked(email);
+            Session.getCurrentSession().getUser().setBookTakedList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
 
@@ -69,13 +71,14 @@ public class GUIManagementBookUserController {
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewMyLendedBook();
+        } catch (NoBookLendedException e) {
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
+        }
 
 
-        }
-        else
-        {
-            MessageSupport.PopUpsExcpetionMessage("Non hai nessun libro preso in prestito");
-        }
+
+
+
     }
 
     public void searchBookIGiven() throws IOException {
@@ -83,11 +86,9 @@ public class GUIManagementBookUserController {
         SearchBookController searchBookController = new SearchBookController();
         try {
             listBookModel = searchBookController.searchMyGivenBook(email);
-        }catch (NoBookLendedException e){
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
-        }
-        if (!listBookModel.isEmpty()) {
-            Session.getCurrentSession().getUser().setListBookGiven(listBookModel);
+
+
+            Session.getCurrentSession().getUser().setBookGivenList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
 
@@ -99,10 +100,8 @@ public class GUIManagementBookUserController {
             guiWindowElementBookPersonalController.viewMyGivenBook();
 
 
-        }
-        else
-        {
-            MessageSupport.PopUpsExcpetionMessage("Nessuno dei tuoi libri è stato preso in prestito");
+        }catch (NoBookLendedException e){
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 }

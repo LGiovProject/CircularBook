@@ -126,7 +126,7 @@ public class GUIElementBookPersonalController {
     private void setLastBookListViewed()
     {
         if(Session.getCurrentSession().getUser()!=null)
-            Session.getCurrentSession().getUser().setLastBookListViewed(Session.getCurrentSession().getUser().getBookOwnList());
+            Session.getCurrentSession().getUser().setBookLastViewedList(Session.getCurrentSession().getUser().getBookOwnList());
     }
 
 

@@ -45,7 +45,7 @@ public class GUIElementBookGivenController {
 
     private List<BookModel> getListBookGiven()
     {
-        return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getListBookGiven():Session.getCurrentSession().getLibrary().getBookGivenList();
+        return Session.getCurrentSession().getLibrary()==null?Session.getCurrentSession().getUser().getBookGivenList():Session.getCurrentSession().getLibrary().getBookGivenList();
 
     }
 }

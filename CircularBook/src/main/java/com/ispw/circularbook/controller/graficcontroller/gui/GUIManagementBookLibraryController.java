@@ -3,6 +3,7 @@ package com.ispw.circularbook.controller.graficcontroller.gui;
 import com.ispw.circularbook.Main;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.controller.appcontroller.SearchSalesController;
+import com.ispw.circularbook.engineering.exception.NoBookRegisteredException;
 import com.ispw.circularbook.engineering.session.Session;
 import com.ispw.circularbook.engineering.exception.NoBookLendedException;
 import com.ispw.circularbook.engineering.utils.MessageSupport;
@@ -13,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GUIManagementBookLibraryController {
@@ -30,24 +30,19 @@ public class GUIManagementBookLibraryController {
     public void searchMyBook() throws IOException{
         List<BookModel> listBookModel;
         SearchBookController searchBookController = new SearchBookController();
-        listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getLibrary().getEmail());
-        //Capire se questo if ha senso
-        if (!listBookModel.isEmpty()) {
+        try {
+            listBookModel = searchBookController.searchMyAvailableBook(Session.getCurrentSession().getLibrary().getEmail());
             Session.getCurrentSession().getLibrary().setBookOwnList(listBookModel);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
-
-
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.setCurrentPane(pane);
             guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewBook();
 
-        } else{
-
+        } catch (NoBookRegisteredException e) {
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
 
     }
@@ -73,31 +68,25 @@ public class GUIManagementBookLibraryController {
             guiWindowElementBookPersonalController.viewSales();
 
         } else{
-            MessageSupport.PopUpsExcpetionMessage("Non hai nessuna inserzione registrata");
+            MessageSupport.PopUpsExceptionMessage("Non hai nessuna inserzione registrata");
         }
     }
 
 
     public void searchBookGiven() throws IOException {
-        List<BookModel> bookModelIGivenList=new ArrayList<>();
+        List<BookModel> bookModelIGivenList;
         SearchBookController searchBookController = new SearchBookController();
         try {
             bookModelIGivenList = searchBookController.searchMyGivenBook(Session.getCurrentSession().getLibrary().getEmail());
-        }catch (NoBookLendedException e){
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
-        }
-        if(!bookModelIGivenList.isEmpty())
-        {
             Session.getCurrentSession().getLibrary().setBookGivenList(bookModelIGivenList);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("WindowElementBookPersonal.fxml"));
             Pane pane = fxmlLoader.load();
-
             Session.getCurrentSession().getSceneFacade().loadScene(pane);
-
             guiWindowElementBookPersonalController = fxmlLoader.getController();
             guiWindowElementBookPersonalController.setPreviuosScene(previuosScene);
             guiWindowElementBookPersonalController.viewMyGivenBook();
-
+        }catch (NoBookLendedException e){
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 

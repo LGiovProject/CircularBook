@@ -49,11 +49,11 @@ public class GUILoginController {
                 this.LunchHomepage(loginBean);
 
             } else {
-                MessageSupport.PopUpsExcpetionMessage("La mail o la password sono errate");
+                MessageSupport.PopUpsExceptionMessage("La mail o la password sono errate");
             }
 
         } catch (WrongEmailFormattException e) {
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
         }
     }
 

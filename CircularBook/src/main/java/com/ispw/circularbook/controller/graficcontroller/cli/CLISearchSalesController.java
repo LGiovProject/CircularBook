@@ -5,6 +5,9 @@ import com.ispw.circularbook.engineering.bean.SalesBean;
 import com.ispw.circularbook.engineering.bean.SearchSalesBean;
 import com.ispw.circularbook.engineering.enums.Month;
 import com.ispw.circularbook.engineering.enums.TypeOfSales;
+import com.ispw.circularbook.engineering.exception.NoSalesFoundException;
+import com.ispw.circularbook.engineering.exception.WrongDataFormatException;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.SalesModel;
 import com.ispw.circularbook.view.cli.CLISearchSalesView;
 
@@ -13,20 +16,20 @@ import java.util.List;
 
 public class CLISearchSalesController {
 
+    private CLIHomepageController cliHomepageController;
+    private SearchSalesBean searchSalesBean;
+    private CLISearchSalesView cliSearchSalesView;
+
+
     public CLISearchSalesController(CLIHomepageController cliHomepageController) {
         this.cliHomepageController = cliHomepageController;
+        cliSearchSalesView = new CLISearchSalesView(this);
+        searchSalesBean = new SearchSalesBean("", Month.Cerca_in_tutti_i_mesi, TypeOfSales.Any);
     }
-
-    public CLIHomepageController cliHomepageController;
-    public SearchSalesBean searchSalesBean;
-    public CLISearchSalesView cliSearchSalesView;
 
     public void start()
     {
-        cliSearchSalesView = new CLISearchSalesView(this);
-        searchSalesBean = new SearchSalesBean("", Month.Cerca_in_tutti_i_mesi, TypeOfSales.Any);
-        this.command(cliSearchSalesView.start());
-
+        this.command(cliSearchSalesView.start(searchSalesBean));
     }
 
     public void command(int i)
@@ -46,6 +49,9 @@ public class CLISearchSalesController {
                 searchSales();
                 break;
             case 5:
+                cleanParameters();
+                break;
+            case 6:
                 goBack();
                 break;
         }
@@ -54,19 +60,19 @@ public class CLISearchSalesController {
     public void insertLibraryName()
     {
         searchSalesBean.setNameLib(cliSearchSalesView.insertLibraryName());
-        cliSearchSalesView.start();
+        start();
     }
 
     public void insertMonth()
     {
         searchSalesBean.setMonth(cliSearchSalesView.insertMonth());
-        cliSearchSalesView.start();
+        start();
     }
 
     public void insertTypologyInsertion()
     {
         searchSalesBean.setTypeOfSales(cliSearchSalesView.insertTypologyInsertion());
-        cliSearchSalesView.start();
+        start();
     }
 
     public void searchSales()
@@ -76,10 +82,20 @@ public class CLISearchSalesController {
         SearchSalesController searchSalesController = new SearchSalesController();
         try {
             salesModelList=searchSalesController.searchSales(searchSalesBean);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            cliShowSalesController.showSales(getSalesBeanList(salesModelList));
+            start();
+        } catch (WrongDataFormatException | NoSalesFoundException e) {
+            MessageSupport.cliExceptionSMessage(e.getMessage());
+            start();
         }
-        cliShowSalesController.showSales(getSalesBeanList(salesModelList));
+
+    }
+
+    private void cleanParameters()
+    {
+        searchSalesBean.setNameLib("");
+        searchSalesBean.setMonth(Month.Cerca_in_tutti_i_mesi);
+        searchSalesBean.setTypeOfSales(TypeOfSales.Any);
     }
 
     private List<SalesBean> getSalesBeanList(List<SalesModel> salesModelList)

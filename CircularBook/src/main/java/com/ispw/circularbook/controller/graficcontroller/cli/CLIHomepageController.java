@@ -22,18 +22,18 @@ public class CLIHomepageController {
 
         if(loginBean.getType()==1)
             if(Session.getCurrentSession().getUser().isGuest())
-                this.setState(new CLIHomepageGuestState());
+                this.setState(new CLIHomepageGuestState(this));
             else
-                this.setState(new CLIHomepageUserState());
+                this.setState(new CLIHomepageUserState(this));
         else if (loginBean.getType()==2)
-            this.setState(new CLIHomepageLibraryState());
+            this.setState(new CLIHomepageLibraryState(this));
 
-        this.command(currentState.startHomepage(this));
+        this.command(currentState.startHomepage());
     }
 
     public void start()
     {
-        this.command(currentState.startHomepage(this));
+        this.command(currentState.startHomepage());
     }
 
     public void logOut(){

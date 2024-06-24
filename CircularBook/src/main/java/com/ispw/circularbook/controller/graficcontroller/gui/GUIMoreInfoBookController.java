@@ -63,7 +63,7 @@ public class GUIMoreInfoBookController {
 
     private List<BookModel> getListBookModel()
     {
-        return Session.getCurrentSession().getUser()!=null?Session.getCurrentSession().getUser().getLastBookListViewed():Session.getCurrentSession().getLibrary().getBookOwnList();
+        return Session.getCurrentSession().getUser()!=null?Session.getCurrentSession().getUser().getBookLastViewedList():Session.getCurrentSession().getLibrary().getBookOwnList();
     }
 
     

@@ -2,10 +2,8 @@ package com.ispw.circularbook.controller.graficcontroller.cli;
 
 import com.ispw.circularbook.controller.appcontroller.SignInController;
 import com.ispw.circularbook.engineering.bean.SignInBean;
-import com.ispw.circularbook.engineering.exception.EmailUsedException;
-import com.ispw.circularbook.engineering.exception.NoMatchPasswordException;
-import com.ispw.circularbook.engineering.exception.WrongCityInsertException;
-import com.ispw.circularbook.engineering.exception.WrongEmailFormattException;
+import com.ispw.circularbook.engineering.exception.*;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.view.cli.CLISignInLibraryView;
 
 public class CLISignInLibraryController {
@@ -14,11 +12,15 @@ public class CLISignInLibraryController {
     SignInBean signInBean;
     SignInController signInController;
 
-    public void start()
+    public CLISignInLibraryController()
     {
         cliSignInLibraryView = new CLISignInLibraryView();
         signInBean= new SignInBean();
         signInController= new SignInController();
+    }
+
+    public void start()
+    {
         this.startSignInLibrary();
     }
 
@@ -52,7 +54,7 @@ public class CLISignInLibraryController {
                 signInBean.setCitta(citta);
                 cityIsValid=true;
             } catch (WrongCityInsertException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliSuccessMessage(e.getMessage());
             }
         }
     }
@@ -71,7 +73,7 @@ public class CLISignInLibraryController {
                 emailIsValid = true; // Esce dal ciclo se l'email è valida
 
             } catch (EmailUsedException | WrongEmailFormattException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliSuccessMessage(e.getMessage());
             }
         }
 
@@ -89,7 +91,7 @@ public class CLISignInLibraryController {
                 signInBean.setPassword(password);
                 passwordIsValid = true;
             }catch (NoMatchPasswordException e) {
-                throw new RuntimeException(e);
+                MessageSupport.cliSuccessMessage(e.getMessage());
             }
         }
 
@@ -106,9 +108,15 @@ public class CLISignInLibraryController {
     private void setNumeroTelefono()
     {
         String numTelefono;
-        numTelefono= cliSignInLibraryView.getNumeroTelefono();
-        checkInputBack(numTelefono);
-        signInBean.setnTel(numTelefono);
+
+        try {
+            numTelefono= cliSignInLibraryView.getNumeroTelefono();
+            checkInputBack(numTelefono);
+            signInBean.setNTel(numTelefono);
+        } catch (WrongNPhoneFormatException e) {
+            MessageSupport.cliExceptionSMessage(e.getMessage());
+            start();
+        }
     }
 
     private void setVia()
@@ -129,7 +137,7 @@ public class CLISignInLibraryController {
     {
         try {
             int command = Integer.parseInt(value);
-            if (command == 10)
+            if (command == -1)
                 goBack();
         } catch (NumberFormatException e) {
             // Non è un comando numerico, prosegui normalmente

@@ -37,7 +37,7 @@ public class BookDAO {
         CallableStatement callableStatement;
        try {
 
-            if(takeBookBean.getTypeOfDisponiblity()==1) {
+            if(takeBookBean.getTypeOfDisponibility()==1) {
                 callableStatement = ConnectionDB.takeLendBook();
                 callableStatement.setInt(1, takeBookBean.getId());
                 callableStatement.setString(2, takeBookBean.getEmailTaker());

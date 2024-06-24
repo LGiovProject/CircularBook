@@ -1,5 +1,7 @@
 package com.ispw.circularbook.view.cli;
 
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
+
 import java.util.Scanner;
 
 public class CLISignInUserView {
@@ -7,39 +9,51 @@ public class CLISignInUserView {
     private final Scanner scanner = new Scanner(System.in);
 
     public void startSignInU(){
-        System.out.println("*******************Sign In as USER*********************\n");
+        System.out.println("\n*******************Sign In as USER*********************\n");
     }
 
     public String getEmailSignIn()
     {
-        System.out.println("Inserisci email\n");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci email\n");
+        MessageCLISupport.campObligatoryMessage();
         return scanner.nextLine();
     }
 
     public String getPasswordSignIn() {
-        System.out.println("Inserisci password\n");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci password\n");
+        MessageCLISupport.campObligatoryMessage();
         return scanner.nextLine();
     }
 
     public String getCittaSignIn()
     {
-        System.out.println("Inserisci la citta, capolugo di regione , con l'iniziale maiuscola");
+        MessageCLISupport.delimiterMessage();
+        MessageCLISupport.campObligatoryMessage();
+        System.out.println("\nInserisci la citta, capolugo di regione , con l'iniziale maiuscola\n");
+        MessageCLISupport.campObligatoryMessage();
         return scanner.nextLine();
     }
 
     public String getNome(){
-        System.out.println("Inserisci nome\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci nome\n");
         return scanner.nextLine();
     }
 
     public String getCognome(){
-        System.out.println("Inserisci cognome\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci cognome\n");
         return scanner.nextLine();
     }
 
     public String getUsername()
     {
-        System.out.println("Inserisci username\n");
+        MessageCLISupport.delimiterMessage();
+        System.out.println("\nInserisci username\n");
         return scanner.nextLine();
     }
 

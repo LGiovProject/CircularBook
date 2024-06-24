@@ -94,7 +94,7 @@ public class GUISignInUserController {
 
         }catch (NoMatchPasswordException | WrongEmailFormattException | PasswordCampRequiredException | CityCampRequiredException e )
         {
-            MessageSupport.PopUpsExcpetionMessage(e.getMessage());
+            MessageSupport.PopUpsExceptionMessage(e.getMessage());
 
         }catch (IOException e)
         {

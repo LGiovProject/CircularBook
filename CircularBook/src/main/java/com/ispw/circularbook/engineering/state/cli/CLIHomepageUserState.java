@@ -6,11 +6,17 @@ import com.ispw.circularbook.view.cli.CLIHomepageUserView;
 public class CLIHomepageUserState implements CLIHomepageState{
 
     private CLIHomepageController context;
+    private CLIHomepageUserView cliHomepageUserView;
+
+    public CLIHomepageUserState(CLIHomepageController context)
+    {
+        this.context= context;
+        cliHomepageUserView = new CLIHomepageUserView();
+    }
 
     @Override
-    public int startHomepage(CLIHomepageController context){
-        this.context= context;
-        CLIHomepageUserView cliHomepageUserView = new CLIHomepageUserView();
+    public int startHomepage(){
+
         return cliHomepageUserView.start();
     }
 
@@ -30,8 +36,8 @@ public class CLIHomepageUserState implements CLIHomepageState{
 
     public void manageOwn()
     {
-        CLIManageUserController cliManageUserController = new CLIManageUserController(context);
-        cliManageUserController.start();
+        CLIManageController cliManageController = new CLIManageController(context);
+        cliManageController.startManage(1);
     }
 
     @Override

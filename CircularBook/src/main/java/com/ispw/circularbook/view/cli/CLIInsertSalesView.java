@@ -1,5 +1,7 @@
 package com.ispw.circularbook.view.cli;
 
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
+
 import java.util.Scanner;
 
 public class CLIInsertSalesView {
@@ -8,7 +10,7 @@ public class CLIInsertSalesView {
 
     public int start()
     {
-        System.out.println("**********************Inserisci  Sales**********************\n");
+        System.out.println("\n**********************Inserisci  Sales**********************\n");
         System.out.println("1)Per iniziare a immettere i dati\n");
         System.out.println("2)Per tornare indietro\n");
         return Integer.parseInt(scanner.nextLine());
@@ -16,7 +18,7 @@ public class CLIInsertSalesView {
 
     public int finish()
     {
-        System.out.println("Finiti i dati da inserire\n");
+        System.out.println("\n********************** Finiti i dati da inserire **********************\n");
         System.out.println("1)per registrare i dati\n");
         System.out.println("2)per tornare indietro\n");
         return Integer.parseInt(scanner.nextLine());
@@ -24,36 +26,38 @@ public class CLIInsertSalesView {
 
     public String insertTitle()
     {
-        System.out.println("Inserisci Titolo: \n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
+        System.out.println("\nInserisci Titolo: \n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public int insertTypeOfSales()
     {
-        System.out.println("Inserisci tipo di sales 1 Promozione o 2 Evento\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
+        System.out.println("\nInserisci tipo di sales 1 Promozione o 2 Evento\n");
+        MessageCLISupport.backValueMessage();
         return Integer.parseInt(scanner.nextLine());
     }
 
     public String insertDescription()
     {
-        System.out.println("Inserisci la descrizione\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
+        System.out.println("\nInserisci la descrizione\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String insertDateStart()
     {
-        System.out.println("Inserisci la data d'inizio\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
+        System.out.println("\nInserisci la data d'inizio\n");
+        System.out.println("Usa il formato yyyy-mm-dd\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 
     public String insertDateFinish()
     {
-        System.out.println("Inserisci la data finale\n");
-        System.out.println("Inserisci 10 per tornare indietro\n");
+        System.out.println("\nInserisci la data finale\n");
+        System.out.println("Usa il formato yyyy-mm-dd\n");
+        MessageCLISupport.backValueMessage();
         return scanner.nextLine();
     }
 

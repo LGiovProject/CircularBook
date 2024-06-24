@@ -5,6 +5,7 @@ import com.ispw.circularbook.controller.graficcontroller.cli.CLISettingUserContr
 import com.ispw.circularbook.engineering.bean.InfoBookBean;
 import com.ispw.circularbook.engineering.bean.LibraryBean;
 import com.ispw.circularbook.engineering.bean.UserBean;
+import com.ispw.circularbook.engineering.utils.MessageCLISupport;
 
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class CLISettingLibraryView {
 
     public void showInfoCircularBook(InfoBookBean infoBookBean)
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println(infoBookBean.getRegisterBook()+" registrati\n");
         System.out.println(infoBookBean.getLendedBook()+" messi in prestito\n");
         System.out.println(infoBookBean.getGiftedBook()+" messi in regalo\n");
@@ -38,6 +40,7 @@ public class CLISettingLibraryView {
 
     public void showPersonalInfo(LibraryBean libraryBean)
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Nome: "+libraryBean.getNomeLib()+"\n");
         System.out.println("via: "+libraryBean.getVia()+"\n");
         System.out.println("nTel: "+libraryBean.getTelNumber()+"\n");
@@ -46,6 +49,7 @@ public class CLISettingLibraryView {
 
     public String choseCamp()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Scegli il campo che vuoi modificare\n");
         System.out.println("Inserisci None per annullare\n");
         return scanner.nextLine();
@@ -54,22 +58,19 @@ public class CLISettingLibraryView {
 
     public String setCamp()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Inserisci il nuovo valore\n");
         return scanner.nextLine();
     }
 
     public int confirmChoice()
     {
+        MessageCLISupport.delimiterMessage();
         System.out.println("Insert\n");
         System.out.println("1)Per continuare a modificare");
         System.out.println("2)Per confermare le modfiche");
         System.out.println("3)Per annullare");
         return Integer.parseInt(scanner.nextLine());
-    }
-
-    public void errorMessage(String errorMessage)
-    {
-        System.out.println(errorMessage);
     }
 
 }

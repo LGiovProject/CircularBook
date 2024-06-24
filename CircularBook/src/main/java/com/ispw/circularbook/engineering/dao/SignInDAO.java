@@ -22,7 +22,7 @@ public class SignInDAO {
             callableStatement.setString(3,signInBean.getNomeLib());
             callableStatement.setString(4,signInBean.getCittaString());
             callableStatement.setString(5, signInBean.getVia());
-            callableStatement.setInt(6,signInBean.getnTel());
+            callableStatement.setString(6,signInBean.getnTel());
             callableStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

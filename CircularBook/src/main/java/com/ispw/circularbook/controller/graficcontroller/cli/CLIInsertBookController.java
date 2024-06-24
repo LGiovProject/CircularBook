@@ -79,7 +79,7 @@ public class CLIInsertBookController {
                 registrationBookBean.setTitle(title);
                 check=false;
             } catch (TitleCampRequiredException e) {
-                throw new RuntimeException(e);
+                MessageSupport.PopUpsExceptionMessage(e.getMessage());
             }
         }
     }
@@ -135,7 +135,7 @@ public class CLIInsertBookController {
 
         try {
             int command = Integer.parseInt(value);
-            if (command == 10)
+            if (command == -1)
                 this.command(2);
         } catch (NumberFormatException e) {
             // Non è un comando numerico, prosegui normalmente

@@ -5,7 +5,7 @@ import com.ispw.circularbook.controller.graficcontroller.cli.CLIHomepageControll
 import java.io.IOException;
 
 public interface CLIHomepageState {
-    int startHomepage(CLIHomepageController context);
+    int startHomepage();
     void setting() throws IOException ;
     void logOut();
     void command(int i);

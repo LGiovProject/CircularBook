@@ -2,11 +2,14 @@ package com.ispw.circularbook.engineering.bean;
 
 import com.ispw.circularbook.engineering.enums.Month;
 import com.ispw.circularbook.engineering.enums.TypeOfSales;
+import com.ispw.circularbook.engineering.exception.WrongDataFormatException;
+import com.ispw.circularbook.engineering.exception.WrongDataInsertException;
+import com.ispw.circularbook.engineering.exception.WrongNPhoneFormatException;
 import com.mysql.cj.util.StringUtils;
-
-import java.text.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
+
 
 
 public class SalesBean {
@@ -147,8 +150,11 @@ public class SalesBean {
 
     public void setDateStart(LocalDate dateStart){this.dateStart=dateStart;}
 
-    public void setDateStart(String dateStart) {
+    public void setDateStart(String dateStart) throws WrongDataFormatException {
 
+        String pattern="\\d{4}-\\d{2}-\\d{2}";
+        if(!Pattern.matches(pattern,dateStart))
+            throw new WrongDataFormatException();
         this.dateStart=StringUtils.isEmptyOrWhitespaceOnly(dateStart)?null:LocalDate.parse(dateStart);
 
 
@@ -160,19 +166,19 @@ public class SalesBean {
 
     public void setDateFinish(LocalDate dateFinish){this.dateFinish= dateFinish;}
 
-    public void setDateFinish(String dateFinish, String dateStart) throws Exception {
+    public void setDateFinish(String dateFinish, String dateStart) throws WrongDataInsertException {
 
         this.dateFinish = StringUtils.isEmptyOrWhitespaceOnly(dateFinish)?null:LocalDate.parse(dateFinish);
         if(!(dateFinish==null))
             if(this.dateFinish.isBefore(LocalDate.parse(dateStart)))
-                throw new Exception("Error");
+                throw new WrongDataInsertException(dateStart);
 
     }
 
-    public void setDateFinish(LocalDate dateStart, LocalDate dateFinish) throws Exception {
+    public void setDateFinish(LocalDate dateStart, LocalDate dateFinish) throws WrongDataInsertException {
         this.dateFinish =dateFinish;
         if(this.dateFinish.isBefore(dateStart))
-            throw new Exception("error");
+            throw new WrongDataInsertException(dateStart.toString());
     }
 
     public void setDateFinish(String dateFinish)

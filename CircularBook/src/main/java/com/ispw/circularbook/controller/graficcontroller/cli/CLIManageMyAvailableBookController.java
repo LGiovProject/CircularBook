@@ -3,7 +3,9 @@ package com.ispw.circularbook.controller.graficcontroller.cli;
 import com.ispw.circularbook.controller.appcontroller.InsertBookController;
 import com.ispw.circularbook.controller.appcontroller.SearchBookController;
 import com.ispw.circularbook.engineering.bean.BookBean;
+import com.ispw.circularbook.engineering.exception.NoBookRegisteredException;
 import com.ispw.circularbook.engineering.session.Session;
+import com.ispw.circularbook.engineering.utils.MessageSupport;
 import com.ispw.circularbook.model.BookModel;
 import com.ispw.circularbook.view.cli.CLIManageMyAvailableBookView;
 
@@ -12,21 +14,34 @@ import java.util.List;
 
 public class CLIManageMyAvailableBookController {
 
-    String sessionEmail;
+    private String sessionEmail;
 
-    CLIManageUserController cliManageUserController;
-    CLIManageMyAvailableBookView cliManageMyAvailableBookView;
+    private CLIManageController cliManageController;
+    private CLIManageMyAvailableBookView cliManageMyAvailableBookView;
+    private SearchBookController searchBookController;
+    private CLIShowBookController cliShowBookController;
 
-    public void start()
+    public CLIManageMyAvailableBookController(CLIManageController cliManageController)
     {
-        sessionEmail=getSessionEmail();
         cliManageMyAvailableBookView = new CLIManageMyAvailableBookView();
-        command(cliManageMyAvailableBookView.start());
+        this.cliManageController=cliManageController;
+        searchBookController = new SearchBookController();
+        cliShowBookController = new CLIShowBookController();
+        sessionEmail=getSessionEmail();
+    }
+
+    public void startManage()
+    {
         List<BookModel> bookModelList;
-        SearchBookController searchBookController = new SearchBookController();
-        CLIShowBookController cliShowBookController = new CLIShowBookController();
-        bookModelList = searchBookController.searchMyAvailableBook(sessionEmail);
-        cliShowBookController.showMyBookAvailable(getBookBeanList(bookModelList));
+        try {
+            bookModelList = searchBookController.searchMyAvailableBook(sessionEmail);
+            cliShowBookController.showMyBookAvailable(getBookBeanList(bookModelList));
+            command(cliManageMyAvailableBookView.start());
+        } catch (NoBookRegisteredException e) {
+            MessageSupport.cliExceptionSMessage(e.getMessage());
+            startManage();
+        }
+
     }
 
     public void command(int i)
@@ -40,17 +55,17 @@ public class CLIManageMyAvailableBookController {
                 deleteBook();
                 break;
             case 3:
-                cliManageUserController.start();
+                cliManageController.start();
                 break;
         }
     }
 
     public void modifyBookInfo()
     {
-        BookBean bookBean = new BookBean();
-        int i=cliManageMyAvailableBookView.modifyBook();
-        InsertBookController insertBookController = new InsertBookController();
-        insertBookController.updateBookInfo(bookBean);
+        int id=cliManageMyAvailableBookView.modifyBook();
+        CLIModifyMyAvailableBookController cliModifyMyAvailableBookController = new CLIModifyMyAvailableBookController(this);
+        cliModifyMyAvailableBookController.setId(id);
+        cliModifyMyAvailableBookController.start();
     }
 
     public void deleteBook()
@@ -58,6 +73,7 @@ public class CLIManageMyAvailableBookController {
         int i=cliManageMyAvailableBookView.deleteBook();
         InsertBookController insertBookController = new InsertBookController();
         insertBookController.removeBook(i);
+        startManage();
     }
 
     private List<BookBean> getBookBeanList(List<BookModel> bookModelList)
@@ -66,6 +82,7 @@ public class CLIManageMyAvailableBookController {
         for(BookModel bookModel: bookModelList)
         {
             BookBean bookBean = new BookBean();
+            bookBean.setId(bookModel.getId());
             bookBean.setTitolo(bookModel.getTitolo());
             bookBean.setUsername(bookModel.getUsername());
             bookBean.setAutore(bookModel.getAutore());
